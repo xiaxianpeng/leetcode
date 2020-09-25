@@ -1,4 +1,4 @@
-package org.example.simple;
+package org.example.easy;
 
 import org.example.bean.ListNode;
 
