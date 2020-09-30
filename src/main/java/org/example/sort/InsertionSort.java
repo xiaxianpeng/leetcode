@@ -1,4 +1,4 @@
-package org.example.easy.sort;
+package org.example.sort;
 
 /**
  * Created by xianpeng.xia

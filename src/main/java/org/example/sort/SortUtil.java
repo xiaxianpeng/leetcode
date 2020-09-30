@@ -1,4 +1,4 @@
-package org.example.easy.sort;
+package org.example.sort;
 
 import java.util.Arrays;
 import java.util.Random;

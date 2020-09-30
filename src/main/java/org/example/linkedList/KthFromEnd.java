@@ -1,4 +1,4 @@
-package org.example.easy;
+package org.example.linkedList;
 
 import org.example.bean.ListNode;
 
