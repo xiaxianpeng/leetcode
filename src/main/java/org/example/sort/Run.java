@@ -23,6 +23,8 @@ public class Run {
         //SortUtil.check(arr, InsertionSort.sort(arr2));
 
         // 希尔排序
-        SortUtil.check(arr, ShellSort.sort(arr2));
+        //SortUtil.check(arr, ShellSort.sort(arr2));
+        // 归并排序
+        SortUtil.check(arr, MergeSort.sort(arr, 0, arr.length - 1));
     }
 }
