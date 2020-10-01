@@ -1,6 +1,8 @@
 package org.example.sort;
 
 
+import java.net.Socket;
+
 /**
  * Created by xianpeng.xia
  * on 2020/9/26 11:47 上午
@@ -25,6 +27,8 @@ public class Run {
         // 希尔排序
         //SortUtil.check(arr, ShellSort.sort(arr2));
         // 归并排序
-        SortUtil.check(arr, MergeSort.sort(arr, 0, arr.length - 1));
+        //SortUtil.check(arr, MergeSort.sort(arr, 0, arr.length - 1));
+        // 快速排序
+        SortUtil.check(arr, QuickSort.sort(arr, 0, arr.length - 1));
     }
 }
