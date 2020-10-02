@@ -1,7 +1,5 @@
 package org.example.sort;
 
-import java.util.Arrays;
-
 /**
  * Created by xianpeng.xia
  * on 2020/10/2 10:01 上午
@@ -18,9 +16,9 @@ import java.util.Arrays;
  */
 public class CountSort {
 
-    public static int[] sort(int[] arr, int k) {
+    public static int[] sort(int[] arr, int bucketLength) {
         int[] result = new int[arr.length];
-        int[] count = new int[k];
+        int[] count = new int[bucketLength];
 
         // 计数
         for (int i = 0; i < arr.length; i++) {
@@ -28,12 +26,17 @@ public class CountSort {
         }
         System.out.println("count : ");
         SortUtil.print(count);
-        for (int i = 0, j = 0; i < count.length; i++) {
-            while (count[i] > 0) {
-                result[j++] = i;
-                count[i]--;
-            }
-            System.out.print("result i = " + i + " -> ");
+        //累加数组
+        for (int i = 1; i < count.length; i++) {
+            count[i] = count[i] + count[i - 1];
+        }
+        System.out.println("count : ");
+        SortUtil.print(count);
+        //
+        SortUtil.print(result);
+        for (int i = arr.length - 1; i >= 0; i--) {
+            // arr[i] -> 它的位置
+            result[--count[arr[i]]] = arr[i];
             SortUtil.print(result);
         }
         return result;
