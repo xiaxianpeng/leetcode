@@ -31,6 +31,8 @@ public class Run {
         // 快速排序
         //SortUtil.check(arr, QuickSort.sort(arr, 0, arr.length - 1));
         // 计数排序
-        SortUtil.check(arr, CountSort.sort(arr, 10000));
+        // SortUtil.check(arr, CountSort.sort(arr, 10000));a
+        // 基数排序
+        SortUtil.check(arr, RadixSort.sort(arr));
     }
 }
