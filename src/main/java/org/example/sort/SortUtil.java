@@ -27,7 +27,7 @@ public class SortUtil {
         int[] arr = new int[length];
 
         for (int i = 0; i < length; i++) {
-            int n = random.nextInt(10000);
+            int n = random.nextInt(9999);
             arr[i] = n;
         }
         return arr;
