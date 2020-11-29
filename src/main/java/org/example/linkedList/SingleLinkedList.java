@@ -46,15 +46,23 @@ public class SingleLinkedList {
         }
     }
 
+    public ListNode getHead() {
+        return head;
+    }
+
+    public void setHead(ListNode head) {
+        this.head = head;
+    }
+
     public static void main(String[] args) {
         Hero hero0 = new Hero(0, "", "");
         Hero hero1 = new Hero(1, "宋江", "及时雨");
         Hero hero2 = new Hero(2, "卢俊义", "玉麒麟");
         Hero hero3 = new Hero(3, "吴用", "智多星");
         Hero hero4 = new Hero(4, "公孙胜", "入云龙");
-        Hero hero5 = new Hero(5, " 关胜", "大刀");
+        Hero hero5 = new Hero(5, "关胜", "大刀");
 
-        SingleLinkedList singleLinkedList = new SingleLinkedList(new ListNode(hero1));
+        SingleLinkedList singleLinkedList = new SingleLinkedList(new ListNode(hero0));
         singleLinkedList.add(new ListNode(hero1));
         singleLinkedList.add(new ListNode(hero2));
         singleLinkedList.add(new ListNode(hero3));
