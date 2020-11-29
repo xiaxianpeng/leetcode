@@ -31,6 +31,6 @@ public class ListNode<T> {
 
     @Override
     public String toString() {
-        return val + " " + nextNode + " ";
+        return val + " ";
     }
 }
