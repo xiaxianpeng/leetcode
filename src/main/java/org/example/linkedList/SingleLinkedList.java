@@ -62,6 +62,26 @@ public class SingleLinkedList {
         return length;
     }
 
+    /**
+     * @param k 倒数第k 需保证有k个节点
+     * @return 倒数第k个节点
+     */
+    ListNode getKthFromEnd(int k) {
+        if (head.getNextNode() == null) {
+            System.out.println("链表为空");
+            return null;
+        }
+        ListNode former = head, latter = head;
+        for (int i = 0; i < k; i++) {
+            former = former.getNextNode();
+        }
+        while (former != null) {
+            former = former.getNextNode();
+            latter = latter.getNextNode();
+        }
+        return latter;
+    }
+
     public ListNode getHead() {
         return head;
     }
@@ -87,8 +107,11 @@ public class SingleLinkedList {
         singleLinkedList.add(new ListNode(hero5));
 
         singleLinkedList.print();
+
         int length = singleLinkedList.getLength();
         System.out.println("Length " + length);
 
+        ListNode kthFromEnd = singleLinkedList.getKthFromEnd(2);
+        System.out.println("Kth node from end " + kthFromEnd);
     }
 }
