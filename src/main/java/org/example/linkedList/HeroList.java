@@ -48,14 +48,14 @@ public class HeroList extends SingleLinkedList {
     }
 
     public void update(ListNode<Hero> hero) {
-        ListNode<Hero> temp = getHead();
+        ListNode<Hero> temp = getHead().getNextNode();
         boolean flag = false;
-        // 找到要更新的节点的上一个节点
+        // 找到要更新的节点
         while (true) {
-            if (temp.getNextNode() == null) {
+            if (temp == null) {
                 break;
             }
-            int no = ((Hero) temp.getNextNode().getVal()).getNo();
+            int no = temp.getVal().getNo();
             if (no == hero.getVal().getNo()) {
                 flag = true;
                 break;
@@ -63,8 +63,7 @@ public class HeroList extends SingleLinkedList {
             temp = temp.getNextNode();
         }
         if (flag) {
-            ListNode<Hero> node = temp.getNextNode();
-            Hero val = node.getVal();
+            Hero val = temp.getVal();
             val.setName(hero.getVal().getName());
             val.setNickname(hero.getVal().getNickname());
         } else {
@@ -75,13 +74,13 @@ public class HeroList extends SingleLinkedList {
     public void delete(int no) {
         ListNode<Hero> temp = getHead();
         boolean flag = false;
-        // 找到要更新的节点的上一个节点
+        // 找到要删除的节点
         while (true) {
             if (temp.getNextNode() == null) {
                 break;
             }
-            int currentNo = ((Hero) temp.getNextNode().getVal()).getNo();
-            if (currentNo == no) {
+            int nextNo = ((Hero) temp.getNextNode().getVal()).getNo();
+            if (nextNo == no) {
                 flag = true;
                 break;
             }
