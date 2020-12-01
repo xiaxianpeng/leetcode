@@ -6,7 +6,7 @@ import org.example.bean.ListNode;
 /**
  * Created by xianpeng.xia
  * on 2020/11/29 下午11:06
- *
+ * <p>
  * 单向链表
  */
 public class SingleLinkedList {
@@ -46,6 +46,22 @@ public class SingleLinkedList {
         }
     }
 
+    /**
+     * @return 链表长度
+     */
+    public int getLength() {
+        int length = 0;
+        if (head.getNextNode() == null) {
+            return length;
+        }
+        ListNode node = head.getNextNode();
+        while (node != null) {
+            length++;
+            node = node.getNextNode();
+        }
+        return length;
+    }
+
     public ListNode getHead() {
         return head;
     }
@@ -53,6 +69,7 @@ public class SingleLinkedList {
     public void setHead(ListNode head) {
         this.head = head;
     }
+
 
     public static void main(String[] args) {
         Hero hero0 = new Hero(0, "", "");
@@ -70,7 +87,8 @@ public class SingleLinkedList {
         singleLinkedList.add(new ListNode(hero5));
 
         singleLinkedList.print();
-
+        int length = singleLinkedList.getLength();
+        System.out.println("Length " + length);
 
     }
 }
