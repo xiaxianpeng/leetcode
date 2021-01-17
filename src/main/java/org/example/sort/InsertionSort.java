@@ -1,5 +1,7 @@
 package org.example.sort;
 
+import org.example.util.ArrayGenerator;
+
 /**
  * Created by xianpeng.xia
  * on 2020/9/26 9:02 下午
@@ -22,8 +24,22 @@ public class InsertionSort {
         return arr;
     }
 
+    public static <E extends Comparable<E>> void sort(E[] arr) {
+        for (int i = 1; i < arr.length; i++) {
+            for (int j = i; j > 0; j--) {
+                if (arr[j].compareTo(arr[j - 1]) < 0) {
+                    SortUtil.swap(arr, j, j - 1);
+                } else {
+                    break;
+                }
+            }
+            SortUtil.print(arr);
+        }
+    }
+
     public static void main(String[] args) {
-        int[] arr = new int[]{9, 6, 1, 3, 5};
-        sort(arr);
+        Integer[] arr = ArrayGenerator.generateRandomArray(20, 100);
+        InsertionSort.sort(arr);
+        System.out.println(SortUtil.isSorted(arr));
     }
 }
