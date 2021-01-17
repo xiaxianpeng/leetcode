@@ -16,8 +16,20 @@ public class SortUtil {
         System.out.println();
     }
 
+    public static <E>void print(E[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i] + " ");
+        }
+        System.out.println();
+    }
     public static void swap(int[] arr, int i, int j) {
         int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+
+    public static <E extends Comparable<E>> void swap(E[] arr, int i, int j) {
+        E temp = arr[i];
         arr[i] = arr[j];
         arr[j] = temp;
     }
