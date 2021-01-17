@@ -16,12 +16,13 @@ public class SortUtil {
         System.out.println();
     }
 
-    public static <E>void print(E[] arr) {
+    public static <E> void print(E[] arr) {
         for (int i = 0; i < arr.length; i++) {
             System.out.print(arr[i] + " ");
         }
         System.out.println();
     }
+
     public static void swap(int[] arr, int i, int j) {
         int temp = arr[i];
         arr[i] = arr[j];
@@ -32,6 +33,15 @@ public class SortUtil {
         E temp = arr[i];
         arr[i] = arr[j];
         arr[j] = temp;
+    }
+
+    public static <E extends Comparable<E>> boolean isSorted(E[] arr) {
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i - 1].compareTo(arr[i]) > 0) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public static int[] generateRandomArray(int length) {

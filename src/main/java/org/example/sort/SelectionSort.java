@@ -45,6 +45,7 @@ public class SelectionSort {
 
         Person[] people = {new Person("a", 22), new Person("b", 21), new Person("c", 15)};
         sort(people);
-
+        boolean sorted = SortUtil.isSorted(people);
+        System.out.println(sorted);
     }
 }
