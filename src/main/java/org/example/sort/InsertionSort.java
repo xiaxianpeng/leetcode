@@ -37,9 +37,28 @@ public class InsertionSort {
         }
     }
 
+    /**
+     * @param arr 数组
+     * @param <E> 范型
+     *
+     * 优化排序
+     */
+    public static <E extends Comparable<E>> void optimizedSort(E[] arr) {
+        for (int i = 1; i < arr.length; i++) {
+            // 将arr[i]插入到合适的位置
+            E temp = arr[i];
+            int j;
+            for (j = i; j - 1 >= 0 && temp.compareTo(arr[j - 1]) < 0; j--) {
+                arr[j] = arr[j - 1];
+            }
+            arr[j] = temp;
+            SortUtil.print(arr);
+        }
+    }
+
     public static void main(String[] args) {
         Integer[] arr = ArrayGenerator.generateRandomArray(20, 100);
-        InsertionSort.sort(arr);
+        InsertionSort.optimizedSort(arr);
         System.out.println(SortUtil.isSorted(arr));
     }
 }
