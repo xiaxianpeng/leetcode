@@ -62,11 +62,13 @@ public class Array<E> {
      * 向指定位置添加元素
      */
     public void add(int index, E e) {
-        if (size == data.length) {
-            throw new IllegalArgumentException("Add failed,Array is full.");
-        }
+
         if (index < 0 || index > size) {
             throw new IllegalArgumentException("Add failed,Require index >= 0 and index <= size.");
+        }
+        // 扩容
+        if (size == data.length) {
+            resize(data.length * 2);
         }
         // 将index之后的元素向后移动一位
         for (int i = size - 1; i >= index; i--) {
@@ -74,6 +76,14 @@ public class Array<E> {
         }
         data[index] = e;
         size++;
+    }
+
+    private void resize(int newCapacity) {
+        E[] newData = (E[]) new Object[newCapacity];
+        for (int i = 0; i < size; i++) {
+            newData[i] = data[i];
+        }
+        data = newData;
     }
 
     /**
@@ -134,6 +144,9 @@ public class Array<E> {
         size--;
         // loitering objects != memory leak
         data[size] = null;
+        if (size == data.length / 2) {
+            resize(data.length / 2);
+        }
         return e;
     }
 
