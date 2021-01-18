@@ -144,7 +144,8 @@ public class Array<E> {
         size--;
         // loitering objects != memory leak
         data[size] = null;
-        if (size == data.length / 2) {
+        // 避免复杂度震荡
+        if (size == data.length / 4 && data.length / 2 != 0) {
             resize(data.length / 2);
         }
         return e;
