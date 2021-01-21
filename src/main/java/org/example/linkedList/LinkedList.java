@@ -168,6 +168,23 @@ public class LinkedList<E> {
         return remove(size - 1);
     }
 
+    /**
+     * 删除元素
+     */
+    public int removeElement(E e) {
+        int count = 0;
+        Node prev = dummyHead;
+        while (prev.next != null) {
+            if (prev.next.e.equals(e)) {
+                prev.next = prev.next.next;
+                count++;
+            } else {
+                prev = prev.next;
+            }
+        }
+        return count;
+    }
+
     @Override
     public String toString() {
         StringBuffer sb = new StringBuffer();
@@ -199,6 +216,10 @@ public class LinkedList<E> {
         Integer remove = linkedList.remove(2);
         System.out.println("remove : " + remove);
         System.out.println(linkedList);
+
+        linkedList.addFirst(2);
+        int i = linkedList.removeElement(2);
+        System.out.println(i + " " + linkedList);
 
     }
 }
