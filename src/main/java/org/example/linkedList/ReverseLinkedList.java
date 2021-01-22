@@ -20,10 +20,20 @@ public class ReverseLinkedList {
         return prev;
     }
 
+    public static ListNode reverseListNode(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode rev = reverseList(head.next);
+        head.next.next = head;
+        head.next = null;
+        return rev;
+    }
+
     public static void main(String[] args) {
         int[] arr = {1, 2, 3, 4, 5};
         ListNode listNode = new ListNode(arr);
-        ListNode reverseList = reverseList(listNode);
+        ListNode reverseList = reverseListNode(listNode);
         System.out.println(reverseList);
     }
 }
