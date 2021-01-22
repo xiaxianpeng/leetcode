@@ -25,11 +25,19 @@ public class RemoveElements {
         return dummyNode.next;
     }
 
+    public static ListNode removeElements(ListNode head, int val) {
+        if (head == null) {
+            return null;
+        }
+        head.next = removeElements(head.next, val);
+        return head.val == val ? head.next : head;
+    }
+
     public static void main(String[] args) {
         int[] arr = {2, 5, 2, 42, 53, 3, 2, 3, 2, 2};
         ListNode listNode = new ListNode(arr);
         System.out.println(listNode);
-        ListNode listNode1 = removeElement(listNode, 2);
+        ListNode listNode1 = removeElements(listNode, 2);
         System.out.println(listNode1);
 
     }
