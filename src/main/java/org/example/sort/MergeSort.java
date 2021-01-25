@@ -38,9 +38,9 @@ public class MergeSort {
     /**
      * 保证左右排好序
      *
-     * @param arr        数组
-     * @param leftPtr    左指针
-     * @param rightPtr   右指针
+     * @param arr 数组
+     * @param leftPtr 左指针
+     * @param rightPtr 右指针
      * @param rightBound 右边界
      */
     static void merge(int[] arr, int leftPtr, int rightPtr, int rightBound) {
@@ -85,6 +85,23 @@ public class MergeSort {
     }
 
     /**
+     * 自底向上归并
+     */
+    public static <E extends Comparable<E>> void sortBottomUp(E[] arr) {
+        E[] temp = Arrays.copyOf(arr, arr.length);
+        int n = arr.length;
+        // 遍历合并的区间长度
+        for (int sz = 1; sz < n; sz += sz) {
+            // 遍历合并的两个起始位置是i
+            // 合并[i,i+sz-1]和[i+sz,Math.min(i+sz+za-1,n-1)]
+            for (int i = 0; i + sz < n; i += sz + sz) {
+                //System.out.println("sz: " + sz + " " + i + " " + (i + sz - 1) + " " + Math.min(i + sz + sz - 1, n - 1));
+                merge(arr, i, i + sz - 1, Math.min(i + sz + sz - 1, n - 1), temp);
+            }
+        }
+    }
+
+    /**
      * 合并两个有序数组arr[l,mid]和arr[mid+1,r]
      */
     private static <E extends Comparable<E>> void merge(E[] arr, int l, int mid, int r, E[] temp) {
@@ -108,9 +125,9 @@ public class MergeSort {
     }
 
     public static void main(String[] args) {
-        Integer[] arr = ArrayGenerator.generateRandomArray(100, 1000);
+        Integer[] arr = ArrayGenerator.generateRandomArray(10, 1000);
         SortUtil.print(arr);
-        MergeSort.sort(arr);
+        MergeSort.sortBottomUp(arr);
         boolean sorted = SortUtil.isSorted(arr);
         System.out.println(sorted);
         SortUtil.print(arr);
