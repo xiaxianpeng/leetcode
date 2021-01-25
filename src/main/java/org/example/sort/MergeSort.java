@@ -96,7 +96,9 @@ public class MergeSort {
             // 合并[i,i+sz-1]和[i+sz,Math.min(i+sz+za-1,n-1)]
             for (int i = 0; i + sz < n; i += sz + sz) {
                 //System.out.println("sz: " + sz + " " + i + " " + (i + sz - 1) + " " + Math.min(i + sz + sz - 1, n - 1));
-                merge(arr, i, i + sz - 1, Math.min(i + sz + sz - 1, n - 1), temp);
+                if (arr[i + sz - 1].compareTo(arr[i + sz]) > 0) {
+                    merge(arr, i, i + sz - 1, Math.min(i + sz + sz - 1, n - 1), temp);
+                }
             }
         }
     }
