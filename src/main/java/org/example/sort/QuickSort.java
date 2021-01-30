@@ -1,6 +1,7 @@
 package org.example.sort;
 
 import java.net.Socket;
+import org.example.util.ArrayGenerator;
 
 /**
  * Created by xianpeng.xia
@@ -14,6 +15,9 @@ import java.net.Socket;
  * 3 递归的把小于轴的子数列和大于轴的子数列排序
  */
 public class QuickSort {
+
+    private QuickSort() {
+    }
 
     public static int[] sort(int[] arr, int left, int right) {
         if (left >= right) {
@@ -58,8 +62,37 @@ public class QuickSort {
         return left;
     }
 
-    public static void main(String[] args) {
-        int[] arr = new int[]{7, 3, 2, 8, 1, 9, 5, 4, 6};
+    private static <E extends Comparable<E>> void sort(E[] arr) {
         sort(arr, 0, arr.length - 1);
+    }
+
+    private static <E extends Comparable<E>> void sort(E[] arr, int l, int r) {
+        if (l >= r) {
+            return;
+        }
+        int p = partition(arr, l, r);
+        sort(arr, l, p);
+        sort(arr, p + 1, r);
+    }
+
+    private static <E extends Comparable<E>> int partition(E[] arr, int l, int r) {
+        //arr[l+1,j] < v,arr[j+1,i] >= v
+        int j = l;
+        for (int i = l + 1; i <= r; i++) {
+            // 以arr[l]做轴
+            if (arr[i].compareTo(arr[l]) < 0) {
+                j++;
+                SortUtil.swap(arr, i, j);
+            }
+        }
+        SortUtil.swap(arr, l, j);
+        return j;
+    }
+
+    public static void main(String[] args) {
+        Integer[] arr = ArrayGenerator.generateRandomArray(100, 20);
+        SortUtil.print(arr);
+        sort(arr);
+        SortUtil.print(arr);
     }
 }
