@@ -71,7 +71,7 @@ public class QuickSort {
             return;
         }
         int p = partition(arr, l, r);
-        sort(arr, l, p);
+        sort(arr, l, p - 1);
         sort(arr, p + 1, r);
     }
 
