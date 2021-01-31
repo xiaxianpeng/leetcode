@@ -1,6 +1,7 @@
 package org.example.sort;
 
 import java.net.Socket;
+import java.util.Random;
 import org.example.util.ArrayGenerator;
 
 /**
@@ -76,6 +77,9 @@ public class QuickSort {
     }
 
     private static <E extends Comparable<E>> int partition(E[] arr, int l, int r) {
+        // 生成[l,r]之间的随机索引
+        int p = new Random().nextInt(r - l + 1) + l;
+        SortUtil.swap(arr, l, p);
         //arr[l+1,j] < v,arr[j+1,i] >= v
         int j = l;
         for (int i = l + 1; i <= r; i++) {
