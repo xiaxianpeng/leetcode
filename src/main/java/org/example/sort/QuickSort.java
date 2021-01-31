@@ -129,10 +129,45 @@ public class QuickSort {
         return j;
     }
 
+    private static <E extends Comparable<E>> void threeWaySort(E[] arr) {
+        threeWaySort(arr, 0, arr.length - 1);
+    }
+
+    private static <E extends Comparable<E>> void threeWaySort(E[] arr, int l, int r) {
+        if (l >= r) {
+            return;
+        }
+        Random random = new Random();
+        int p = random.nextInt(r - l + 1) + l;
+        SortUtil.swap(arr, l, p);
+
+        //arr[l+1,lt] < v ,arr[lt+1,i-1] == v ,arr[gt,r] > v
+        int lt = l;
+        int i = l + 1;
+        int gt = r + 1;
+        while (i < gt) {
+            if (arr[i].compareTo(arr[l]) < 0) {
+                lt++;
+                SortUtil.swap(arr, i, lt);
+                i++;
+            } else if (arr[i].compareTo(arr[l]) > 0) {
+                gt--;
+                SortUtil.swap(arr, i, gt);
+            } else {// arr[i] == arr[l]
+                i++;
+            }
+        }
+        SortUtil.swap(arr, l, lt);
+        // arr[l,lt-1] > v ,arr[lt,i-1] == v ,arr[gt,r] > v
+
+        threeWaySort(arr, l, lt - 1);
+        threeWaySort(arr, gt, r);
+    }
+
     public static void main(String[] args) {
         Integer[] arr = ArrayGenerator.generateRandomArray(100, 20);
         SortUtil.print(arr);
-        twoWaySort(arr);
+        threeWaySort(arr);
         SortUtil.print(arr);
     }
 }
