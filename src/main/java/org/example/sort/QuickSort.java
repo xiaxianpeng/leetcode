@@ -77,9 +77,6 @@ public class QuickSort {
     }
 
     private static <E extends Comparable<E>> int partition(E[] arr, int l, int r) {
-        // 生成[l,r]之间的随机索引
-        int p = new Random().nextInt(r - l + 1) + l;
-        SortUtil.swap(arr, l, p);
         //arr[l+1,j] < v,arr[j+1,i] >= v
         int j = l;
         for (int i = l + 1; i <= r; i++) {
@@ -102,8 +99,8 @@ public class QuickSort {
             return;
         }
         int p = twoWayPartition(arr, l, r);
-        sort(arr, l, p - 1);
-        sort(arr, p + 1, r);
+        twoWaySort(arr, l, p - 1);
+        twoWaySort(arr, p + 1, r);
     }
 
     private static <E extends Comparable<E>> int twoWayPartition(E[] arr, int l, int r) {
@@ -114,12 +111,15 @@ public class QuickSort {
         int i = l + 1;
         int j = r;
 
-        while (i <= j) {
+        while (true) {
             while (i <= j && arr[i].compareTo(arr[l]) < 0) {
                 i++;
             }
-            while (i <= j && arr[j].compareTo(arr[l]) < 0) {
+            while (j >= i && arr[j].compareTo(arr[l]) > 0) {
                 j--;
+            }
+            if (i >= j) {
+                break;
             }
             SortUtil.swap(arr, i, j);
             i++;
