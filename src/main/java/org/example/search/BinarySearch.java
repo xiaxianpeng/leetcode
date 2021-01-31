@@ -33,9 +33,31 @@ public class BinarySearch {
         }
     }
 
+    /**
+     * 非递归实现二分查找法
+     */
+    public static <E extends Comparable<E>> int nonRecursiveSearch(E[] data, E target) {
+        int l = 0;
+        int r = data.length - 1;
+        while (l <= r) {
+            int mid = (r - l) / 2 + l;
+            if (data[mid].compareTo(target) == 0) {
+                return mid;
+            }
+            if (data[mid].compareTo(target) < 0) {
+                // target在右侧
+                l = mid + 1;
+            } else {
+                // target在左侧
+                r = mid - 1;
+            }
+        }
+        return -1;
+    }
+
     public static void main(String[] args) {
         Integer[] data = ArrayGenerator.generateOrderedArray(10);
-        int index = search(data, 5);
+        int index = nonRecursiveSearch(data, 5);
         System.out.println("index = " + index);
     }
 }
