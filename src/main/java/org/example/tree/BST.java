@@ -1,5 +1,7 @@
 package org.example.tree;
 
+import java.util.Stack;
+
 /**
  * @date 2021/02/04
  * @time 16:35
@@ -100,6 +102,24 @@ public class BST<E extends Comparable<E>> {
     }
 
     /**
+     * 前序遍历非递归
+     */
+    public void preOrderNR() {
+        Stack<Node> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            Node cur = stack.pop();
+            System.out.println(cur.e);
+            if (cur.right != null) {
+                stack.push(cur.right);
+            }
+            if (cur.left != null) {
+                stack.push(cur.left);
+            }
+        }
+    }
+
+    /**
      * 中序遍历
      */
     public void inOrder() {
@@ -175,6 +195,9 @@ public class BST<E extends Comparable<E>> {
 
         System.out.println("~~~~~~~~~~~~~~~");
         bst.preOrder();
+
+        System.out.println("~~~~~~~~~~~~~~~");
+        bst.preOrderNR();
 
         System.out.println("~~~~~~~~~~~~~~~");
         bst.inOrder();
