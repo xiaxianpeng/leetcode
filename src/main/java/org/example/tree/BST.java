@@ -83,7 +83,7 @@ public class BST<E extends Comparable<E>> {
     /**
      * 前序遍历
      */
-    private void preOrder() {
+    public void preOrder() {
         preOrder(root);
     }
 
@@ -97,6 +97,44 @@ public class BST<E extends Comparable<E>> {
         System.out.println(node.e);
         preOrder(node.left);
         preOrder(node.right);
+    }
+
+    /**
+     * 中序遍历
+     */
+    public void inOrder() {
+        inOrder(root);
+    }
+
+    /**
+     * 中序遍历以node为根的二分搜索树,递归算法
+     */
+    public void inOrder(Node node) {
+        if (node == null) {
+            return;
+        }
+        inOrder(node.left);
+        System.out.println(node.e);
+        inOrder(node.right);
+    }
+
+    /**
+     * 中序遍历
+     */
+    public void postOrder() {
+        postOrder(root);
+    }
+
+    /**
+     * 中序遍历以node为根的二分搜索树,递归算法
+     */
+    public void postOrder(Node node) {
+        if (node == null) {
+            return;
+        }
+        postOrder(node.left);
+        postOrder(node.right);
+        System.out.println(node.e);
     }
 
     @Override
@@ -131,8 +169,17 @@ public class BST<E extends Comparable<E>> {
             bst.add(num);
         }
         System.out.println(bst.contains(3));
-        bst.preOrder();
+
         System.out.println("~~~~~~~~~~~~~~~");
         System.out.println(bst);
+
+        System.out.println("~~~~~~~~~~~~~~~");
+        bst.preOrder();
+
+        System.out.println("~~~~~~~~~~~~~~~");
+        bst.inOrder();
+
+        System.out.println("~~~~~~~~~~~~~~~");
+        bst.postOrder();
     }
 }
