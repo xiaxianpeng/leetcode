@@ -1,5 +1,7 @@
 package org.example.tree;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 /**
@@ -129,7 +131,7 @@ public class BST<E extends Comparable<E>> {
     /**
      * 中序遍历以node为根的二分搜索树,递归算法
      */
-    public void inOrder(Node node) {
+    private void inOrder(Node node) {
         if (node == null) {
             return;
         }
@@ -148,13 +150,31 @@ public class BST<E extends Comparable<E>> {
     /**
      * 中序遍历以node为根的二分搜索树,递归算法
      */
-    public void postOrder(Node node) {
+    private void postOrder(Node node) {
         if (node == null) {
             return;
         }
         postOrder(node.left);
         postOrder(node.right);
         System.out.println(node.e);
+    }
+
+    /**
+     * 层序遍历
+     */
+    public void levelOrder() {
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            Node cur = queue.remove();
+            System.out.println(cur.e);
+            if (cur.left != null) {
+                queue.add(cur.left);
+            }
+            if (cur.right != null) {
+                queue.add(cur.right);
+            }
+        }
     }
 
     @Override
@@ -204,5 +224,8 @@ public class BST<E extends Comparable<E>> {
 
         System.out.println("~~~~~~~~~~~~~~~");
         bst.postOrder();
+
+        System.out.println("~~~~~~~~~~~~~~~");
+        bst.levelOrder();
     }
 }
