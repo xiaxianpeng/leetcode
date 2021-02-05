@@ -50,9 +50,9 @@ public class BST<E extends Comparable<E>> {
         }
 
         if (e.compareTo(node.e) < 0) {
-            node.left = add(node, e);
+            node.left = add(node.left, e);
         } else {
-            node.right = add(node, e);
+            node.right = add(node.right, e);
         }
         return node;
     }
@@ -71,12 +71,68 @@ public class BST<E extends Comparable<E>> {
         if (node == null) {
             return false;
         }
-        if (node.e.compareTo(e) == 0) {
+        if (e.compareTo(node.e) == 0) {
             return true;
-        } else if (node.e.compareTo(e) < 0) {
+        } else if (e.compareTo(node.e) < 0) {
             return contains(node.left, e);
         } else {
             return contains(node.right, e);
         }
+    }
+
+    /**
+     * 前序遍历
+     */
+    private void preOrder() {
+        preOrder(root);
+    }
+
+    /**
+     * 前序遍历以node为根的二分搜索树,递归算法
+     */
+    private void preOrder(Node node) {
+        if (node == null) {
+            return;
+        }
+        System.out.println(node.e);
+        preOrder(node.left);
+        preOrder(node.right);
+    }
+
+    @Override
+    public String toString() {
+        StringBuffer res = new StringBuffer();
+        generateBSTString(root, 0, res);
+        return res.toString();
+    }
+
+    private void generateBSTString(Node node, int depth, StringBuffer res) {
+        if (node == null) {
+            res.append(generateDepthString(depth) + "null\n");
+            return;
+        }
+        res.append(generateDepthString(depth) + node.e + "\n");
+        generateBSTString(node.left, depth + 1, res);
+        generateBSTString(node.right, depth + 1, res);
+    }
+
+    private String generateDepthString(int depth) {
+        StringBuffer res = new StringBuffer();
+        for (int i = 0; i < depth; i++) {
+            res.append("-");
+        }
+        return res.toString();
+    }
+
+    public static void main(String[] args) {
+        BST<Integer> bst = new BST<>();
+        Integer[] nums = new Integer[]{5, 3, 6, 8, 4, 2};
+        for (Integer num : nums) {
+            bst.add(num);
+        }
+        System.out.println(bst.contains(3));
+        bst.preOrder();
+        System.out.println("~~~~~~~~~~~~~~~");
+        System.out.println(bst);
     }
 }
