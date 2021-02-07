@@ -177,6 +177,46 @@ public class BST<E extends Comparable<E>> {
         }
     }
 
+    /**
+     * 寻找二分搜索树最小元素
+     */
+    public E minimum() {
+        if (isEmpty()) {
+            throw new IllegalArgumentException("BST is empty");
+        }
+        return minimum(root).e;
+    }
+
+    /**
+     * 返回以node为根的二分搜索树的最小值所在的节点
+     */
+    private Node minimum(Node node) {
+        if (node.left == null) {
+            return node;
+        }
+        return minimum(node.left);
+    }
+
+    /**
+     * 寻找二分搜索树最大元素
+     */
+    public E maximum() {
+        if (isEmpty()) {
+            throw new IllegalArgumentException("BST is empty");
+        }
+        return maximum(root).e;
+    }
+
+    /**
+     * 返回以node为根的二分搜索树的最大值所在的节点
+     */
+    private Node maximum(Node node) {
+        if (node.right == null) {
+            return node;
+        }
+        return maximum(node.right);
+    }
+
     @Override
     public String toString() {
         StringBuffer res = new StringBuffer();
@@ -208,6 +248,9 @@ public class BST<E extends Comparable<E>> {
         for (Integer num : nums) {
             bst.add(num);
         }
+        System.out.println(bst.minimum());
+        System.out.println(bst.maximum());
+        /*
         System.out.println(bst.contains(3));
 
         System.out.println("~~~~~~~~~~~~~~~");
@@ -227,5 +270,6 @@ public class BST<E extends Comparable<E>> {
 
         System.out.println("~~~~~~~~~~~~~~~");
         bst.levelOrder();
+   */
     }
 }
