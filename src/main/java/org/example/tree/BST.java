@@ -257,6 +257,46 @@ public class BST<E extends Comparable<E>> {
         return node;
     }
 
+    public void remove(E e) {
+        root = remove(root, e);
+    }
+
+    private Node remove(Node node, E e) {
+
+        if (node == null) {
+            return null;
+        }
+
+        if (e.compareTo(node.e) < 0) {
+            node.left = remove(node.left, e);
+            return node;
+        } else if (e.compareTo(node.e) > 0) {
+            node.right = remove(node.right, e);
+            return node;
+        } else { // node.e.compareTo(e) = 0
+            if (node.left == null) {
+                Node rightNode = node.right;
+                node.right = null;
+                size--;
+                return rightNode;
+            }
+            if (node.right == null) {
+                Node leftNode = node.left;
+                node.left = null;
+                size--;
+                return leftNode;
+            }
+            // 待删除节点左右子树都不为空的情况
+            // 找到比待删除节点大的最小节点,即待删除节点的右子树的最小节点
+            // 用这个节点替代待删除节点的位置
+            Node successor = minimum(node.right);
+            successor.right = removeMin(node.right);
+            successor.left = node.left;
+            successor.left = successor.right = null;
+            return successor;
+        }
+    }
+
     @Override
     public String toString() {
         StringBuffer res = new StringBuffer();
@@ -288,12 +328,10 @@ public class BST<E extends Comparable<E>> {
         for (Integer num : nums) {
             bst.add(num);
         }
-        System.out.println(bst.minimum());
-        System.out.println(bst.maximum());
         System.out.println("~~~~~~~~~~~~~~~");
-        bst.removeMin();
+        System.out.println(bst);
+        bst.remove(100);
         System.out.println("~~~~~~~~~~~~~~~");
-        bst.removeMax();
         System.out.println(bst);
         /*
         System.out.println(bst.contains(3));
