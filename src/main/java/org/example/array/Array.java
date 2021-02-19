@@ -1,5 +1,7 @@
 package org.example.array;
 
+import jdk.nashorn.internal.ir.CallNode.EvalArgs;
+
 /**
  * @author michael
  */
@@ -181,6 +183,15 @@ public class Array<E> {
         if (index != -1) {
             remove(index);
         }
+    }
+
+    public void swap(int i, int j) {
+        if (i < 0 || i >= size || j < 0 || j >= size) {
+            throw new IllegalArgumentException("Index is illegal.");
+        }
+        E temp = data[i];
+        data[i] = data[j];
+        data[j] = temp;
     }
 
     @Override
