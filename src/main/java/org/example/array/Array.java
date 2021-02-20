@@ -25,6 +25,14 @@ public class Array<E> {
         this(10);
     }
 
+    public Array(E[] arr) {
+        this.data = (E[]) new Object[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            this.data[i] = arr[i];
+        }
+        size = arr.length;
+    }
+
     /**
      * @return 数组中元素个数
      */
