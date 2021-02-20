@@ -21,8 +21,10 @@ public class MaxHeap<E extends Comparable<E>> {
 
     public MaxHeap(E[] data) {
         this.data = new Array<>(data);
-        for (int i = parent(size() - 1); i >= 0; i--) {
-            siftDown(i);
+        if (data.length != 1) {
+            for (int i = parent(size() - 1); i >= 0; i--) {
+                siftDown(i);
+            }
         }
     }
 
