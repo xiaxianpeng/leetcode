@@ -48,10 +48,25 @@ public class BubbleSort {
         }
     }
 
+    public static <E extends Comparable<E>> void optimizedSort(E[] data) {
+        for (int i = 0; i < data.length - 1; ) {
+            // arr[n-i,n)已经排好序
+            // 通过冒泡在arr[n-i-1]位置放上合适的元素
+            int lastSwappedIndex = 0;
+            for (int j = 0; j < data.length - i - 1; j++) {
+                if (data[j].compareTo(data[j + 1]) > 0) {
+                    SortUtil.swap(data, j, j + 1);
+                    lastSwappedIndex = j + 1;
+                }
+            }
+            i = data.length - lastSwappedIndex;
+        }
+    }
+
     public static void main(String[] args) {
-        Integer[] arr = ArrayGenerator.generateOrderedArray(10);
+        Integer[] arr = ArrayGenerator.generateRandomArray(100, 100);
         SortUtil.print(arr);
-        sort(arr);
+        optimizedSort(arr);
         SortUtil.print(arr);
     }
 }
