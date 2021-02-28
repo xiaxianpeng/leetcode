@@ -1,5 +1,7 @@
 package org.example.sort;
 
+import org.example.util.ArrayGenerator;
+
 /**
  * Created by xianpeng.xia
  * on 2020/9/26 4:33 下午
@@ -33,16 +35,21 @@ public class BubbleSort {
         for (int i = 0; i < data.length - 1; i++) {
             // arr[n-i,n)已经排好序
             // 通过冒泡在arr[n-i-1]位置放上合适的元素
+            boolean isSwapped = false;
             for (int j = 0; j < data.length - i - 1; j++) {
                 if (data[j].compareTo(data[j + 1]) > 0) {
                     SortUtil.swap(data, j, j + 1);
+                    isSwapped = true;
                 }
+            }
+            if (!isSwapped) {
+                break;
             }
         }
     }
 
     public static void main(String[] args) {
-        Integer[] arr = new Integer[]{9, 6, 1, 3, 5};
+        Integer[] arr = ArrayGenerator.generateOrderedArray(10);
         SortUtil.print(arr);
         sort(arr);
         SortUtil.print(arr);
