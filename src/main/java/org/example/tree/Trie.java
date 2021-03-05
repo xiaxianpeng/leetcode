@@ -84,6 +84,34 @@ public class Trie {
         return true;
     }
 
+    /**
+     * Returns if the word is in the data structure. A word could contain the dot character '.' to represent any one letter.
+     */
+    public boolean search(String word) {
+        return match(root, word, 0);
+    }
+
+    private boolean match(Node node, String word, int index) {
+        if (index == word.length()) {
+            return node.isWord;
+        }
+        char c = word.charAt(index);
+        if (c != '.') {
+            if (node.next.get(c) == null) {
+                return false;
+            }
+            return match(node.next.get(c), word, index + 1);
+
+        } else {
+            for (char nextChar : node.next.keySet()) {
+                if (match(node.next.get(nextChar), word, index + 1)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
     public static void main(String[] args) {
         Trie trie = new Trie();
         trie.add("panda");
@@ -94,6 +122,8 @@ public class Trie {
         System.out.println(trie.contains("pan"));
         System.out.println(trie.contains("panda"));
         System.out.println(trie.isPrefix("panx"));
+        System.out.println(trie.search("pan.."));
+        System.out.println(trie.search("d.."));
 
     }
 }
