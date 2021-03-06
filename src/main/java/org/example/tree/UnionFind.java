@@ -69,12 +69,11 @@ public class UnionFind implements UF {
         if (p < 0 || p >= parent.length) {
             throw new IllegalArgumentException("p is out of bound.");
         }
-        while (p != parent[p]) {
+        if (p != parent[p]) {
             // 路径压缩
-            parent[p] = parent[parent[p]];
-            p = parent[p];
+            parent[p] = find(parent[p]);
         }
-        return p;
+        return parent[p];
     }
 
     public static void main(String[] args) {
