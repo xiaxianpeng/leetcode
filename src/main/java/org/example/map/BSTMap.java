@@ -98,7 +98,6 @@ public class BSTMap<K extends Comparable<K>, V> implements Map<K, V> {
             Node successor = minimum(node.right);
             successor.right = removeMin(node.right);
             successor.left = node.left;
-            size--;
             node.left = node.right = null;
             return successor;
         }
