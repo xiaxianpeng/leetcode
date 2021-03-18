@@ -7,7 +7,7 @@ package org.example.string;
  *
  * 最长回文子串
  */
-public class LongestPalindrome {
+public class LongestPalindromic {
 
     public static String solution(String s) {
         int len = s.length();
