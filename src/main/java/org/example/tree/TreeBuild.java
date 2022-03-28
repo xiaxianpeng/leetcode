@@ -113,7 +113,7 @@ public class TreeBuild {
             return null;
         }
         // 找出数组中的最大值和对应的索引
-        int index = -1, maxVal = Integer.MAX_VALUE;
+        int index = -1, maxVal = Integer.MIN_VALUE;
         for (int i = lo; i <= hi; i++) {
             if (maxVal < nums[i]) {
                 index = i;
