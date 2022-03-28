@@ -9,7 +9,7 @@ import java.util.Queue;
  * on 2022/3/28 7:28 PM
  * 二叉树遍历
  */
-public class TraversalTree {
+public class TreeTraversal {
 
     /**
      * @param root 根
