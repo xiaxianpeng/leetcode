@@ -83,4 +83,47 @@ public class TreeBuild {
             postorder, postStart + leftSize, postEnd - 1);
         return root;
     }
+
+    /**
+     * @param nums 数组
+     * @return 二叉树
+     *
+     * 给定⼀个不含重复元素的整数数组 nums，
+     * ⼀个以此数组直接递归构建的最⼤⼆叉树定义如下：
+     * 1、⼆叉树的根是数组 nums 中的最⼤元素。
+     * 2、左⼦树是通过数组中最⼤元素左边的部分递归构造出的最⼤⼆叉树。
+     * 3、右⼦树是通过数组中最⼤元素右边的部分递归构造出的最⼤⼆叉树。
+     * 返回由给定数组nums构建的最⼤⼆叉树。
+     */
+    public TreeNode constructMaximumBinaryTree(int[] nums) {
+        return build(nums, 0, nums.length - 1);
+    }
+
+    /**
+     * @param nums 数组
+     * @param lo 低位
+     * @param hi 高位
+     * @return 树
+     * 将 nums[lo..hi] 构造成符合条件的树，返回根节点
+     */
+
+    TreeNode build(int[] nums, int lo, int hi) {
+        // base case
+        if (lo > hi) {
+            return null;
+        }
+        // 找出数组中的最大值和对应的索引
+        int index = -1, maxVal = Integer.MAX_VALUE;
+        for (int i = lo; i <= hi; i++) {
+            if (maxVal < nums[i]) {
+                index = i;
+                maxVal = nums[i];
+            }
+        }
+        TreeNode root = new TreeNode(maxVal);
+        // 递归构造左右子树
+        root.left = build(nums, lo, index - 1);
+        root.right = build(nums, index + 1, hi);
+        return root;
+    }
 }
