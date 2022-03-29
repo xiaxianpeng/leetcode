@@ -7,6 +7,11 @@ package org.example.linkedList;
  * 160. 相交链表
  * https://leetcode-cn.com/problems/intersection-of-two-linked-lists/
  * https://labuladong.gitee.io/algo/2/17/16/#两个链表是否相交
+ *
+ * 弄这么多字也没讲明白。
+ * 若相交，链表A： a+c, 链表B : b+c.
+ * a+c+b+c = b+c+a+c 。则会在公共处c起点相遇。
+ * 若不相交，a + b = b + a 。因此相遇处是NULL
  */
 public class GetIntersectionNode {
 
