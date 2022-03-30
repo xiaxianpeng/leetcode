@@ -1,6 +1,10 @@
-package org.example.array;
+package org.example.dp;
+
+import java.util.Arrays;
 
 /**
+ * 钱币
+ *
  * @author xianpeng.xia
  * on 2022/3/30 2:36 PM
  * * 给定一个总的钱数，在给定几个固定面值的硬币，请问有多少种组合方法，可以得到总的钱数
@@ -16,15 +20,16 @@ public class Coin {
         for (int coin : coins) {
             for (int x = coin; x < totalMoney + 1; x++) {
                 dp[x] = dp[x] + dp[x - coin];
-                System.out.println(dp[x]);
+                System.out.println(Arrays.toString(dp));
             }
+            System.out.println("***************");
         }
         return dp[totalMoney];
     }
 
     public static void main(String[] args) {
         int[] coins = new int[]{1, 2, 5};
-        int total = 100;
+        int total = 10;
         count(coins, total);
     }
 }
