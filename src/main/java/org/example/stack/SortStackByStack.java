@@ -22,6 +22,7 @@ public class SortStackByStack {
 
     public static void sort(Stack<Integer> stack) {
         Stack<Integer> help = new Stack<>();
+        // 对比cur和help栈顶元素，stack存放较小的，help存放较大的
         while (!stack.isEmpty()) {
             int cur = stack.pop();
             while (!help.isEmpty() && help.peek() < cur) {
@@ -29,6 +30,7 @@ public class SortStackByStack {
             }
             help.push(cur);
         }
+        // 将help栈的元素，压回stack，即可从小到大排序
         while (!help.isEmpty()) {
             stack.push(help.pop());
         }
