@@ -11,20 +11,24 @@ package org.example.linkedList;
 public class MiddleNode {
 
     static ListNode middleNode(ListNode head) {
-        ListNode slow = head, fast = head;
+        if (head == null) {
+            return null;
+        }
+        ListNode slow = head;
+        ListNode fast = head;
 
+        // 快指针走两步，慢指针走一步
         while (fast != null && fast.next != null) {
-            // 快指针走两步，慢指针走一步
-            slow = head.next;
-            fast = head.next.next;
-
+            slow = slow.next;
+            fast = fast.next.next;
         }
         // 慢指针指向中点
         return slow;
+
     }
 
     public static void main(String[] args) {
-        ListNode listNode = new ListNode(new int[]{1, 2, 3});
+        ListNode listNode = new ListNode(new int[]{1, 2, 3, 4});
         ListNode middleNode = middleNode(listNode);
         System.out.println(middleNode.val);
     }
