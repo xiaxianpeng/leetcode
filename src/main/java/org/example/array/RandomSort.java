@@ -6,6 +6,8 @@ import org.example.sort.SortUtil;
 /**
  * @author xianpeng.xia
  * on 2022/4/2 11:54 AM
+ *
+ * 将1-100的整数乱序输出
  */
 public class RandomSort {
 
