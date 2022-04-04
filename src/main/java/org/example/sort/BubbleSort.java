@@ -5,6 +5,8 @@ import org.example.util.ArrayGenerator;
 /**
  * Created by xianpeng.xia
  * on 2020/9/26 4:33 下午
+ *
+ * 冒泡排序
  * <p>
  * 比较相邻元素，如果第一个比第二个大 就交换他们两个
  * 对每一对相邻元素作相同操作 从开始的第一对到结尾的最后一对，得到最后的元素是最大的

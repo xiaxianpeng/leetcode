@@ -5,6 +5,8 @@ import org.example.util.ArrayGenerator;
 /**
  * Created by xianpeng.xia
  * on 2020/9/26 9:02 下午
+ * 插入排序
+ *
  * 将第一待排序序列的第一个元素看成有序序列，把第二个元素到最后一个元素当成未排序序列
  * 从头到尾依次扫描未排序序列，将扫描到的每个元素插入到有序序列的适当位置
  */
