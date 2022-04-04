@@ -13,7 +13,9 @@ public class FindNoSortedArrayMedianNum {
 
     public static double findMedianNum(int[] nums) {
 
+        // 若母节点的值恒小于等于子节点的值，此堆称为最小堆（min heap）；
         PriorityQueue<Integer> minPQ = new PriorityQueue<>();
+        // 若母节点的值恒大于等于子节点的值，此堆称为最大堆（max heap）；
         PriorityQueue<Integer> maxPQ = new PriorityQueue<>((o1, o2) -> o2 - o1);
 
         int len = nums.length;
