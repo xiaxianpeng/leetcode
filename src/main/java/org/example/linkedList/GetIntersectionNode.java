@@ -15,6 +15,15 @@ package org.example.linkedList;
  */
 public class GetIntersectionNode {
 
+    public static ListNode intersectionNode(ListNode headA, ListNode headB) {
+        ListNode p1 = headA, p2 = headB;
+        while (p1 != p2) {
+            p1 = p1 != null ? p1.next : p2;
+            p2 = p2 != null ? p2.next : p1;
+        }
+        return p1;
+    }
+
     static ListNode getIntersectionNode(ListNode headA, ListNode headB) {
         // p1指向A链表的头节点，p2指向B链表的头节点，
         ListNode p1 = headA, p2 = headB;
@@ -43,7 +52,8 @@ public class GetIntersectionNode {
         ListNode listNodeC = new ListNode(new int[]{2, 4});
         listNodeA.next = listNodeC;
         listNodeB.next = listNodeC;
-        ListNode intersectionNode = getIntersectionNode(listNodeA, listNodeB);
+
+        ListNode intersectionNode = intersectionNode(listNodeA, listNodeB);
         System.out.println(intersectionNode);
     }
 }
