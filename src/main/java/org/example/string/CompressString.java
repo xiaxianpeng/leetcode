@@ -3,6 +3,8 @@ package org.example.string;
 /**
  * @author xianpeng.xia
  * on 2022/4/5 2:56 PM
+ *
+ * 压缩字符串
  */
 public class CompressString {
 
