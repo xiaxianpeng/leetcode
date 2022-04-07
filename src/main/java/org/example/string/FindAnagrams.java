@@ -58,7 +58,7 @@ public class FindAnagrams {
         int[] pCnt = new int[26];
         for (int i = 0; i < m; i++) {
             pCnt[p.charAt(i) - 'a']++;
-            sCnt[p.charAt(i) - 'a']++;
+            sCnt[s.charAt(i) - 'a']++;
         }
         //
         if (Arrays.equals(sCnt, pCnt)) {
