@@ -36,10 +36,17 @@ public class CountNodes {
         return 1 + countNodes(root.left) + countNodes(root.right);
     }
 
+    public static int count(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        return Math.max(count(root.left), count(root.right)) + 1;
+    }
+
     public static void main(String[] args) {
         TreeBuild treeBuild = new TreeBuild();
         TreeNode root = treeBuild.constructMaximumBinaryTree(new int[]{1, 2, 3, 4, 5});
-        int count = countNodes(root);
+        int count = count(root);
         System.out.println(count);
     }
 }
