@@ -43,7 +43,7 @@ public class FindMode {
             maxCount = 1;
             mode.add((Integer) root.val);
         } else {
-            if ((Integer) root.val == maxCount) {
+            if ((Integer) root.val == prev.val) {
                 // root.val重复的情况
                 curCount++;
                 if (curCount == maxCount) {
