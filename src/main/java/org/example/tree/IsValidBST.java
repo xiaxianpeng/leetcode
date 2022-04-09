@@ -35,4 +35,29 @@ public class IsValidBST<Integer> {
         return isValidBST(root.left, min, root)
             && isValidBST(root.right, root, max);
     }
+
+    /**
+     * @param root root
+     * 中序遍历，判断当前节点是都大于中序遍历的前一个节点
+     */
+    static long pre = Long.MIN_VALUE;
+
+    public static boolean isValid(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        // 访问左子树
+        if (!isValid(root.left)) {
+            return false;
+        }
+        //******中序遍历位置******
+        // 访问当前节点：如果当前节点小于等于中序遍历的前一个节点，说明不满足BST，返回 false；否则继续遍历。
+        if ((int) root.val <= pre) {
+            return false;
+        }
+        //**********************
+        pre = (int) root.val;
+        // 访问右子树
+        return isValid(root.right);
+    }
 }
