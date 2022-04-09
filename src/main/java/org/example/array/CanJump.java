@@ -40,7 +40,7 @@ public class CanJump {
         // 可以跳的最远位置
         int reach = 0;
         for (int i = 0; i < len; i++) {
-            if (i > reach) {
+            if (i > reach) {// i为跳不到位置
                 return false;
             }
             reach = Math.max(reach, i + nums[i]);
