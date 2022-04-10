@@ -37,17 +37,17 @@ public class SortedArrayToBST {
      * 因此本题等同于根据中序遍历的序列恢复二叉搜索树。
      */
     public static TreeNode sortedArrayToBST(int[] nums) {
-        return dsf(nums, 0, nums.length - 1);
+        return dfs(nums, 0, nums.length - 1);
     }
 
-    private static TreeNode dsf(int[] nums, int lo, int hi) {
+    private static TreeNode dfs(int[] nums, int lo, int hi) {
         if (lo > hi) {
             return null;
         }
         int mid = lo + (hi - lo) / 2;
         TreeNode root = new TreeNode(nums[mid]);
-        root.left = dsf(nums, lo, mid - 1);
-        root.right = dsf(nums, mid + 1, hi);
+        root.left = dfs(nums, lo, mid - 1);
+        root.right = dfs(nums, mid + 1, hi);
         return root;
     }
 

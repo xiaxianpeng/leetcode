@@ -39,7 +39,7 @@ public class Solve {
 
     private static int n, m;
 
-    public static void solveDSF(char[][] board) {
+    public static void solvedfs(char[][] board) {
         //
         n = board.length;
         if (n == 0) {
@@ -93,7 +93,7 @@ public class Solve {
             {'X', 'O', 'X', 'X'}
         };
         System.out.println(Arrays.deepToString(board));
-        solveDSF(board);
+        solvedfs(board);
         System.out.println(Arrays.deepToString(board));
     }
 }

@@ -40,11 +40,11 @@ package org.example.linkedList;
 public class Flatten {
 
     public static Node flatten(Node head) {
-        dsf(head);
+        dfs(head);
         return head;
     }
 
-    private static Node dsf(Node node) {
+    private static Node dfs(Node node) {
         Node cur = node;
         // 记录链表的最后一个节点
         Node last = null;
@@ -52,7 +52,7 @@ public class Flatten {
             Node next = cur.next;
             // 如果有子节点
             if (cur.child != null) {
-                Node childLast = dsf(cur.child);
+                Node childLast = dfs(cur.child);
                 // 将node与child相连
                 cur.next = cur.child;
                 cur.child.prev = cur;
