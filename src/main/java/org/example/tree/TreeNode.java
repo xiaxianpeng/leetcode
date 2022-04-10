@@ -5,13 +5,13 @@ package org.example.tree;
  * on 2022/3/28 7:25 PM
  * 二叉树结构
  */
-public class TreeNode<E> {
+public class TreeNode {
 
-    public E val;
-    public TreeNode<E> left;
-    public TreeNode<E> right;
+    public int val;
+    public TreeNode left;
+    public TreeNode right;
 
-    public TreeNode(E val) {
+    public TreeNode(int val) {
         this.val = val;
         left = null;
         right = null;

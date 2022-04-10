@@ -57,4 +57,17 @@ public class Codec {
         root.right = deserialize(nodes);
         return root;
     }
+
+    public static class TreeNode {
+
+        public String val;
+        public TreeNode left;
+        public TreeNode right;
+
+        public TreeNode(String val) {
+            this.val = val;
+            left = null;
+            right = null;
+        }
+    }
 }

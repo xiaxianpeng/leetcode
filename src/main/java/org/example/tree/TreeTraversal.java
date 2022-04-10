@@ -18,7 +18,7 @@ public class TreeTraversal {
      * @return 中序遍历结果
      * 中序遍历
      */
-    public List<Integer> inorderTraversal(TreeNode<Integer> root) {
+    public List<Integer> inorderTraversal(TreeNode root) {
         LinkedList<Integer> res = new LinkedList<>();
         if (root == null) {
             return res;
@@ -34,7 +34,7 @@ public class TreeTraversal {
      * @return 前序遍历结果
      * 前序遍历
      */
-    public List<Integer> preOrderTraversal(TreeNode<Integer> root) {
+    public List<Integer> preOrderTraversal(TreeNode root) {
         LinkedList<Integer> res = new LinkedList<>();
         if (root == null) {
             return res;
@@ -50,7 +50,7 @@ public class TreeTraversal {
      * @return 后序遍历结果
      * 后序遍历
      */
-    public List<Integer> postorderTraversal(TreeNode<Integer> root) {
+    public List<Integer> postorderTraversal(TreeNode root) {
         LinkedList<Integer> res = new LinkedList<>();
         if (root == null) {
             return res;
@@ -66,7 +66,7 @@ public class TreeTraversal {
      * @return 后序遍历结果
      * 后序遍历
      */
-    public List<Integer> levelOrderTraversal(TreeNode<Integer> root) {
+    public List<Integer> levelOrderTraversal(TreeNode root) {
         LinkedList<Integer> res = new LinkedList<>();
         if (root == null) {
             return res;
@@ -80,7 +80,7 @@ public class TreeTraversal {
             List<Integer> level = new LinkedList<>();
             // for循环控制每一层从左到右遍历
             for (int s = 0; s < size; s++) {
-                TreeNode<Integer> cur = queue.poll();
+                TreeNode cur = queue.poll();
                 level.add(cur.val);
                 if (cur.left != null) {
                     queue.offer(cur.left);
@@ -100,7 +100,7 @@ public class TreeTraversal {
      *
      * https://leetcode-cn.com/problems/binary-tree-zigzag-level-order-traversal/solution/er-cha-shu-de-ju-chi-xing-ceng-xu-bian-l-qsun/
      */
-    public static List<List<Integer>> zigzagLevelOrder(TreeNode<Integer> root) {
+    public static List<List<Integer>> zigzagLevelOrder(TreeNode root) {
         List<List<Integer>> ans = new ArrayList<>();
         if (root == null) {
             return ans;
@@ -114,7 +114,7 @@ public class TreeTraversal {
             Deque<Integer> levelQueue = new LinkedList<>();
             int size = queue.size();
             for (int i = 0; i < size; i++) {
-                TreeNode<Integer> curNode = queue.poll();
+                TreeNode curNode = queue.poll();
                 if (isOrderLeft) {//如果从左至右，我们每次将被遍历到的元素插入至双端队列的末尾。
                     levelQueue.offerLast(curNode.val);
                 } else {//如果从右至左，我们每次将被遍历到的元素插入至双端队列的头部。
@@ -136,11 +136,11 @@ public class TreeTraversal {
     }
 
     public static void main(String[] args) {
-        TreeNode<Integer> root = new TreeNode<>(3);
-        root.left = new TreeNode<>(9);
-        root.right = new TreeNode<>(20);
-        root.right.left = new TreeNode<>(15);
-        root.right.right = new TreeNode<>(7);
+        TreeNode root = new TreeNode(3);
+        root.left = new TreeNode(9);
+        root.right = new TreeNode(20);
+        root.right.left = new TreeNode(15);
+        root.right.right = new TreeNode(7);
 
         List<List<Integer>> ans = zigzagLevelOrder(root);
         System.out.println(ans);
