@@ -22,7 +22,7 @@ package org.example.string;
  *
  * 链接：https://leetcode-cn.com/problems/a7VOhD
  */
-public class CountSubstring {
+public class CountPalindromeSubstring {
 
     /**
      * 遍历字符串，对每个字符，都看作回文的中心，
