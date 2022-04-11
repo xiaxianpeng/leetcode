@@ -1,6 +1,7 @@
 package org.example.array;
 
 import java.util.Arrays;
+import java.util.Stack;
 
 /**
  * @author xianpeng.xia
@@ -52,12 +53,33 @@ public class MergeTwoArray {
         System.arraycopy(nums2, 0, nums1, 0, len2 + 1);
     }
 
+
+    public static int[] mergeTwoArray(int[] nums1, int[] nums2) {
+        int len1 = nums1.length;
+        int len2 = nums2.length;
+        int[] ans = new int[nums1.length + nums2.length];
+        int p1 = 0;
+        int p2 = 0;
+        int cur;
+        while (p1 < len1 || p2 < len2) {
+            if (p1 == len1) { //转向nums2
+                cur = nums2[p2++];
+            } else if (p2 == len2) { //转向nums1
+                cur = nums1[p1++];
+            } else if (nums1[p1] < nums2[p2]) { // nums1[p1++]
+                cur = nums1[p1++];
+            } else { // nums2[p2++]
+                cur = nums2[p2++];
+            }
+            ans[p1 + p2 - 1] = cur;
+        }
+        return ans;
+    }
+
     public static void main(String[] args) {
-        int[] nums1 = new int[]{1, 2, 3, 0, 0, 0};
-        int m = 3;
-        int[] nums2 = new int[]{2, 5, 6};
-        int n = 3;
-        merge(nums1, m, nums2, n);
-        System.out.println(Arrays.toString(nums1));
+        int[] nums1 = new int[]{1, 2, 4, 5, 6, 8};
+        int[] nums2 = new int[]{2, 8, 34, 56};
+        int[] ans = mergeTwoArray(nums1, nums2);
+        System.out.println(Arrays.toString(ans));
     }
 }
