@@ -1,7 +1,6 @@
 package org.example.array;
 
 import java.util.Arrays;
-import java.util.Stack;
 
 /**
  * @author xianpeng.xia
