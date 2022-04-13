@@ -5,6 +5,7 @@ import java.util.Random;
 /**
  * @date 2021/03/06
  * @time 14:11
+ * 并查集
  */
 public class UnionFind implements UF {
 
