@@ -7,7 +7,13 @@ package org.example.tree;
  */
 public class MaxDepth {
 
+    /**
+     * // 记录遍历到的节点的深度
+     */
     int depth = 0;
+    /**
+     * // 记录最大深度
+     */
     int res = 0;
 
     /**
@@ -20,12 +26,12 @@ public class MaxDepth {
 
     void traverse(TreeNode root) {
         if (root == null) {
+            // 到达叶子节点，更新最大深度
+            res = Math.max(res, depth);
             return;
         }
         // 前序遍历位置
         depth++;
-        // 遍历的过程中记录最大深度
-        res = Math.max(res, depth);
         traverse(root.left);
         traverse(root.right);
         // 后序遍历位置
@@ -34,10 +40,10 @@ public class MaxDepth {
 
 
     /**
-     * 回溯算法思路
+     * dp算法思路
      * 输⼊⼀个节点，返回以该节点为根的⼆叉树的最⼤深度
      */
-    public int maxDepth_(TreeNode root) {
+    public static int maxDepth_(TreeNode root) {
         if (root == null) {
             return 0;
         }
@@ -45,6 +51,18 @@ public class MaxDepth {
         int leftMaxDepth = maxDepth_(root.left);
         int rightMaxDepth = maxDepth_(root.right);
         // 根据左右⼦树的最⼤深度推出原⼆叉树的最⼤深度
-        return 1 + Math.max(leftMaxDepth, rightMaxDepth);
+        return Math.max(leftMaxDepth, rightMaxDepth) + 1;
+    }
+
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(0);
+        root.left = new TreeNode(1);
+        root.right = new TreeNode(2);
+        root.left.left = new TreeNode(3);
+        root.left.right = new TreeNode(4);
+        root.right.left = new TreeNode(5);
+
+        System.out.println(new MaxDepth().maxDepth(root));
+        System.out.println(maxDepth_(root));
     }
 }
