@@ -5,7 +5,7 @@ package org.example.tree;
  * on 2022/3/28 8:45 PM
  * 给定⼀棵树的前序遍历结果 preorder 与中序遍历结果 inorder，请构造⼆叉树并返回其根节点。
  */
-public class TreeBuild {
+public class ConstructBinaryTree {
 
     /**
      * @param preorder 前序遍历
