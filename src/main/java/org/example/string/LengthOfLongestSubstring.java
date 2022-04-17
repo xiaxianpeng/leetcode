@@ -2,6 +2,7 @@ package org.example.string;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -11,27 +12,30 @@ import java.util.Set;
  */
 public class LengthOfLongestSubstring {
 
-    public static int lengthOfLongestSubstring(String s) {
-        //  哈希集合，记录每个字符是否出现过
-        Set<Character> occ = new HashSet<>();
-        int n = s.length();
-        // 右指针，初始值为 -1，相当于我们在字符串的左边界的左侧，还没有开始移动
-        int rk = -1, ans = 0;
-        for (int i = 0; i < n; i++) {
-            if (i != 0) {
-                // 左指针向右移动一格，移除一个字符
-                occ.remove(s.charAt(i - 1));
+    /**
+     * @param s s
+     * @return 无重复字符的最长子串长度
+     *
+     * https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/solution/hua-jie-suan-fa-3-wu-zhong-fu-zi-fu-de-zui-chang-z/
+     */
+    public static int longestLengthOfSubstring(String s) {
+        // key 值为字符，value 值为字符位置 +1，加 1 表示从字符位置后一个才开始不重复
+        Map<Character, Integer> charIndex = new HashMap<>();
+        int length = s.length(), ans = 0;
+        // 定义不重复子串的开始位置为 start，结束位置为 end
+        for (int end = 0, start = 0; end < length; end++) {
+            //随着 end 不断遍历向后，会遇到与 [start, end] 区间内字符相同的情况，此时将字符作为 key 值，获取其 value 值，并更新 start，此时 [start, end] 区间内不存在重复字符
+            //无论是否更新 start，都会更新其 map 数据结构和结果 ans。
+            Character alpha = s.charAt(end);
+            if (charIndex.containsKey(alpha)) {
+                start = Math.max(charIndex.get(alpha), start);
             }
-            while (rk + 1 < n && !occ.contains(s.charAt(rk + 1))) {
-                // 不断地移动右指针
-                occ.add(s.charAt(rk + 1));
-                rk++;
-            }
-            System.out.println(occ);
-            ans = Math.max(ans, rk - i + 1);
+            ans = Math.max(ans, end - start + 1);
+            charIndex.put(alpha, end + 1);
         }
         return ans;
     }
+
 
     public static int lengthOfLongestSubstringSolution(String s) {
         if (s.length() == 0) {
@@ -70,10 +74,30 @@ public class LengthOfLongestSubstring {
         return max;
     }
 
+    public static int lengthOfLongestSubstring(String s) {
+        //  哈希集合，记录每个字符是否出现过
+        Set<Character> occ = new HashSet<>();
+        int n = s.length();
+        // 右指针，初始值为 -1，相当于我们在字符串的左边界的左侧，还没有开始移动
+        int rk = -1, ans = 0;
+        for (int i = 0; i < n; i++) {
+            if (i != 0) {
+                // 左指针向右移动一格，移除一个字符
+                occ.remove(s.charAt(i - 1));
+            }
+            while (rk + 1 < n && !occ.contains(s.charAt(rk + 1))) {
+                // 不断地移动右指针
+                occ.add(s.charAt(rk + 1));
+                rk++;
+            }
+            System.out.println(occ);
+            ans = Math.max(ans, rk - i + 1);
+        }
+        return ans;
+    }
+
     public static void main(String[] args) {
-        int lengthOfLongestSubstring = lengthOfLongestSubstring("abcabcbb");
-        int length = lengthOfLongestSubstringSolution("abcabcbb");
-        System.out.println(lengthOfLongestSubstring);
-        System.out.println(length);
+        int longestLengthOfSubstring = longestLengthOfSubstring("abcabcbb");
+        System.out.println(longestLengthOfSubstring);
     }
 }
