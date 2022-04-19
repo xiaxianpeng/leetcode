@@ -30,6 +30,8 @@ import java.util.List;
  *
  * 输入：n = 1, k = 1
  * 输出：[[1]]
+ *
+ * https://leetcode-cn.com/problems/combinations/
  */
 public class Combine {
 

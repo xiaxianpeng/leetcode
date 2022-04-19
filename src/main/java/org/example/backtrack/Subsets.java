@@ -24,6 +24,8 @@ import java.util.List;
  *
  * 输入：nums = [0]
  * 输出：[[],[0]]
+ *
+ * https://leetcode-cn.com/problems/subsets/
  */
 public class Subsets {
 

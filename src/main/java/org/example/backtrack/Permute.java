@@ -26,6 +26,8 @@ import java.util.List;
  *
  * 输入：nums = [1]
  * 输出：[[1]]
+ *
+ * https://leetcode-cn.com/problems/permutations/
  */
 public class Permute {
 
