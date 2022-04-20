@@ -1,4 +1,4 @@
-package org.example.array;
+package org.example.array.nsum;
 
 import java.util.Arrays;
 import java.util.HashMap;

@@ -1,6 +1,4 @@
-package org.example.array;
-
-import com.sun.tools.javac.tree.Pretty;
+package org.example.array.nsum;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,6 +21,7 @@ import java.util.List;
  * 若和小于 00，说明 nums[L]nums[L] 太小，LL 右移
  */
 public class ThreeSum {
+
     public static List<List<Integer>> threeSum(int[] nums) {
         List<List<Integer>> lists = new ArrayList<>();
         // 先排序
