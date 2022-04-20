@@ -83,8 +83,52 @@ public class CheckInclusion {
         return false;
     }
 
+
+    /**
+     * 初始化将滑动窗口压满，取得第一个滑动窗口的目标值
+     * 继续滑动窗口，每往前滑动一次，需要删除一个和添加一个元素
+     * https://leetcode-cn.com/problems/permutation-in-string/solution/an-zi-fu-hua-dong-ruo-bao-liao-lai-shi-s-h2xq/
+     */
+    public static boolean checkIfInclusion(String t, String s) {
+        int m = t.length(), n = s.length();
+        if (m > n) {
+            return false;
+        }
+
+        int[] cnt = new int[26];
+        for (char c : t.toCharArray()) {
+            cnt[c - 'a']++;
+        }
+
+        int[] cur = new int[26];
+        for (int i = 0; i < m; i++) {
+            cur[s.charAt(i) - 'a']++;
+        }
+        if (check(cnt, cur)) {
+            return true;
+        }
+
+        for (int i = m; i < n; i++) {
+            cur[s.charAt(i) - 'a']++;
+            cur[s.charAt(i - m) - 'a']--;
+            if (check(cnt, cur)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean check(int[] cnt1, int[] cnt2) {
+        for (int i = 0; i < 26; i++) {
+            if (cnt1[i] != cnt2[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
-        String t = "ab", s = "eidbaooo";
-        System.out.println(checkInclusion(t, s));
+        String t = "ab", s = "eidboaoo";
+        System.out.println(checkIfInclusion(t, s));
     }
 }
