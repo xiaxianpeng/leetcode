@@ -37,19 +37,23 @@ public class BinarySearch {
      * 非递归实现二分查找法
      */
     public static <E extends Comparable<E>> int nonRecursiveSearch(E[] data, E target) {
-        int l = 0;
-        int r = data.length - 1;
-        while (l <= r) {
-            int mid = (r - l) / 2 + l;
+        int L = 0;
+        int R = data.length - 1;
+        // 因为初始化 right 的赋值是 nums.length - 1，[left, right] 其实就是每次进行搜索的区间。所以 L <= R
+        while (L <= R) {
+            int mid = (R - L) / 2 + L;
             if (data[mid].compareTo(target) == 0) {
                 return mid;
             }
+            // 本算法的搜索区间是两端都闭的，即 [left, right]。
+            // 那么当我们发现索引 mid 不是要找的 target 时，下一步应该去搜索去搜索区间 [left, mid-1] 或者区间 [mid+1, right]
+            // 因为 mid 已经搜索过，应该从搜索区间中去除。
             if (data[mid].compareTo(target) < 0) {
                 // target在右侧
-                l = mid + 1;
+                L = mid + 1;
             } else {
                 // target在左侧
-                r = mid - 1;
+                R = mid - 1;
             }
         }
         return -1;
