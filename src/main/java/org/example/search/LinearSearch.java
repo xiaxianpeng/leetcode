@@ -1,6 +1,5 @@
 package org.example.search;
 
-import org.example.bean.Person;
 
 /**
  * @author xianpeng.xia
@@ -29,11 +28,5 @@ public class LinearSearch {
         Integer[] data = {24, 18, 12, 9, 16, 66, 32, 4};
         int index = LinearSearch.search(data, 16);
         System.out.println(index);
-
-        Person[] personList = {new Person("A"), new Person("B"), new Person("C")};
-        Person personA = new Person("A");
-        index = LinearSearch.search(personList, personA);
-        System.out.println(index);
-
     }
 }

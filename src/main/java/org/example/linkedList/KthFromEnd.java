@@ -1,6 +1,5 @@
 package org.example.linkedList;
 
-import org.example.bean.ListNode;
 
 /**
  * @date 2020/09/25
@@ -21,30 +20,15 @@ public class KthFromEnd {
     public static ListNode getKthFromEnd(ListNode head, int k) {
         ListNode former = head, latter = head;
         for (int i = 0; i < k; i++) {
-            former = former.getNextNode();
+            former = former.next;
         }
         while (former != null) {
-            former = former.getNextNode();
-            latter = latter.getNextNode();
+            former = former.next;
+            latter = latter.next;
         }
         return latter;
     }
 
     public static void main(String[] args) {
-        ListNode headNode = new ListNode(1);
-        ListNode secondNode = new ListNode(2);
-        ListNode thirdNode = new ListNode(3);
-        ListNode fourthNode = new ListNode(4);
-        ListNode fifthNode = new ListNode(5);
-        ListNode sixthNode = new ListNode(6);
-
-        headNode.setNextNode(secondNode);
-        secondNode.setNextNode(thirdNode);
-        thirdNode.setNextNode(fourthNode);
-        fourthNode.setNextNode(fifthNode);
-        fifthNode.setNextNode(sixthNode);
-
-        ListNode kthFromEnd = getKthFromEnd(headNode, 2);
-        System.out.println(kthFromEnd);
     }
 }
