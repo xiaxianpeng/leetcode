@@ -21,51 +21,6 @@ public class MergeSort {
     private MergeSort() {
     }
 
-    public static int[] sort(int[] arr, int left, int right) {
-        if (left == right) {
-            return arr;
-        }
-        int mid = left + (right - left) / 2;
-        //左边排序
-        sort(arr, left, mid);
-        //右边排序
-        sort(arr, mid + 1, right);
-        //归并
-        merge(arr, left, mid + 1, right);
-        return arr;
-    }
-
-    /**
-     * 保证左右排好序
-     *
-     * @param arr 数组
-     * @param leftPtr 左指针
-     * @param rightPtr 右指针
-     * @param rightBound 右边界
-     */
-    static void merge(int[] arr, int leftPtr, int rightPtr, int rightBound) {
-        int mid = rightPtr - 1;
-        int[] temp = new int[rightBound - leftPtr + 1];
-        int i = leftPtr, j = rightPtr, k = 0;
-
-        while (i <= mid && j <= rightBound) {
-            temp[k++] = arr[i] <= arr[j] ? arr[i++] : arr[j++];
-        }
-
-        while (i <= mid) {
-            temp[k++] = arr[i++];
-        }
-
-        while (j <= rightBound) {
-            temp[k++] = arr[j++];
-        }
-
-        for (int m = 0; m < temp.length; m++) {
-            arr[leftPtr + m] = temp[m];
-        }
-        SortUtil.print(arr);
-    }
-
     public static <E extends Comparable<E>> void sort(E[] arr) {
         E[] temp = Arrays.copyOf(arr, arr.length);
         sort(arr, 0, arr.length - 1, temp);

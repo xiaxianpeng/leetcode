@@ -20,49 +20,6 @@ public class QuickSort {
     private QuickSort() {
     }
 
-    public static int[] sort(int[] arr, int left, int right) {
-        if (left >= right) {
-            return arr;
-        }
-        int index = partition(arr, left, right);
-        sort(arr, left, index - 1);
-        sort(arr, index + 1, right);
-        return arr;
-    }
-
-    /**
-     * @param arr        数组
-     * @param leftBound  左边界 以最左为基准
-     * @param rightBound 右边界
-     * @return 轴的位置
-     */
-    private static int partition(int[] arr, int leftBound, int rightBound) {
-        int pivot = arr[rightBound];
-        int left = leftBound;
-        int right = rightBound - 1;
-        while (left <= right) {
-            SortUtil.print(arr);
-
-            while (left <= right && arr[left] <= pivot) {
-                left++;
-            }
-
-            while (left <= right && arr[right] > pivot) {
-                right--;
-            }
-            //交换左边比pivot大的数,且右边比pivot小的数
-            if (left < right) {
-                SortUtil.swap(arr, left, right);
-            }
-
-            SortUtil.print(arr);
-        }
-        // 将基数放到中间位置
-        SortUtil.swap(arr, left, rightBound);
-        SortUtil.print(arr);
-        return left;
-    }
-
     private static <E extends Comparable<E>> void sort(E[] arr) {
         sort(arr, 0, arr.length - 1);
     }
