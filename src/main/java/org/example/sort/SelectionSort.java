@@ -1,6 +1,5 @@
 package org.example.sort;
 
-import org.example.bean.Person;
 
 /**
  * Created by xianpeng.xia
@@ -42,10 +41,5 @@ public class SelectionSort {
     public static void main(String[] args) {
         Integer[] arr = new Integer[]{6, 3, 5, 2, 22, 1};
         sort(arr);
-
-        Person[] people = {new Person("a", 22), new Person("b", 21), new Person("c", 15)};
-        sort(people);
-        boolean sorted = SortUtil.isSorted(people);
-        System.out.println(sorted);
     }
 }
