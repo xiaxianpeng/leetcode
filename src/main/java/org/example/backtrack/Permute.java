@@ -45,12 +45,19 @@ public class Permute {
      * 主函数，输入一组不重复的数字，返回它们的全排列
      */
     public List<List<Integer>> permute(int[] nums) {
+        // 「路径」中的元素会被标记为 true，避免重复使用
         used = new boolean[nums.length];
         backtrack(nums);
         return ans;
     }
 
+    /**
+     * // 路径：记录在 track 中
+     * // 选择列表：nums 中不存在于 track 的那些元素（used[i] 为 false）
+     * // 结束条件：nums 中的元素全都在 track 中出现
+     */
     private void backtrack(int[] nums) {
+        /*  触发结束条件 */
         // base case，到达叶子结点
         if (track.size() == nums.length) {
             // 收集叶子结点上的值
@@ -68,7 +75,7 @@ public class Permute {
             // 做选择
             used[i] = true;
             track.addLast(nums[i]);
-            // 进入下一层回溯树
+            // 进入下一层决策树
             backtrack(nums);
             // 取消选择
             track.removeLast();
