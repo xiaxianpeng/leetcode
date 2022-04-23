@@ -1,4 +1,4 @@
-package org.example.recursion;
+package org.example.math;
 
 /**
  * @author xianpeng.xia
@@ -39,13 +39,8 @@ public class Pow {
         }
 
         // 根据n的奇偶性递归
-        if (n % 2 != 0) {//n为奇数
-            double half = powHelper(x, n / 2);
-            return half * half * x;
-        } else {//n为偶数
-            double half = powHelper(x, n / 2);
-            return half * half;
-        }
+        double half = powHelper(x, n / 2);
+        return n % 2 != 0 ? half * half * x : half * half;
     }
 
     public static void main(String[] args) {
