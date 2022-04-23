@@ -8,6 +8,10 @@ import java.util.Stack;
  * @date 2021/02/04
  * @time 16:35
  * 二分搜索树(Binary Search Tree)
+ *
+ * 特性
+ * 1、对于 BST 的每一个节点 node，左子树节点的值都比 node 的值要小，右子树节点的值都比 node 的值大。
+ * 2、对于 BST 的每一个节点 node，它的左侧子树和右侧子树都是 BST。
  */
 public class BST<E extends Comparable<E>> {
 
