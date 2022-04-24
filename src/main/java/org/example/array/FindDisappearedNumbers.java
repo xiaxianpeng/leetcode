@@ -43,18 +43,24 @@ public class FindDisappearedNumbers {
      * 来源：力扣（LeetCode）
      * 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
      */
-    public List<Integer> findDisappearedNumbers(int[] nums) {
+    public static List<Integer> findDisappearedNumbers(int[] nums) {
         int n = nums.length;
         for (int num : nums) {
-            int x = (num - 1) / n;
+            int x = (num - 1) % n;
             nums[x] = nums[x] + n;
         }
         List<Integer> ret = new ArrayList<>();
         for (int i = 0; i < n; i++) {
-            if (nums[i] < n) {
+            if (nums[i] <= n) {
                 ret.add(i + 1);
             }
         }
         return ret;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = new int[]{4, 3, 2, 7, 8, 2, 3, 1};
+        List<Integer> disappearedNumbers = findDisappearedNumbers(nums);
+        System.out.println(disappearedNumbers);
     }
 }
