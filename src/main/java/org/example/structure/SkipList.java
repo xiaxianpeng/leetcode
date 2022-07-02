@@ -110,6 +110,36 @@ public class SkipList {
         }
     }
 
+    public void insert(int value) {
+        int level = head.forwards[0] == null ? 1 : randomLevel();
+        // 每次只增加一层，如果条件满足
+        if (level > levelCount) {
+            level = ++levelCount;
+        }
+
+        Node newNode = new Node(level);
+        newNode.data = value;
+        Node p = head;
+
+        // 从最大层开始查找，找到前一节点，通过--i，移动到下层再开始查找
+        for (int i = levelCount - 1; i >= 0; --i) {
+            while (p.forwards[i] != null && p.forwards[i].data < value) {
+                // 找到前一节点
+                p = p.forwards[i];
+            }
+            // levelCount 会 > level，所以加上判断
+            if (level > i) {
+                if (p.forwards[i] == null) {
+                    p.forwards[i] = newNode;
+                } else {
+                    Node next = p.forwards[i];
+                    p.forwards[i] = newNode;
+                    newNode.forwards[i] = next;
+                }
+            }
+        }
+    }
+
     public void delete(int value) {
 
         Node[] update = new Node[levelCount];
@@ -157,7 +187,7 @@ public class SkipList {
     }
 
     public static void main(String[] args) {
-        SkipList skipList = new SkipList();
+        /*SkipList skipList = new SkipList();
         skipList.insert(1, 3);
         skipList.insert(2, 3);
         skipList.insert(3, 2);
@@ -165,7 +195,17 @@ public class SkipList {
         skipList.insert(5, 10);
         skipList.insert(6, 4);
         skipList.insert(8, 5);
-        skipList.insert(7, 4);
+        skipList.insert(7, 4);*/
+
+        SkipList skipList = new SkipList();
+        skipList.insert(1);
+        skipList.insert(2);
+        skipList.insert(6);
+        skipList.insert(7);
+        skipList.insert(8);
+        skipList.insert(3);
+        skipList.insert(4);
+        skipList.insert(5);
         skipList.printAll();
 
 
