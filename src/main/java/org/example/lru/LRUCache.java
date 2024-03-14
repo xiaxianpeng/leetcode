@@ -5,7 +5,7 @@ import java.util.LinkedHashMap;
 /**
  * @author xianpeng.xia
  * on 2022/4/1 4:54 PM
- * LRU缓存
+ * LRU(最近最少使用)缓存
  */
 public class LRUCache {
 
