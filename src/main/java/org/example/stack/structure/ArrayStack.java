@@ -1,4 +1,4 @@
-package org.example.stack;
+package org.example.stack.structure;
 
 import org.example.array.Array;
 

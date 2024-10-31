@@ -1,4 +1,4 @@
-package org.example.stack;
+package org.example.stack.structure;
 
 /**
  * @date 2021/01/18
