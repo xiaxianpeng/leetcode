@@ -1,4 +1,4 @@
-package org.example.queue;
+package org.example.queue.structure;
 
 /**
  * @date 2021/01/19

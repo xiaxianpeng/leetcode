@@ -1,7 +1,5 @@
 package org.example.queue.structure;
 
-import org.example.queue.Queue;
-
 /**
  * @author xianpeng.xia
  * on 2021/1/20 10:48 下午

@@ -1,5 +1,6 @@
 package org.example.queue;
 
+import org.example.queue.structure.PriorityQueue;
 import org.example.sort.SortUtil;
 
 /**

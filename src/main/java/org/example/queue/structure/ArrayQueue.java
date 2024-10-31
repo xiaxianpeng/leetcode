@@ -1,7 +1,6 @@
 package org.example.queue.structure;
 
 import org.example.array.Array;
-import org.example.queue.Queue;
 
 /**
  * @author xianpeng.xia
