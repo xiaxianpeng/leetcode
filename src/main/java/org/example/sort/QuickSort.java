@@ -1,7 +1,7 @@
 package org.example.sort;
 
-import java.net.Socket;
 import java.util.Random;
+
 import org.example.util.ArrayGenerator;
 
 /**
@@ -34,16 +34,21 @@ public class QuickSort {
     }
 
     private static <E extends Comparable<E>> int partition(E[] arr, int l, int r) {
-        //arr[l+1,j] < v,arr[j+1,i] >= v
+        // arr[l+1,j] < v,arr[j+1,i] >= v
+        // 初始化变量 j 为 l，j 用来跟踪小于基准元素的分区的末尾。
         int j = l;
         for (int i = l + 1; i <= r; i++) {
-            // 以arr[l]做轴
+            // 选择 arr[l] 作为基准元素（轴元素），这个元素通常被称为“pivot”
             if (arr[i].compareTo(arr[l]) < 0) {
+                // 如果当前元素 arr[i] 小于基准元素 arr[l]，则增加 j 的值，
+                // 然后将 arr[i] 与 arr[j] 交换位置。这个操作保证了 arr[l+1] 到 arr[j] 中的所有元素都小于基准元素。
                 j++;
                 SortUtil.swap(arr, i, j);
             }
         }
+        // 在循环结束后，将基准元素 arr[l] 交换到它的最终位置上，即 arr[j]，这时候 arr[j] 是数组中小于等于基准元素的最后一个元素。
         SortUtil.swap(arr, l, j);
+        // 函数返回索引 j，此时 arr[l, j-1] 包括的元素都小于 arr[j]，而 arr[j+1, r] 包括的元素都不小于 arr[j]。
         return j;
     }
 

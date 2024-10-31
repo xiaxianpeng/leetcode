@@ -66,15 +66,19 @@ public class MergeSort {
         int i = l, j = mid + 1;
         for (int k = l; k <= r; k++) {
             if (i > mid) {
+                // 当 i > mid 时，意味着第一个子数组中的所有元素都已经被处理，所以直接取第二个子数组中的元素放入 arr[k]。
                 arr[k] = temp[j];
                 j++;
             } else if (j > r) {
+                // 当 j > r 时，意味着第二个子数组中的所有元素都已经被处理，所以直接取第一个子数组中的元素放入 arr[k]。
                 arr[k] = temp[i];
                 i++;
             } else if (temp[i].compareTo(temp[j]) <= 0) {
+                // 当 temp[i] 小于或等于 temp[j] 时，取 temp[i] 放入 arr[k]。
                 arr[k] = temp[i];
                 i++;
             } else {
+                // 否则（temp[i] 大于 temp[j]），取 temp[j] 放入 arr[k]。
                 arr[k] = temp[j];
                 j++;
             }
