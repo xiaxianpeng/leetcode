@@ -1,4 +1,6 @@
-package org.example.queue;
+package org.example.queue.structure;
+
+import org.example.queue.Queue;
 
 /**
  * @author xianpeng.xia
