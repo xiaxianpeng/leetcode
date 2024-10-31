@@ -1,8 +1,6 @@
 package org.example.sort;
 
 
-import java.net.Socket;
-
 /**
  * Created by xianpeng.xia
  * on 2020/9/26 11:47 上午
@@ -33,6 +31,6 @@ public class Run {
         // 计数排序
         // SortUtil.check(arr, CountSort.sort(arr, 10000));a
         // 基数排序
-        SortUtil.check(arr, RadixSort.sort(arr));
+        SortUtil.check(arr, RadixSort.radixSort(arr));
     }
 }
