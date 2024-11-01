@@ -129,6 +129,8 @@ public class SkipList {
         if (level > levelCount) {
             level = ++levelCount;
         }
+        System.out.println("");
+        System.out.println("insert:" + value + ",level:" + level);
         // 2、创建一个新的节点
         // 创建一个新的节点 newNode，并将数据域设置为待插入的值 value。
         // newNode 的层级由之前确定的 level 指定。
@@ -205,16 +207,15 @@ public class SkipList {
     }
 
     public void printAll() {
-        Node p = head;
-        Node[] c = p.forwards;
-        Node[] d = c;
-        int maxLevel = c.length;
-        for (int i = maxLevel - 1; i >= 0; i--) {
-            do {
-                System.out.print((d[i] != null ? d[i].data : null) + ":" + i + "-------");
-            } while (d[i] != null && (d = d[i].forwards)[i] != null);
-            System.out.println();
-            d = c;
+        // 遍历每一层
+        for (int i = levelCount - 1; i >= 0; i--) {
+            System.out.print("Level " + i + ": ");
+            Node node = head.forwards[i]; // 从该层的头节点开始
+            while (node != null) {
+                System.out.print(node.data + " "); // 打印节点值
+                node = node.forwards[i]; // 移动到该层的下一个节点
+            }
+            System.out.println(); // 该层结束，打印换行
         }
     }
 
@@ -231,13 +232,21 @@ public class SkipList {
 
         SkipList skipList = new SkipList();
         skipList.insert(1);
+        skipList.printAll();
         skipList.insert(2);
+        skipList.printAll();
         skipList.insert(6);
+        skipList.printAll();
         skipList.insert(7);
+        skipList.printAll();
         skipList.insert(8);
+        skipList.printAll();
         skipList.insert(3);
+        skipList.printAll();
         skipList.insert(4);
+        skipList.printAll();
         skipList.insert(5);
+        skipList.printAll();
         skipList.printAll();
         System.out.println("find:" + skipList.find(5));
     }
