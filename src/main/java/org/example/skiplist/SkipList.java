@@ -1,4 +1,4 @@
-package org.example.structure;
+package org.example.skiplist;
 
 import java.util.Random;
 
