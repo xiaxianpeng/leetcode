@@ -5,7 +5,7 @@ import java.util.Random;
 /**
  * @author xianpeng.xia
  * on 2022/7/2 21:34
- *
+ * <p>
  * 跳表
  */
 public class SkipList {
@@ -52,17 +52,26 @@ public class SkipList {
     private Random random = new Random();
 
     public Node find(int value) {
+        // head 是指向跳表头部的指针，它有多个指针（forwards），每个指针对应跳表的一层。
+        // levelCount 表示跳表的总层数。通常情况下，层数是随机生成的，以保持跳表的平衡性。
         Node p = head;
-        // 从最大层开始查找，找到前一节点，通过--i，移动到下层在开始查找
+        // 1、从最大层head节点开始，也就是最上面一层的最左边。
+        // 2、使用一个 for 循环，从最高层 (levelCount - 1) 开始逐层向下遍历。每一次循环都是在一层中进行查找。
         for (int i = levelCount - 1; i >= 0; i--) {
+            // p.forwards[i] 表示第 i 层的第一个节点。
+            // 3、使用 while 循环水平遍历当前层的链表。如果当前节点的下一个节点 (p.forwards[i]) 非空，且该节点的数据值小于要查找的 value，就向右继续遍历。
+            // 4、当 while 循环结束时，意味着已经到达当前层中小于 value 的最大节点，或者到达了当前层的末尾。
             while (p.forwards[i] != null && p.forwards[i].data < value) {
                 // 找到前一节点
                 p = p.forwards[i];
             }
+            // 5、切换到下一层继续查找，直到到达最底层 (i == 0)。
         }
         if (p.forwards[0] != null && p.forwards[0].data == value) {
+            // 6、在最底层，检查 p.forwards[0] 是否为非空且数据值等于 value。如果是，说明找到了目标节点，返回该节点。
             return p.forwards[0];
         } else {
+            // 7、如果 p.forwards[0] 为空或数据值不等于 value，则说明该值不存在于跳表中，返回 null
             return null;
         }
     }
@@ -111,27 +120,39 @@ public class SkipList {
     }
 
     public void insert(int value) {
+        // 1、确定插入层级：
+        // 如果跳表是空的（即 head.forwards[0] 为空），则新节点的层级设置为 1
+        // 如果跳表不为空，通过 randomLevel() 函数随机一个层级 level。randomLevel() 根据一定的概率决定节点在跳表中的高度（层数）
         int level = head.forwards[0] == null ? 1 : randomLevel();
-        // 每次只增加一层，如果条件满足
+        // 如果随机得到的层级 level 大于当前跳表的层级 levelCount，则更新 level 为 levelCount + 1，
+        // 即跳表层数加一，因为跳表的层级每次最多增加一层。
         if (level > levelCount) {
             level = ++levelCount;
         }
-
+        // 2、创建一个新的节点
+        // 创建一个新的节点 newNode，并将数据域设置为待插入的值 value。
+        // newNode 的层级由之前确定的 level 指定。
         Node newNode = new Node(level);
         newNode.data = value;
-        Node p = head;
 
-        // 从最大层开始查找，找到前一节点，通过--i，移动到下层再开始查找
+        // 3、寻找插入位置：
+        Node p = head;
+        // 3.1、从跳表的头节点 head 和最高层开始搜索（即 levelCount - 1），逐一向下遍历每一层，直到第 0 层。
         for (int i = levelCount - 1; i >= 0; --i) {
+            // 3.2、在每一层中，向前遍历链表直到找到第一个值大于或等于 value 的节点的前一个节点 p。
             while (p.forwards[i] != null && p.forwards[i].data < value) {
                 // 找到前一节点
                 p = p.forwards[i];
             }
-            // levelCount 会 > level，所以加上判断
+            // 4、插入节点：
+            // 在每一层中，如果 level 大于当前层级 i，说明新节点 newNode 应当在这一层中插入。
             if (level > i) {
                 if (p.forwards[i] == null) {
+                    // 如果当前节点 p 的 forwards[i] 是空的，说明 p 是这层的最后一个节点，直接将 newNode 插入到 p 的后面。
                     p.forwards[i] = newNode;
                 } else {
+                    // 如果 p.forwards[i] 不为空，则将 newNode 插入到 p 和 p.forwards[i] 之间。
+                    // 即将 newNode 的 forwards[i] 指向 p.forwards[i]，然后将 p.forwards[i] 更新为 newNode。
                     Node next = p.forwards[i];
                     p.forwards[i] = newNode;
                     newNode.forwards[i] = next;
@@ -141,17 +162,28 @@ public class SkipList {
     }
 
     public void delete(int value) {
-
+        // 1、创建一个 update 数组，用来存储每一层中待删除元素的前驱节点（即在删除节点之前的节点）。这样我们可以在后面更新它们的指针。
         Node[] update = new Node[levelCount];
+        // 从跳表头节点 head 开始向下和向前遍历。
+        // 2、查找待删除节点的前驱：
         Node p = head;
         for (int i = levelCount - 1; i >= 0; --i) {
+            //从最高层（levelCount - 1）开始遍历，直到最底层（i = 0）。
+            //对于每一层，通过 while 循环向前移动，直到找到第一个数据值小于 value 的节点 p。
+            //记录下每一层中 value 的前驱节点到 update 数组中。
             while (p.forwards[i] != null && p.forwards[i].data < value) {
                 p = p.forwards[i];
             }
             update[i] = p;
         }
+        // 3、检查待删除节点是否存在：
+        // 判断 p.forwards[0] 是否非空并且数据值等于待删除的 value。如果是，说明找到了待删除节点。
         if (p.forwards[0] != null && p.forwards[0].data == value) {
+            // 4、执行删除：
+            // 如果找到待删除节点，再次遍历各层，检查每一层的前驱节点的后继节点是否是待删除节点。
             for (int i = levelCount - 1; i >= 0; --i) {
+                // 如果是，将前驱节点的后继指针（update[i].forwards[i]）更新为待删除节点的后继节点（update[i].forwards[i].forwards[i]），
+                // 从而在每一层中移除了待删除节点。
                 if (update[i].forwards[i] != null && update[i].forwards[i].data == value) {
                     update[i].forwards[i] = update[i].forwards[i].forwards[i];
                 }
@@ -207,7 +239,6 @@ public class SkipList {
         skipList.insert(4);
         skipList.insert(5);
         skipList.printAll();
-
-
+        System.out.println("find:" + skipList.find(5));
     }
 }
