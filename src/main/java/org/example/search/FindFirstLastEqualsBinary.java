@@ -3,7 +3,7 @@ package org.example.search;
 /**
  * 查找第一个值等于给定值的元素
  */
-public class FindFirstEqualsBinary {
+public class FindFirstLastEqualsBinary {
 
     public static int findFirstEqualsBinary(int[] arr, int val) {
         int low = 0;
