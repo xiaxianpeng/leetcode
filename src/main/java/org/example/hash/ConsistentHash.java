@@ -5,8 +5,10 @@ import java.util.TreeMap;
 
 /**
  * 一致性哈希
+ * doc:https://www.zsythink.net/archives/1182
  */
 public class ConsistentHash {
+
     private final SortedMap<Integer, String> circle = new TreeMap<>();
 
     public void addNode(String node) {
