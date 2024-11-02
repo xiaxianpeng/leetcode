@@ -148,25 +148,17 @@ public class BinarySearchTree {
     }
 
 
-    // 可视化打印二叉搜索树
     public void printTree() {
-        System.out.println("----------------------------------------------");
-        if (tree != null) {
-            // 获取树的最大高度
-            int maxLevel = maxLevel(tree);
-
-            // 打印树
-            printTreeInternal(Collections.singletonList(tree), 1, maxLevel);
-        }
+        int maxLevel = maxLevel(tree);
+        printNode(Collections.singletonList(tree), 1, maxLevel);
     }
 
-    private void printTreeInternal(List<Node> nodes, int level, int maxLevel) {
-        if (nodes.isEmpty() || isAllElementsNull(nodes)) {
+    private void printNode(List<Node> nodes, int level, int maxLevel) {
+        if (nodes.isEmpty() || isAllElementsNull(nodes))
             return;
-        }
 
         int floor = maxLevel - level;
-        int endgeLines = (int) Math.pow(2, (Math.max(floor - 1, 0)));
+        int edgeLines = (int) Math.pow(2, (Math.max(floor - 1, 0)));
         int firstSpaces = (int) Math.pow(2, (floor)) - 1;
         int betweenSpaces = (int) Math.pow(2, (floor + 1)) - 1;
 
@@ -186,57 +178,45 @@ public class BinarySearchTree {
 
             printWhitespaces(betweenSpaces);
         }
-        System.out.println("");
+        System.out.println();
 
-        for (int i = 1; i <= endgeLines; i++) {
+        for (int i = 1; i <= edgeLines; i++) {
             for (int j = 0; j < nodes.size(); j++) {
                 printWhitespaces(firstSpaces - i);
                 if (nodes.get(j) == null) {
-                    printWhitespaces(endgeLines + endgeLines + i + 1);
+                    printWhitespaces(edgeLines + edgeLines + i + 1);
                     continue;
                 }
 
-                if (nodes.get(j).left != null) {
-                    System.out.print("/");
-                } else {
-                    printWhitespaces(1);
-                }
+                if (nodes.get(j).left != null) System.out.print("/");
+                else printWhitespaces(1);
 
                 printWhitespaces(i + i - 1);
 
-                if (nodes.get(j).right != null) {
-                    System.out.print("\\");
-                } else {
-                    printWhitespaces(1);
-                }
+                if (nodes.get(j).right != null) System.out.print("\\");
+                else printWhitespaces(1);
 
-                printWhitespaces(endgeLines + endgeLines - i);
+                printWhitespaces(edgeLines + edgeLines - i);
             }
 
-            System.out.println("");
+            System.out.println();
         }
 
-        printTreeInternal(newNodes, level + 1, maxLevel);
+        printNode(newNodes, level + 1, maxLevel);
     }
 
     private void printWhitespaces(int count) {
-        for (int i = 0; i < count; i++) {
-            System.out.print(" ");
-        }
+        for (int i = 0; i < count; i++) System.out.print(" ");
     }
 
     private int maxLevel(Node node) {
-        if (node == null) {
-            return 0;
-        }
+        if (node == null) return 0;
         return Math.max(maxLevel(node.left), maxLevel(node.right)) + 1;
     }
 
     private boolean isAllElementsNull(List<Node> list) {
         for (Node node : list) {
-            if (node != null) {
-                return false;
-            }
+            if (node != null) return false;
         }
         return true;
     }
