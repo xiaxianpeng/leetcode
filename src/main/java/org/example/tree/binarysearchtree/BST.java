@@ -1,4 +1,4 @@
-package org.example.tree;
+package org.example.tree.binarysearchtree;
 
 import java.util.LinkedList;
 import java.util.Queue;
