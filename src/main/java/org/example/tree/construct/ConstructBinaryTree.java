@@ -1,4 +1,6 @@
-package org.example.tree;
+package org.example.tree.construct;
+
+import org.example.tree.TreeNode;
 
 /**
  * @author xianpeng.xia

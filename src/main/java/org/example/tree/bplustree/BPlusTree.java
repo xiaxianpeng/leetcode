@@ -1,4 +1,4 @@
-package org.example.tree;
+package org.example.tree.bplustree;
 
 /**
  * B+ 树的特点：

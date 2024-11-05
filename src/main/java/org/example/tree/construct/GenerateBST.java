@@ -1,7 +1,9 @@
-package org.example.tree;
+package org.example.tree.construct;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import org.example.tree.TreeNode;
 
 /**
  * @author xianpeng.xia

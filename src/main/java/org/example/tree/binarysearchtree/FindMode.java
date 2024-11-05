@@ -1,4 +1,4 @@
-package org.example.tree.bst;
+package org.example.tree.binarysearchtree;
 
 import java.util.ArrayList;
 import org.example.tree.TreeNode;

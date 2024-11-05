@@ -1,7 +1,9 @@
-package org.example.tree;
+package org.example.tree.construct;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import org.example.tree.TreeNode;
 
 /**
  * @author xianpeng.xia

@@ -1,5 +1,7 @@
 package org.example.tree;
 
+import org.example.tree.construct.ConstructBinaryTree;
+
 /**
  * @author xianpeng.xia
  * on 2022/3/28 11:09 PM

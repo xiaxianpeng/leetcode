@@ -1,6 +1,6 @@
 package org.example.map;
 
-import org.example.tree.AVLTree;
+import org.example.tree.avl.AVLTree;
 
 /**
  * @author xianpeng.xia

@@ -1,4 +1,4 @@
-package org.example.tree;
+package org.example.tree.avl;
 
 import java.util.ArrayList;
 
