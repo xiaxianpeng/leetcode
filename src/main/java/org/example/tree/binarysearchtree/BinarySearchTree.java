@@ -229,11 +229,11 @@ public class BinarySearchTree {
      * 1、如果节点有右子树，那么后继节点是其右子树中的最小节点（最左边的节点）。
      * 2、如果节点没有右子树，那么后继节点是该节点的最低祖先节点，同时该祖先节点的左子节点也是该节点的一个祖先。
      */
-    public Node findSuccessor(Node node) {
+    public Node findSuccessor(Node root, Node node) {
         if (node == null) {
             return null;
         }
-        // 1、如果节点有右子树，那么后继节点是其右子树中的最小节点（最左边的节点）。
+        // 如果节点有右子树，则后继在右子树中的最小节点
         if (node.right != null) {
             Node successor = node.right;
             while (successor.left != null) {
@@ -241,7 +241,7 @@ public class BinarySearchTree {
             }
             return successor;
         }
-        // 2、如果节点没有右子树，那么后继节点是该节点的最低祖先节点，同时该祖先节点的左子节点也是该节点的一个祖先。
+        // 如果节点没有右子树，则需要从根节点向下搜索后继,即最低祖先节点
         Node successor = null;
         Node cur = root;
         while (cur != null) {
@@ -258,6 +258,42 @@ public class BinarySearchTree {
         return successor;
     }
 
+
+    /**
+     * 查找前驱节点（Predecessor）
+     * 前驱节点可以通过以下两种情况找到：
+     * 1、如果节点有左子树，那么前驱节点是其左子树中的最大节点（最右边的节点）。
+     * 2、如果节点没有左子树，那么前驱节点是该节点的最低祖先节点，同时该祖先节点的右子节点也是该节点的一个祖先。
+     */
+    public Node findPredecessor(Node root, Node node) {
+        if (node == null) {
+
+        }
+        // 如果节点有左子树，则前驱在左子树中的最大节点
+        if (node.left != null) {
+            Node predecessor = node.left;
+            while (predecessor.right != null) {
+                predecessor = predecessor.right;
+            }
+            return predecessor;
+        }
+
+        // 如果节点没有左子树，则需要从根节点向下搜索前驱
+        Node predecessor = null;
+        Node current = root;
+        while (current != null) {
+            if (node.data > current.data) {
+                predecessor = current;
+                current = current.right;
+            } else if (node.data < current.data) {
+                predecessor = current;
+                current = current.left;
+            } else {
+                break;
+            }
+        }
+        return predecessor;
+    }
 
     public static void main(String[] args) {
         BinarySearchTree bst = new BinarySearchTree();
@@ -304,9 +340,10 @@ public class BinarySearchTree {
         bst.levelOrder();
         System.out.println();
 
-        int data = 17;
+        int data = 50;
         Node node = bst.find(data);
-        System.out.println(data + " .successor: " + bst.findSuccessor(node));
+        System.out.println(data + " successor: " + bst.findSuccessor(bst.root, node));
+        System.out.println(data + " predecessor: " + bst.findPredecessor(bst.root, node));
 
     }
 
