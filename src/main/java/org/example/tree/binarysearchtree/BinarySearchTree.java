@@ -2,7 +2,10 @@ package org.example.tree.binarysearchtree;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
+import java.util.Stack;
 
 public class BinarySearchTree {
 
@@ -169,6 +172,39 @@ public class BinarySearchTree {
         inOrder(node.right);
     }
 
+    private void preOrderNR() {
+        Stack<Node> stack = new Stack<>();
+        stack.push(tree);
+        while (!stack.isEmpty()) {
+            Node cur = stack.pop();
+            System.out.print(cur.data + " ");
+            if (cur.right != null) {
+                stack.push(cur.right);
+            }
+            if (cur.left != null) {
+                stack.push(cur.left);
+            }
+        }
+    }
+
+    /**
+     * 层序遍历
+     */
+    private void levelOrder() {
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(tree);
+        while (!queue.isEmpty()) {
+            Node cur = queue.remove();
+            System.out.print(cur.data + " ");
+            if (cur.left != null) {
+                queue.add(cur.left);
+            }
+            if (cur.right != null) {
+                queue.add(cur.right);
+            }
+        }
+    }
+
     private void postOrder() {
         postOrder(tree);
     }
@@ -213,6 +249,8 @@ public class BinarySearchTree {
         System.out.println("pre order tree: ");
         bst.preOrder();
         System.out.println();
+        bst.preOrderNR();
+        System.out.println();
 
         System.out.println("in order tree: ");
         bst.inOrder();
@@ -220,6 +258,10 @@ public class BinarySearchTree {
 
         System.out.println("post order tree: ");
         bst.postOrder();
+        System.out.println();
+
+        System.out.println("level order tree: ");
+        bst.levelOrder();
     }
 
 
