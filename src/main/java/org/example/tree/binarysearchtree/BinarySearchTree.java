@@ -345,8 +345,18 @@ public class BinarySearchTree {
         System.out.println(data + " successor: " + bst.findSuccessor(bst.root, node));
         System.out.println(data + " predecessor: " + bst.findPredecessor(bst.root, node));
 
+        System.out.println("maxDepth:" + maxDepth(bst.root));
+
     }
 
+    public static int maxDepth(Node node) {
+        if (node == null) {
+            return 0;
+        }
+        int leftDepth = maxDepth(node.left);
+        int rightDepth = maxDepth(node.right);
+        return Math.max(leftDepth, rightDepth) + 1;
+    }
 
     public void printTree() {
         int maxLevel = maxLevel(root);
