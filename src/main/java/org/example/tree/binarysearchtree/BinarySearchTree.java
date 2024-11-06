@@ -17,9 +17,14 @@ public class BinarySearchTree {
         public Node(int data) {
             this.data = data;
         }
+
+        @Override
+        public String toString() {
+            return this.data + "";
+        }
     }
 
-    private Node tree;
+    private Node root;
 
     /**
      * 我们先取根节点，如果它等于我们要查找的数据，那就返回。
@@ -27,7 +32,7 @@ public class BinarySearchTree {
      * 如果要查找的数据比根节点的值大，那就在右子树中递归查找。
      */
     public Node find(int data) {
-        Node p = tree;
+        Node p = root;
         // 我们先取根节点，如果它等于我们要查找的数据，那就返回
         while (p != null) {
             if (data < p.data) {
@@ -52,13 +57,13 @@ public class BinarySearchTree {
      * 如果不为空，就再递归遍历左子树，查找插入位置。
      */
     public void insert(int data) {
-        if (tree == null) {
-            tree = new Node(data);
+        if (root == null) {
+            root = new Node(data);
             return;
         }
         // 新插入的数据一般都是在叶子节点上，
         // 所以我们只需要从根节点开始，依次比较要插入的数据和节点的大小关系。
-        Node p = tree;
+        Node p = root;
         while (p != null) {
             if (data > p.data) {
                 // 如果要插入的数据比节点的数据大，并且节点的右子树为空，就将新数据直接插到右子节点的位置；
@@ -92,7 +97,7 @@ public class BinarySearchTree {
      */
     public void delete(int data) {
         // p 指向要删除的节点，初始化指向根节点
-        Node p = tree;
+        Node p = root;
         // pp 记录的是 p 的父节点
         Node pp = null;
         while (p != null && p.data != data) {
@@ -135,7 +140,7 @@ public class BinarySearchTree {
         }
         // 3、删除的节点是根节点
         if (pp == null) {
-            tree = child;
+            root = child;
         } else if (pp.left == p) {
             pp.left = child;
         } else {
@@ -144,7 +149,7 @@ public class BinarySearchTree {
     }
 
     private void preOrder() {
-        preOrder(tree);
+        preOrder(root);
     }
 
     /**
@@ -160,7 +165,7 @@ public class BinarySearchTree {
     }
 
     private void inOrder() {
-        inOrder(tree);
+        inOrder(root);
     }
 
     private void inOrder(Node node) {
@@ -172,9 +177,22 @@ public class BinarySearchTree {
         inOrder(node.right);
     }
 
+    private void postOrder() {
+        postOrder(root);
+    }
+
+    private void postOrder(Node node) {
+        if (node == null) {
+            return;
+        }
+        postOrder(node.left);
+        postOrder(node.right);
+        System.out.print(node.data + " ");
+    }
+
     private void preOrderNR() {
         Stack<Node> stack = new Stack<>();
-        stack.push(tree);
+        stack.push(root);
         while (!stack.isEmpty()) {
             Node cur = stack.pop();
             System.out.print(cur.data + " ");
@@ -192,7 +210,7 @@ public class BinarySearchTree {
      */
     private void levelOrder() {
         Queue<Node> queue = new LinkedList<>();
-        queue.add(tree);
+        queue.add(root);
         while (!queue.isEmpty()) {
             Node cur = queue.remove();
             System.out.print(cur.data + " ");
@@ -205,17 +223,39 @@ public class BinarySearchTree {
         }
     }
 
-    private void postOrder() {
-        postOrder(tree);
-    }
-
-    private void postOrder(Node node) {
+    /**
+     * 查找后继结点
+     * 后继节点可以通过以下两种情况找到：
+     * 1、如果节点有右子树，那么后继节点是其右子树中的最小节点（最左边的节点）。
+     * 2、如果节点没有右子树，那么后继节点是该节点的最低祖先节点，同时该祖先节点的左子节点也是该节点的一个祖先。
+     */
+    public Node findSuccessor(Node node) {
         if (node == null) {
-            return;
+            return null;
         }
-        postOrder(node.left);
-        postOrder(node.right);
-        System.out.print(node.data + " ");
+        // 1、如果节点有右子树，那么后继节点是其右子树中的最小节点（最左边的节点）。
+        if (node.right != null) {
+            Node successor = node.right;
+            while (successor.left != null) {
+                successor = successor.left;
+            }
+            return successor;
+        }
+        // 2、如果节点没有右子树，那么后继节点是该节点的最低祖先节点，同时该祖先节点的左子节点也是该节点的一个祖先。
+        Node successor = null;
+        Node cur = root;
+        while (cur != null) {
+            if (node.data < cur.data) {
+                successor = cur;
+                cur = cur.left;
+            } else if (node.data > cur.data) {
+                successor = cur;
+                cur = cur.right;
+            } else {
+                break;
+            }
+        }
+        return successor;
     }
 
 
@@ -246,28 +286,34 @@ public class BinarySearchTree {
         bst.delete(55);
         bst.printTree();
 
-        System.out.println("pre order tree: ");
+        System.out.println("pre order root: ");
         bst.preOrder();
         System.out.println();
         bst.preOrderNR();
         System.out.println();
 
-        System.out.println("in order tree: ");
+        System.out.println("in order root: ");
         bst.inOrder();
         System.out.println();
 
-        System.out.println("post order tree: ");
+        System.out.println("post order root: ");
         bst.postOrder();
         System.out.println();
 
-        System.out.println("level order tree: ");
+        System.out.println("level order root: ");
         bst.levelOrder();
+        System.out.println();
+
+        int data = 17;
+        Node node = bst.find(data);
+        System.out.println(data + " .successor: " + bst.findSuccessor(node));
+
     }
 
 
     public void printTree() {
-        int maxLevel = maxLevel(tree);
-        printNode(Collections.singletonList(tree), 1, maxLevel);
+        int maxLevel = maxLevel(root);
+        printNode(Collections.singletonList(root), 1, maxLevel);
     }
 
     private void printNode(List<Node> nodes, int level, int maxLevel) {
