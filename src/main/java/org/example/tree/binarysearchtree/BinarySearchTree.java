@@ -6,6 +6,16 @@ import java.util.List;
 
 public class BinarySearchTree {
 
+    public static class Node {
+        public int data;
+        public Node left;
+        public Node right;
+
+        public Node(int data) {
+            this.data = data;
+        }
+    }
+
     private Node tree;
 
     /**
@@ -130,15 +140,48 @@ public class BinarySearchTree {
         }
     }
 
-    public static class Node {
-        public int data;
-        public Node left;
-        public Node right;
-
-        public Node(int data) {
-            this.data = data;
-        }
+    private void preOrder() {
+        preOrder(tree);
     }
+
+    /**
+     * 前序遍历
+     */
+    private void preOrder(Node node) {
+        if (node == null) {
+            return;
+        }
+        System.out.print(node.data + " ");
+        preOrder(node.left);
+        preOrder(node.right);
+    }
+
+    private void inOrder() {
+        inOrder(tree);
+    }
+
+    private void inOrder(Node node) {
+        if (node == null) {
+            return;
+        }
+        inOrder(node.left);
+        System.out.print(node.data + " ");
+        inOrder(node.right);
+    }
+
+    private void postOrder() {
+        postOrder(tree);
+    }
+
+    private void postOrder(Node node) {
+        if (node == null) {
+            return;
+        }
+        postOrder(node.left);
+        postOrder(node.right);
+        System.out.print(node.data + " ");
+    }
+
 
     public static void main(String[] args) {
         BinarySearchTree bst = new BinarySearchTree();
@@ -166,6 +209,17 @@ public class BinarySearchTree {
 
         bst.delete(55);
         bst.printTree();
+
+        System.out.println("pre order tree: ");
+        bst.preOrder();
+        System.out.println();
+
+        System.out.println("in order tree: ");
+        bst.inOrder();
+        System.out.println();
+
+        System.out.println("post order tree: ");
+        bst.postOrder();
     }
 
 
