@@ -40,7 +40,7 @@ public class NumIslands {
      * 最终返回岛屿数 count 即可。
      * 链接：https://leetcode.cn/problems/number-of-islands/solutions/16884/number-of-islands-shen-du-you-xian-bian-li-dfs-or-/
      */
-    public static int numOfIslands(char[][] grid) {
+    public static int numIslands(char[][] grid) {
         int count = 0;
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
@@ -75,13 +75,13 @@ public class NumIslands {
                 {'1', '1', '0', '0', '0'},
                 {'0', '0', '0', '0', '0'}
         };
-        System.out.println(numOfIslands(grid));
+        System.out.println(numIslands(grid));
         grid = new char[][]{
                 {'1', '1', '0', '0', '0'},
                 {'1', '1', '0', '0', '0'},
                 {'0', '0', '1', '0', '0'},
                 {'0', '0', '0', '1', '1'}
         };
-        System.out.println(numOfIslands(grid));
+        System.out.println(numIslands(grid));
     }
 }
