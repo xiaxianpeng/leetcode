@@ -1,7 +1,7 @@
 package org.example.topk;
 
-import java.util.Comparator;
 import java.util.PriorityQueue;
+
 import org.example.sort.SortUtil;
 
 /**
