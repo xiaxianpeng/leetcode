@@ -256,6 +256,8 @@ public class SkipList {
         skipList.printAll();
         skipList.insert(5);
         skipList.printAll();
+        System.out.println("delete 4");
+        skipList.delete(4);
         skipList.printAll();
         System.out.println("find:" + skipList.find(5));
     }
