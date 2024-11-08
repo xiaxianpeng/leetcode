@@ -2,6 +2,7 @@ package org.example.string;
 
 /**
  * 165. 比较版本号
+ * https://leetcode.cn/problems/compare-version-numbers/solutions/970666/gong-shui-san-xie-jian-dan-zi-fu-chuan-m-xsod/
  * 给你两个 版本号字符串 version1 和 version2 ，请你比较它们。版本号由被点 '.' 分开的修订号组成。修订号的值 是它 转换为整数 并忽略前导零。
  * 比较版本号时，请按 从左到右的顺序 依次比较它们的修订号。如果其中一个版本字符串的修订号较少，则将缺失的修订号视为 0。
  * 返回规则如下：
