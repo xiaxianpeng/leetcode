@@ -9,11 +9,12 @@ import java.util.Stack;
  */
 public class StackImplQueue {
 
-    private Stack<Integer> s1, s2;
+    private Stack<Integer> pushStack;
+    private Stack<Integer> popStack;
 
     public StackImplQueue() {
-        this.s1 = new Stack<>();
-        this.s2 = new Stack<>();
+        this.pushStack = new Stack<>();
+        this.popStack = new Stack<>();
     }
 
     /**
@@ -22,19 +23,19 @@ public class StackImplQueue {
      * @param x 元素
      */
     public void push(int x) {
-        s1.push(x);
+        pushStack.push(x);
     }
 
     /**
      * 返回队头元素
      */
     public int peek() {
-        if (s2.isEmpty()) {
-            while (!s1.isEmpty()) {
-                s2.push(s1.pop());
+        if (popStack.isEmpty()) {
+            while (!pushStack.isEmpty()) {
+                popStack.push(pushStack.pop());
             }
         }
-        return s2.peek();
+        return popStack.peek();
     }
 
     /**
@@ -43,13 +44,20 @@ public class StackImplQueue {
     public int pop() {
         // 先调用peek(),防止s2为空
         peek();
-        return s2.pop();
+        return popStack.pop();
     }
 
     /**
      * 判断队列是否为空
      */
     public boolean isEmpty() {
-        return s1.isEmpty() && s2.isEmpty();
+        return pushStack.isEmpty() && popStack.isEmpty();
+    }
+
+    /**
+     * 返回队列中的元素数量
+     */
+    public int size() {
+        return pushStack.size() + popStack.size();
     }
 }
