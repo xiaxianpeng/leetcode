@@ -11,6 +11,23 @@ import java.util.Random;
 public class SkipList {
 
     /**
+     * 静态常量，表示跳表允许的最大层数。
+     */
+    private static final int MAX_LEVEL = 16;
+    /**
+     * 动态变量，记录当前跳表的层数。
+     */
+    private int levelCount = 1;
+    /**
+     * 带头节点，所有层的起始点。
+     */
+    private Node head = new Node(MAX_LEVEL);
+    /**
+     * 用于生成随机层数。
+     */
+    private Random random = new Random();
+
+    /**
      * 跳表的节点，每个节点记录了当前节点数据和所在层数数据
      */
     public class Node {
@@ -42,14 +59,6 @@ public class SkipList {
             return sb.toString();
         }
     }
-
-    private static final int MAX_LEVEL = 16;
-    private int levelCount = 1;
-    /**
-     * 带头节点
-     */
-    private Node head = new Node(MAX_LEVEL);
-    private Random random = new Random();
 
     public Node find(int value) {
         // head 是指向跳表头部的指针，它有多个指针（forwards），每个指针对应跳表的一层。

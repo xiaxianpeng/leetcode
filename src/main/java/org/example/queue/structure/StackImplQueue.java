@@ -42,7 +42,7 @@ public class StackImplQueue {
      * 删除队头的元素并返回
      */
     public int pop() {
-        // 先调用peek(),防止s2为空
+        // 先调用peek(),防止popStack为空
         peek();
         return popStack.pop();
     }
