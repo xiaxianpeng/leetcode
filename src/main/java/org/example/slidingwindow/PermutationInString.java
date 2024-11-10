@@ -44,7 +44,7 @@ public class PermutationInString {
         while (right < s2.length()) {
             char c = s2.charAt(right);
             right++;
-            // 进行窗口内数据的一系列更新
+            // 更新窗口中字符 c 的计数
             if (need.containsKey(c)) {
                 window.put(c, window.getOrDefault(c, 0) + 1);
                 if (window.get(c).equals(need.get(c))) {
@@ -59,7 +59,7 @@ public class PermutationInString {
                 }
                 char d = s2.charAt(left);
                 left++;
-                // 进行窗口内数据的一系列更新
+                // 更新窗口中字符 d 的计数
                 if (need.containsKey(d)) {
                     if (window.get(d).equals(need.get(d))) {
                         // 移除了一个有效字符，所以减少有效计数
