@@ -1,4 +1,4 @@
-package org.example.array.rangesumquery;
+package org.example.array.prefixsum;
 
 /**
  * 304. 二维区域和检索 - 矩阵不可变

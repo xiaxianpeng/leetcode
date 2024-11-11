@@ -1,4 +1,4 @@
-package org.example.array.rangesumquery;
+package org.example.array.prefixsum;
 
 /**
  * @date 2021/03/04
