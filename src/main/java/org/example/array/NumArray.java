@@ -3,15 +3,15 @@ package org.example.array;
 /**
  * @date 2021/03/04
  * @time 15:15
- * <p>
  * https://leetcode-cn.com/problems/range-sum-query-immutable/
- * <p>
  * 区域和检索 - 数组不可变
  */
 public class NumArray {
 
     /**
-     * sum[i]存储前i个元素和,sun[i]存储nums[0,...i-1]的和,sum[0] = 0,
+     * sum[i]存储前i个元素和,
+     * sun[i]存储nums[0,...i-1]的和,
+     * sum[0] = 0,
      */
     private int[] preSum;
 
@@ -20,8 +20,9 @@ public class NumArray {
      */
     public NumArray(int[] nums) {
         preSum = new int[nums.length + 1];
-        // preSum[0] = 0，便于计算累加和
+        // preSum[0] = 0, 为了方便计算累加和，不含任何元素的前缀和为0
         preSum[0] = 0;
+        // 计算每个位置的前缀和
         for (int i = 1; i < preSum.length; i++) {
             preSum[i] = preSum[i - 1] + nums[i - 1];
         }
