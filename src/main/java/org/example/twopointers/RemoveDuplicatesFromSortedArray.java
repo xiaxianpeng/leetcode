@@ -17,7 +17,7 @@ import org.example.util.ArrayUtil;
  * <p>
  * Created on 2024/11/11 18:32
  */
-public class RemoveDuplicates {
+public class RemoveDuplicatesFromSortedArray {
 
     public static int removeDuplicates(int[] nums) {
         // 如果数组为空，直接返回长度 0
