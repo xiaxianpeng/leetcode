@@ -29,21 +29,23 @@ public class PermutationInString {
      * 链接：https://leetcode-cn.com/problems/permutation-in-string/solution/zi-fu-chuan-de-pai-lie-by-kylin-x-ym50/
      */
     public static boolean checkInclusion(String s1, String s2) {
-        // 当前窗口中各字符的计数
+        // window 哈希表记录当前检查的窗口中每个字符的实际出现次数
         Map<Character, Integer> window = new HashMap<>();
-        // s1中各字符所需的计数
+        // need 哈希表记录 s1 中每个字符的期望出现次数
         Map<Character, Integer> need = new HashMap<>();
-        // s1 字符个数记录到need中
+        // 初始化 need 哈希表，将 s1 字符个数记录到need中
         for (char c : s1.toCharArray()) {
             need.put(c, need.getOrDefault(c, 0) + 1);
         }
-        System.out.println("need = " + need);
+        // left 和 right 分别代表滑动窗口的左右边界指针。
         int left = 0;
         int right = 0;
+        // valid 记录窗口中满足 need 条件的字符数量
         int valid = 0;
         while (right < s2.length()) {
+            // c 是进入窗口的字符
             char c = s2.charAt(right);
-            right++;
+            right++; // 扩大窗口
             // 更新窗口中字符 c 的计数
             if (need.containsKey(c)) {
                 window.put(c, window.getOrDefault(c, 0) + 1);
@@ -51,15 +53,16 @@ public class PermutationInString {
                     valid++;
                 }
             }
-            // 判断左侧窗口是否要收缩
+            // 当窗口大小大于等于 s1 的长度时，尝试收缩窗口
             while (right - left >= s1.length()) {
-                //  判断是否找到了合法的子串
+                // 如果窗口内有效字符计数等于 need 中字符种类数，说明找到了合法排列
                 if (valid == need.size()) {
                     return true;
                 }
+                // d 是离开窗口的字符
                 char d = s2.charAt(left);
-                left++;
-                // 更新窗口中字符 d 的计数
+                left++;// 缩小窗口
+                // 更新窗口内字符计数
                 if (need.containsKey(d)) {
                     if (window.get(d).equals(need.get(d))) {
                         // 移除了一个有效字符，所以减少有效计数
