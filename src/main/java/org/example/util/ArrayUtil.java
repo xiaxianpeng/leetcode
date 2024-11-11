@@ -38,4 +38,10 @@ public class ArrayUtil {
         System.out.println(Arrays.toString(arr));
     }
 
+    public static void print(int[][] arr) {
+        for (int[] row : arr) {
+            System.out.println(Arrays.toString(row));
+        }
+    }
+
 }
