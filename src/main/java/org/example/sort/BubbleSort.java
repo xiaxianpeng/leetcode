@@ -1,6 +1,6 @@
 package org.example.sort;
 
-import org.example.util.ArrayGenerator;
+import org.example.util.ArrayUtil;
 
 /**
  * Created by xianpeng.xia
@@ -70,7 +70,7 @@ public class BubbleSort {
     }
 
     public static void main(String[] args) {
-        Integer[] arr = ArrayGenerator.generateRandomArray(100, 100);
+        Integer[] arr = ArrayUtil.generateRandomArray(100, 100);
         SortUtil.print(arr);
         optimizedSort(arr);
         SortUtil.print(arr);

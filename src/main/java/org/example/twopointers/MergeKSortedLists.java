@@ -1,4 +1,4 @@
-package org.example.linkedList.twopointers;
+package org.example.twopointers;
 
 import java.util.List;
 import java.util.PriorityQueue;

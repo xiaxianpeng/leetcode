@@ -1,6 +1,6 @@
 package org.example.search;
 
-import org.example.util.ArrayGenerator;
+import org.example.util.ArrayUtil;
 
 /**
  * @author xianpeng.xia
@@ -60,7 +60,7 @@ public class BinarySearch {
     }
 
     public static void main(String[] args) {
-        Integer[] data = ArrayGenerator.generateOrderedArray(10);
+        Integer[] data = ArrayUtil.generateOrderedArray(10);
         int index = nonRecursiveSearch(data, 5);
         System.out.println("index = " + index);
     }

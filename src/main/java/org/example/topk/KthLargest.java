@@ -2,7 +2,7 @@ package org.example.topk;
 
 import java.util.PriorityQueue;
 
-import org.example.util.ArrayGenerator;
+import org.example.util.ArrayUtil;
 
 /**
  * LCR 059. 数据流中的第 K 大元素
@@ -54,6 +54,6 @@ public class KthLargest {
         int[] nums = {4, 5, 8, 2};
         int k = 3;
         int[] ans = kthLargest(k, nums);
-        ArrayGenerator.print(ans);
+        ArrayUtil.print(ans);
     }
 }

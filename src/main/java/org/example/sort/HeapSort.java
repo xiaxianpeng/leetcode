@@ -1,6 +1,6 @@
 package org.example.sort;
 
-import org.example.util.ArrayGenerator;
+import org.example.util.ArrayUtil;
 
 /**
  * @date 2021/02/20
@@ -50,7 +50,7 @@ public class HeapSort {
     }
 
     public static void main(String[] args) {
-        Integer[] arr = ArrayGenerator.generateRandomArray(100, 1000);
+        Integer[] arr = ArrayUtil.generateRandomArray(100, 1000);
         SortUtil.print(arr);
         sort(arr);
         SortUtil.print(arr);

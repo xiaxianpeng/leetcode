@@ -2,7 +2,7 @@ package org.example.sort;
 
 import java.util.Random;
 
-import org.example.util.ArrayGenerator;
+import org.example.util.ArrayUtil;
 
 /**
  * Created by xianpeng.xia
@@ -127,7 +127,7 @@ public class QuickSort {
     }
 
     public static void main(String[] args) {
-        Integer[] arr = ArrayGenerator.generateRandomArray(100, 20);
+        Integer[] arr = ArrayUtil.generateRandomArray(100, 20);
         SortUtil.print(arr);
         threeWaySort(arr);
         SortUtil.print(arr);

@@ -1,7 +1,7 @@
 package org.example.sort;
 
 import java.util.Arrays;
-import org.example.util.ArrayGenerator;
+import org.example.util.ArrayUtil;
 
 /**
  * Created by xianpeng.xia
@@ -86,7 +86,7 @@ public class MergeSort {
     }
 
     public static void main(String[] args) {
-        Integer[] arr = ArrayGenerator.generateRandomArray(10, 1000);
+        Integer[] arr = ArrayUtil.generateRandomArray(10, 1000);
         SortUtil.print(arr);
         MergeSort.sortBottomUp(arr);
         boolean sorted = SortUtil.isSorted(arr);

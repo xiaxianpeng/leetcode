@@ -7,9 +7,9 @@ import java.util.Random;
  * @author xianpeng.xia
  * on 2021/1/17 2:16 下午
  */
-public class ArrayGenerator {
+public class ArrayUtil {
 
-    private ArrayGenerator() {
+    private ArrayUtil() {
     }
 
     public static Integer[] generateOrderedArray(int n) {

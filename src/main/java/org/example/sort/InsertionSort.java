@@ -1,6 +1,6 @@
 package org.example.sort;
 
-import org.example.util.ArrayGenerator;
+import org.example.util.ArrayUtil;
 
 /**
  * Created by xianpeng.xia
@@ -69,7 +69,7 @@ public class InsertionSort {
     }
 
     public static void main(String[] args) {
-        Integer[] arr = ArrayGenerator.generateRandomArray(20, 100);
+        Integer[] arr = ArrayUtil.generateRandomArray(20, 100);
         InsertionSort.optimizedSort(arr);
         System.out.println(SortUtil.isSorted(arr));
     }

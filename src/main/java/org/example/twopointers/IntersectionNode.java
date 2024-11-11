@@ -1,4 +1,4 @@
-package org.example.linkedList.twopointers;
+package org.example.twopointers;
 
 import org.example.linkedList.ListNode;
 
