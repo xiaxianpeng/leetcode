@@ -1,4 +1,4 @@
-package org.example.array;
+package org.example.array.rangesumquery;
 
 /**
  * @date 2021/03/04
