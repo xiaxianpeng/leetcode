@@ -19,30 +19,35 @@ import org.example.linkedList.ListNode;
  */
 public class RemoveNthFromEnd {
 
-    public static ListNode removeNthFromEnd(ListNode head, int k) {
-        // 虚拟头节点
+    public static ListNode removeNthFromEnd(ListNode head, int n) {
+        // 创建一个虚拟头节点，这样对头节点的处理就和其他节点一致
         ListNode dummy = new ListNode(-1);
         dummy.next = head;
 
-        // 删除倒数第 k 个节点，要先找到倒数第 k+1 个节点
-        ListNode x = findFromEnd(dummy, k + 1);
+        // 删除倒数第 n 个节点，要先找到倒数第 n+1 个节点
+        ListNode x = findFromEnd(dummy, n + 1);
 
-        // 删除倒数第 k 个节点
+        // 删除倒数第 n 个节点
         x.next = x.next.next;
+        // 返回链表的新头节点，即虚拟头节点的下一个节点
         return dummy.next;
     }
 
-    private static ListNode findFromEnd(ListNode head, int k) {
+    private static ListNode findFromEnd(ListNode head, int n) {
+        // 初始化两个指针，都指向头节点
         ListNode p1 = head;
-        for (int i = 0; i < k; i++) {
-            p1 = p1.next;
-        }
-
         ListNode p2 = head;
-        while (p1 != null) {
-            p2 = p2.next;
+        // p1 先向前移动 n 步
+        for (int i = 0; i < n; i++) {
             p1 = p1.next;
         }
+        // 当 p1 不为 null 时，p1 和 p2 同时向前移动
+        // 当 p1 移动到链表末尾时，p2 就指向了倒数第 n 个节点
+        while (p1 != null) {
+            p1 = p1.next;
+            p2 = p2.next;
+        }
+        // 返回 p2，即倒数第 n 个节点
         return p2;
     }
 
