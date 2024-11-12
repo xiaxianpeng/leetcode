@@ -3,39 +3,19 @@ package org.example.linkedList.reverse;
 import org.example.linkedList.ListNode;
 
 /**
- * @author xianpeng.xia
- * on 2022/4/22 12:03 AM
- * <p>
  * 206. 反转链表
  * 给你单链表的头节点 head ，请你反转链表，并返回反转后的链表。
- * <p>
- * <p>
  * 示例 1：
- * <p>
- * <p>
  * 输入：head = [1,2,3,4,5]
  * 输出：[5,4,3,2,1]
  * 示例 2：
- * <p>
- * <p>
  * 输入：head = [1,2]
  * 输出：[2,1]
  * 示例 3：
- * <p>
  * 输入：head = []
  * 输出：[]
  */
 public class Reverse {
-
-    public static ListNode reverse(ListNode head) {
-        if (head == null || head.next == null) {
-            return head;
-        }
-        ListNode rev = reverse(head.next);
-        head.next.next = head;
-        head.next = null;
-        return rev;
-    }
 
     /**
      * prev 用来跟踪链表翻转过程中的前驱节点。
@@ -61,6 +41,22 @@ public class Reverse {
         }
         // 当循环结束时，prev 将指向原链表的最后一个节点，即翻转后的新头节点
         return prev;
+    }
+
+    public static ListNode reverse(ListNode node) {
+        // 递归终止条件：如果节点为空或只有一个节点，直接返回当前节点
+        if (node == null || node.next == null) {
+            return node;
+        }
+        // 递归反转从当前节点的下一个节点开始的剩余链表，并获取新的头节点
+        ListNode rev = reverse(node.next);
+        // 设置当前节点的下一个节点的 next 指针指向当前节点
+        // 也就是说，把当前节点放在其下一个节点的后面，完成翻转
+        node.next.next = node;
+        // 将当前节点的 next 指针设置为 null，因为它会成为反转后的链表的最后一个节点
+        node.next = null;
+        // 在每一层递归中返回新的头节点
+        return rev;
     }
 
     public static void main(String[] args) {
