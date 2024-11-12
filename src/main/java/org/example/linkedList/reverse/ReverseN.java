@@ -10,6 +10,38 @@ import org.example.linkedList.ListNode;
  */
 public class ReverseN {
 
+    public ListNode reverseFirstN(ListNode head, int n) {
+        // 处理边界情况：如果链表为空或只有一个节点，或者不需要反转，则直接返回原头节点
+        if (head == null || n == 1) {
+            return head;
+        }
+        ListNode prev = null;
+        ListNode cur = head;
+        ListNode next = null;
+        for (int i = 0; i < n; i++) {
+            // 如果当前节点为 null，说明 n 大于链表的长度，终止循环
+            if (cur == null) {
+                break;
+            }
+            // 保存当前节点的下一个节点
+            next = cur.next;
+            // 反转当前节点的 next 指针
+            cur.next = prev;
+            // 移动 prev 和 current 指针向前，为下一次迭代做准备
+            prev = cur;
+            cur = next;
+        }
+        // 连接反转后的链表部分与剩余未反转的链表部分
+        // head 是反转部分的原始头节点，现在成为尾节点，它的 next 指向 current
+        // eg:
+        // 假设链表是 1 -> 2 -> 3 -> 4 -> 5，我们需要反转前 3 个节点。
+        // 反转操作完成后，我们得到 3 -> 2 -> 1 和 4 -> 5 两个部分，此时 head 是节点 1（反转部分的尾节点），cur 是节点 4（未反转部分的头节点）。
+        // head.next = cur; 使链表变成 3 -> 2 -> 1 -> 4 -> 5，实现了完整的链表连接。
+        head.next = cur;
+        return prev;
+    }
+
+
     /**
      * 后驱节点
      */
@@ -38,8 +70,9 @@ public class ReverseN {
 
     public static void main(String[] args) {
         ListNode head = new ListNode(new int[]{1, 2, 3, 4, 5});
-        ReverseN reverseN = new ReverseN();
-        ListNode listNode = reverseN.reverseN(head, 2);
-        System.out.println(listNode);
+        System.out.println(new ReverseN().reverseN(head, 2));
+
+        head = new ListNode(new int[]{1, 2, 3, 4, 5});
+        System.out.println(new ReverseN().reverseFirstN(head, 2));
     }
 }
