@@ -1,4 +1,4 @@
-package org.example.array.nsum;
+package org.example.array.twopointers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
