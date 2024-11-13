@@ -19,7 +19,19 @@ package org.example.array.twopointers;
 public class Trap {
 
     /**
-     *
+     * 使用双指针法解决“接雨水”问题，我们可以不需要额外的空间来分别存储每个位置的左侧和右侧最大高度。
+     * 相反，我们只需要两个变量来跟踪左侧和右侧的最大高度，并根据这些最大值来计算每个位置上方的积水。
+     * 算法思想如下：
+     * 双指针初始化：我们设置两个指针 left 和 right 分别指向数组的起始位置和末尾位置。
+     * 同样，我们设置两个变量 leftMax 和 rightMax 来追踪 left 和 right 指针所指位置左侧和右侧的最大高度。
+     * 指针移动：当 left < right 时，我们比较 height[left] 和 height[right]。
+     * 根据两者的比较结果，我们移动 left 或 right 指针。
+     * 计算积水：如果 height[left] 小于 leftMax，我们可以确定 left 位置可以积水 leftMax - height[left]，
+     * 因为 rightMax 是更大的，并且是左侧积水的限制因素。否则，我们更新 leftMax。
+     * 反之，如果 height[right] 小于 rightMax，我们可以确定 right 位置可以积水 rightMax - height[right]，
+     * 否则我们更新 rightMax。
+     * 更新指针：如果 height[left] 小于 height[right]，我们移动 left 指针。否则，我们移动 right 指针。
+     * 结束条件：当 left 和 right 相遇时，我们完成了对积水量的计算。
      */
     public static int trap(int[] height) {
         // 如果输入数组为空或长度为0，则返回0，因为没有地方可以积水
