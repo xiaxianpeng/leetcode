@@ -1,4 +1,4 @@
-package org.example.twopointers;
+package org.example.array.twopointers;
 
 import org.example.util.ArrayUtil;
 

@@ -1,4 +1,4 @@
-package org.example.twopointers;
+package org.example.twopointers.linkedlist;
 
 /**
  * 5. 最长回文子串
