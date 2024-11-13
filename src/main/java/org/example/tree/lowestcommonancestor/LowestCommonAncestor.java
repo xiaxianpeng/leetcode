@@ -1,4 +1,6 @@
-package org.example.tree;
+package org.example.tree.lowestcommonancestor;
+
+import org.example.tree.TreeNode;
 
 /**
  * 236. 二叉树的最近公共祖先
