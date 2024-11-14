@@ -31,26 +31,27 @@ import org.example.tree.TreeNode;
  */
 public class LowestCommonAncestor2 {
 
-
     // 在二叉树中寻找 val1 和 val2 的最近公共祖先节点
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        TreeNode lca = find(root, p, q);
         // 额外检查 p 和 q 是否存在于树中
         boolean pExists = exists(root, p);
         boolean qExists = exists(root, q);
+        if (!pExists || !qExists) {
+            return null;
+        }
         // 如果 p 和 q 都存在，则返回 LCA；否则返回 null
-        return (pExists && qExists) ? lca : null;
+        return findLowestCommonAncestor(root, p, q);
     }
 
-    private TreeNode find(TreeNode root, TreeNode p, TreeNode q) {
+    private TreeNode findLowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         if (root == null) {
             return null;
         }
         if (root == p || root == q) {
             return root; // 找到 p 或 q
         }
-        TreeNode left = find(root.left, p, q);
-        TreeNode right = find(root.right, p, q);
+        TreeNode left = findLowestCommonAncestor(root.left, p, q);
+        TreeNode right = findLowestCommonAncestor(root.right, p, q);
         if (left != null && right != null) {
             return root; // 如果左右子树均非空，说明当前节点是 LCA
         }
