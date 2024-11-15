@@ -66,7 +66,7 @@ public class ConstructFromPreIn {
         int[] preorder = new int[]{3, 9, 20, 15, 7}, inorder = new int[]{9, 3, 15, 20, 7};
         ConstructFromPreIn constructFromPreIn = new ConstructFromPreIn();
         TreeNode root = constructFromPreIn.buildTree(preorder, inorder);
-        TreeUtil.print(root);
+        TreeUtil.printTree(root);
     }
 
 

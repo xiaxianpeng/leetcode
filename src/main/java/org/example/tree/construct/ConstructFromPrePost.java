@@ -69,7 +69,7 @@ public class ConstructFromPrePost {
         ConstructFromPrePost constructFromPrePost = new ConstructFromPrePost();
         TreeNode root = constructFromPrePost.constructFromPrePost(preorder, postorder);
 
-        TreeUtil.print(root);
+        TreeUtil.printTree(root);
     }
 
 }

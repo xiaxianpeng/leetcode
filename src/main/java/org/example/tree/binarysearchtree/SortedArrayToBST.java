@@ -54,6 +54,6 @@ public class SortedArrayToBST {
     public static void main(String[] args) {
         int[] nums = new int[]{-10, -3, 0, 5, 9};
         TreeNode root = sortedArrayToBST(nums);
-        TreeUtil.print(root);
+        TreeUtil.printTree(root);
     }
 }

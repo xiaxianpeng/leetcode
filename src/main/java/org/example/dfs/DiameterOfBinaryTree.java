@@ -1,7 +1,7 @@
 package org.example.dfs;
 
 import org.example.tree.TreeNode;
-import org.example.tree.TreeUtil;
+import org.example.util.TreeUtil;
 
 /**
  * 543. 二叉树的直径

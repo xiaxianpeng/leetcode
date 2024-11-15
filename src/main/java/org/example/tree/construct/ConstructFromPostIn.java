@@ -69,6 +69,6 @@ public class ConstructFromPostIn {
         int[] inorder = new int[]{9, 3, 15, 20, 7}, postorder = new int[]{9, 15, 7, 20, 3};
         ConstructFromPostIn constructFromPostIn = new ConstructFromPostIn();
         TreeNode root = constructFromPostIn.buildTree(inorder, postorder);
-        TreeUtil.print(root);
+        TreeUtil.printTree(root);
     }
 }
