@@ -1,5 +1,7 @@
-package org.example.tree;
+package org.example.dfs;
 
+import org.example.tree.TreeNode;
+import org.example.tree.TreeUtil;
 
 /**
  * 226. 翻转二叉树
@@ -17,45 +19,25 @@ package org.example.tree;
  */
 public class InvertTree {
 
-
     /**
-     * //「分解问题」的思路
-     * 递归的思想
-     *
-     * @param root root
-     * @return 翻转后的⼆叉树
+     * * 根据二叉树镜像的定义，考虑递归遍历（dfs）二叉树，交换每个节点的左 / 右子节点，即可生成二叉树的镜像。
+     * * 递归解析：
+     * * 终止条件： 当节点 root 为空时（即越过叶节点），则返回 null 。
+     * * 递推工作：
+     * * 初始化节点 tmp ，用于暂存 root 的左子节点。
+     * * 开启递归 右子节点 invertTree(root.right) ，并将返回值作为 root 的 左子节点 。
+     * * 开启递归 左子节点 invertTree(tmp) ，并将返回值作为 root 的 右子节点 。
+     * * 返回值： 返回当前节点 root 。
      */
-    public static TreeNode invertTree(TreeNode root) {
-
-        if (root == null) {
+    public static TreeNode invertTree(TreeNode node) {
+        if (node == null) {
             return null;
         }
-
-        // 先翻转左右子树
-        TreeNode left = invertTree(root.left);
-        TreeNode right = invertTree(root.right);
-        // 交换左右子树
-        root.left = right;
-        root.right = left;
-        // 和定义逻辑⾃恰：以 root 为根的这棵⼆叉树已经被翻转，返回 root
-        return root;
+        TreeNode left = node.left;
+        node.left = invertTree(node.right);
+        node.right = invertTree(left);
+        return node;
     }
-
-
-    static void traverse(TreeNode root) {
-        if (root == null) {
-            return;
-        }
-        // ---前序遍历位置---
-        // 交换左右节点
-        TreeNode temp = root.left;
-        root.left = root.right;
-        root.right = temp;
-
-        traverse(root.left);
-        traverse(root.right);
-    }
-
 
     public static void main(String[] args) {
 
@@ -93,5 +75,7 @@ public class InvertTree {
         TreeNode invertedRoot3 = invertTree(root3);
         System.out.println("Inverted Tree 3: ");
         TreeUtil.printTree(invertedRoot3);
+
+
     }
 }
