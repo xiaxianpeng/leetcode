@@ -5,16 +5,28 @@ import java.util.Random;
 import org.example.util.ArrayUtil;
 
 /**
- * Created by xianpeng.xia
- * on 2020/10/1 5:34 下午
- * <p>
  * 快速排序
- * <p>
  * 1 从数列中，找一个元素，以之为轴（pivot）
  * 2 重新排序数列，所有比轴小的放轴前面，比轴大大放轴后面，
  * 在这个分区退出后，该轴就处于数列的中间位置，称之为分区操作
  * 3 递归的把小于轴的子数列和大于轴的子数列排序
+ *
+ * ******************************************************
+ * 快速排序的代码框架如下：
+ *
+ * void sort(int[] nums, int lo, int hi) {
+ *     /-------前序遍历位置---------/
+ *     // 通过交换元素构建分界点 p
+ *     int p = partition(nums, lo, hi);
+ *     /--------------------------/
+ *
+ *     sort(nums, lo, p - 1);
+ *     sort(nums, p + 1, hi);
+ *
+ * }
+ *******************************************************
  */
+
 public class QuickSort {
 
     private QuickSort() {
