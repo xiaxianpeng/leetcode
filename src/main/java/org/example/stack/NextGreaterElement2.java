@@ -44,14 +44,17 @@ public class NextGreaterElement2 {
             // 使用取模操作得到实际的数组索引
             int index = i % nums.length;
             // 当栈非空，并且当前元素大于栈顶索引所指向的元素时
-            while (!stack.isEmpty() && nums[index] > nums[stack.peek()]) {
+            while (!stack.isEmpty() && nums[stack.peek()] < nums[index]) {
                 // 当前元素是栈顶索引所指向元素的下一个更大元素
-                ans[stack.pop()] = nums[index];
+                Integer prevIndex = stack.pop();
+                ans[prevIndex] = nums[index];
+                System.out.println("元素 " + nums[prevIndex] + "（索引 " + prevIndex + "）的下一个更大元素是 " + nums[index]);
             }
             // 如果在第一轮遍历内（即 i < n），将索引推入栈中
             // 第二轮遍历不再推入索引，因为我们不需要重复考虑已经处理过的元素
             if (i < nums.length) {
                 stack.push(index);
+                System.out.println("将元素 " + nums[index] + "（索引 " + index + "）推入栈中");
             }
         }
         return ans;

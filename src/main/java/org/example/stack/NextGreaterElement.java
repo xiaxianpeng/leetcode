@@ -36,9 +36,12 @@ public class NextGreaterElement {
         // 遍历 nums2 并使用单调栈找到每个元素的下一个更大元素
         for (int num : nums2) {
             while (!stack.isEmpty() && stack.peek() < num) {
-                nextGreaterMap.put(stack.pop(), num);
+                Integer prev = stack.pop();
+                nextGreaterMap.put(prev, num);
+                System.out.println("元素 " + prev + " 的下一个更大元素是 " + num);
             }
             stack.push(num);
+            System.out.println("将元素 " + num + " 推入栈中");
         }
 
         // 栈中剩余的元素在 nums2 中没有下一个更大元素
@@ -46,10 +49,14 @@ public class NextGreaterElement {
             nextGreaterMap.put(stack.pop(), -1);
         }
 
+        System.out.println("下一个更大元素的映射关系：");
+        System.out.println(nextGreaterMap);
+
         // 根据映射关系填充结果数组
         int[] ans = new int[nums1.length];
         for (int i = 0; i < nums1.length; i++) {
             ans[i] = nextGreaterMap.get(nums1[i]);
+            System.out.println("元素 " + nums1[i] + " 的下一个更大元素是 " + ans[i]);
         }
         return ans;
     }

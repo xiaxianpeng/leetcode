@@ -40,16 +40,19 @@ public class DailyTemperatures {
         int[] ans = new int[n];
         Stack<Integer> stack = new Stack<>();
 
-        for (int i = 0; i < temperatures.length; i++) {
+        for (int dayIndex = 0; dayIndex < temperatures.length; dayIndex++) {
             // 当前温度比栈顶索引对应的温度要高
-            while (!stack.isEmpty() && temperatures[i] > temperatures[stack.peek()]) {
+            while (!stack.isEmpty() && temperatures[dayIndex] > temperatures[stack.peek()]) {
                 // 弹出索引
-                int index = stack.pop();
+                int prevDayIndex = stack.pop();
                 // 计算距离
-                ans[index] = i - index;
-            }
+                ans[prevDayIndex] = dayIndex - prevDayIndex;
+                // 打印找到的下一个更高温度及其索引差
+                System.out.println("天数 " + prevDayIndex + " 的温度是 " + temperatures[prevDayIndex] + ", 下一个更高温度在 " + ans[prevDayIndex] + " 天后 (天数 " + dayIndex + ")");            }
             // 当前温度的索引入栈
-            stack.push(i);
+            stack.push(dayIndex);
+            // 打印入栈操作
+            System.out.println("第 " + dayIndex + " 天的温度 " + temperatures[dayIndex] + " 入栈");
         }
         return ans;
     }
