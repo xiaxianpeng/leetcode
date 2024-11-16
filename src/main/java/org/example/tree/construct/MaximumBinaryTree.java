@@ -42,10 +42,10 @@ public class MaximumBinaryTree {
      * .递归调用左边和右边的子数组分别构建左右子树。
      */
     public static TreeNode constructMaximumBinaryTree(int[] nums) {
-        return build(nums, 0, nums.length - 1);
+        return buildTree(nums, 0, nums.length - 1);
     }
 
-    private static TreeNode build(int[] nums, int left, int right) {
+    private static TreeNode buildTree(int[] nums, int left, int right) {
         // base case：数组为空
         if (left > right) {
             return null;
@@ -63,8 +63,8 @@ public class MaximumBinaryTree {
         TreeNode root = new TreeNode(nums[maxIndex]);
 
         // 递归构建左右子树
-        root.left = build(nums, left, maxIndex - 1);
-        root.right = build(nums, maxIndex + 1, right);
+        root.left = buildTree(nums, left, maxIndex - 1);
+        root.right = buildTree(nums, maxIndex + 1, right);
         return root;
     }
 
