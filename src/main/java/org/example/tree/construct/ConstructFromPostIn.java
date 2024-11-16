@@ -26,8 +26,19 @@ public class ConstructFromPostIn {
     Map<Integer, Integer> valToIndex = new HashMap<>();
 
     /**
-     *
+     * 算法思路：
+     * 1. 后序遍历的特点：
+     * - 最后一个节点是当前子树的根节点。
+     * 2. 中序遍历的特点：
+     * - 根节点的左边是左子树的所有节点，右边是右子树的所有节点。
+     * 3. 算法步骤：
+     * - 在后序数组中找到当前子树的根节点（最后一个元素）。
+     * - 在中序数组中找到根节点的位置，划分出左子树和右子树的节点范围。
+     * - 根据划分结果，递归构建左右子树。
+     * 4. 加速优化：
+     * - 使用哈希表存储中序数组中每个值对应的索引，以便快速查找根节点位置。
      */
+
     public TreeNode buildTree(int[] inorder, int[] postorder) {
         // 构建中序数组值到索引的映射
         for (int i = 0; i < inorder.length; i++) {
