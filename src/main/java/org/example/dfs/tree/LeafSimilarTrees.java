@@ -1,4 +1,4 @@
-package org.example.dfs;
+package org.example.dfs.tree;
 
 import java.util.ArrayList;
 import java.util.List;
