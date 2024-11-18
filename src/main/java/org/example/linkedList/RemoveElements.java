@@ -1,6 +1,8 @@
 package org.example.linkedList;
 
 
+import org.example.linkedList.structure.ListNode;
+
 /**
  * @author xianpeng.xia
  * on 2021/1/22 9:48 下午

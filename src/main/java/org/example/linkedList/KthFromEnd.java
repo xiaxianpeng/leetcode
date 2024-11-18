@@ -1,6 +1,8 @@
 package org.example.linkedList;
 
 
+import org.example.linkedList.structure.ListNode;
+
 /**
  * @date 2020/09/25
  * @time 12:54

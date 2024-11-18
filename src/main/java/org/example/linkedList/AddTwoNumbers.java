@@ -2,6 +2,8 @@ package org.example.linkedList;
 
 import java.util.Stack;
 
+import org.example.linkedList.structure.ListNode;
+
 /**
  * @date 2020/09/30
  * @time 16:38

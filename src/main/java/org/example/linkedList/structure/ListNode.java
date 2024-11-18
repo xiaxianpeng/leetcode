@@ -1,4 +1,4 @@
-package org.example.linkedList;
+package org.example.linkedList.structure;
 
 /**
  * @author xianpeng.xia

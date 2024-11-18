@@ -1,6 +1,6 @@
 package org.example.linkedList.reverse;
 
-import org.example.linkedList.ListNode;
+import org.example.linkedList.structure.ListNode;
 
 /**
  * 206. 反转链表

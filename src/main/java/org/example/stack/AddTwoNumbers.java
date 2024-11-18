@@ -1,7 +1,7 @@
 package org.example.stack;
 
 import java.util.Stack;
-import org.example.linkedList.ListNode;
+import org.example.linkedList.structure.ListNode;
 
 /**
  * @author xianpeng.xia

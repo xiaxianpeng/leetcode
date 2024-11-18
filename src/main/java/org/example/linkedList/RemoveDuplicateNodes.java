@@ -3,6 +3,8 @@ package org.example.linkedList;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.example.linkedList.structure.ListNode;
+
 /**
  * @author xianpeng.xia
  * on 2022/4/5 8:12 PM
