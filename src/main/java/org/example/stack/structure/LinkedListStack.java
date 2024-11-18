@@ -1,6 +1,6 @@
 package org.example.stack.structure;
 
-import org.example.linkedList.LinkedList;
+import org.example.linkedList.linkedlist.LinkedList;
 
 /**
  * @date 2021/01/20

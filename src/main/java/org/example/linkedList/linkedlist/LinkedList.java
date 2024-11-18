@@ -1,4 +1,4 @@
-package org.example.linkedList;
+package org.example.linkedList.linkedlist;
 
 /**
  * @date 2021/01/20
