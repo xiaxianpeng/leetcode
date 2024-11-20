@@ -39,11 +39,17 @@ package org.example.array.binarysearch;
  */
 public class ShipWithinDays {
 
+    /**
+     * 计算在指定天数内送达所有包裹的最小运载能力。
+     *
+     * @param weights 包裹重量数组
+     * @param days    必须在天数
+     * @return 最小运载能力
+     */
     public static int shipWithinDays(int[] weights, int days) {
-        // 最小运载能力为最大包裹重量
-        int left = 0;
-        // 最大运载能力为所有包裹重量之和
-        int right = 0;
+        // 初始化二分查找的左右边界
+        int left = 0; // 最小运载能力为最大包裹重量
+        int right = 0;// 最大运载能力为所有包裹重量之和
         for (int weight : weights) {
             left = Math.max(left, weight);
             right += weight;
@@ -52,12 +58,12 @@ public class ShipWithinDays {
         // 二分查找
         while (left < right) {
             int mid = left + (right - left) / 2;
-            // 如果以 mid 作为运载能力能在指定天数内运输完所有包裹
+            // 如果以 mid 作为运载能力是否可以在指定天数内运输运输完所有包裹
             if (canShip(weights, days, mid)) {
-                // 尝试找一个更小的运载能力
+                // 如果可以，则尝试更小的运载能力
                 right = mid;
             } else {
-                // 需要更大的运载能力
+                // 如果不可以，则需要更大的运载能力
                 left = mid + 1;
             }
         }
@@ -70,7 +76,7 @@ public class ShipWithinDays {
         // 当前船的载重
         int currentCapacity = 0;
         for (int weight : weights) {
-            // 如果加上当前包裹就超载，那么需要一天
+            // 如果当前包裹重量加上后超出运载能力，则需要增加一天
             if (currentCapacity + weight > capacity) {
                 daysNeeded++;
                 currentCapacity = 0;
@@ -78,7 +84,7 @@ public class ShipWithinDays {
             // 装载当前包裹
             currentCapacity += weight;
         }
-        // 检查是否可以在指定天数内以给定的运载能力运输完所有包裹
+        // 返回是否在给定天数内完成运输
         return daysNeeded <= days;
     }
 
