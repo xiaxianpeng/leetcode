@@ -34,44 +34,45 @@ public class Trap {
      * 结束条件：当 left 和 right 相遇时，我们完成了对积水量的计算。
      */
     public static int trap(int[] height) {
-        // 如果输入数组为空或长度为0，则返回0，因为没有地方可以积水
+        // 如果数组为空或长度为0，无法积水
         if (height == null || height.length == 1) {
             return 0;
         }
 
-        // 初始化左指针
+        // 初始化左右指针
         int left = 0;
-        // 初始化右指针
         int right = height.length - 1;
-        // 初始化左侧最高高度
+
+        // 初始化左侧和右侧的最大高度
         int leftMax = 0;
-        // 初始化右侧最高高度
         int rightMax = 0;
-        // 初始化总积水量
+
+        // 用于累加总的雨水量
         int totalWater = 0;
 
+        // 当左指针小于右指针时继续计算
         while (left < right) {
             if (height[left] < height[right]) {
-                // 判断当前左指针指向的高度是否小于左侧最高高度
+                // 如果当前左柱子高度小于左侧最大高度，可以计算积水
                 if (height[left] >= leftMax) {
-                    // 更新左侧最高高度
+                    // 更新左侧最大高度
                     leftMax = height[left];
                 } else {
                     // 计算当前位置的积水量，并累加到总积水量
                     totalWater += leftMax - height[left];
                 }
-                // 移动左指针
+                // 移动左指针向右
                 left++;
             } else {
-                // 判断当前右指针指向的高度是否小于右侧最高高度
+                // 同理，如果当前右柱子高度小于右侧最大高度，可以计算积水
                 if (height[right] >= rightMax) {
-                    // 更新右侧最高高度
+                    // 更新右侧最大高度
                     rightMax = height[right];
                 } else {
                     // 计算当前位置的积水量，并累加到总积水量
                     totalWater += rightMax - height[right];
                 }
-                // 移动右指针
+                // 移动右指针向左
                 right--;
             }
         }
