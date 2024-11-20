@@ -20,17 +20,23 @@ package org.example.array.binarysearch;
 public class MinEatingSpeed {
 
     public static int minEatingSpeed(int[] piles, int h) {
+        // 设置二分查找的左右界，速度最小为1，最大为最大堆的数量
         int left = 1;
-        int right = 10_0000_0000 + 1;
+        int right = 10_0000_0000 + 1;// 使用一个较大的数作为初始右边界
 
         while (left < right) {
+            // 计算中间速度
             int mid = left + (right - left) / 2;
+            // 计算如果以mid速度吃香蕉需要的时间
             if (eatingTime(piles, mid) <= h) {
+                // 如果时间不超过h，尝试更小的速度
                 right = mid;
             } else {
+                // 否则需要更快的速度
                 left = mid + 1;
             }
         }
+        // 返回最小速度
         return left;
     }
 
@@ -42,10 +48,10 @@ public class MinEatingSpeed {
         // 所需总时间
         int hours = 0;
         for (int i = 0; i < piles.length; i++) {
-            // 整堆都要吃完
+            // 计算吃完当前堆所需时间
             hours += piles[i] / speed;
             if (piles[i] % speed > 0) {
-                hours++;
+                hours++;// 如果有剩余，仍需多花一小时
             }
         }
         return hours;
