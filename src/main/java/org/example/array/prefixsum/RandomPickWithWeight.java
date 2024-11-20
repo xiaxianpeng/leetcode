@@ -51,12 +51,13 @@ public class RandomPickWithWeight {
 
     public RandomPickWithWeight(int[] weights) {
 
-        // 构造前缀和
+        // 构造前缀和数组，preSum[i] 表示前 i 个元素的权重和
         int n = weights.length;
         preSum = new int[n + 1];
         for (int i = 1; i <= n; i++) {
             preSum[i] = weights[i - 1] + preSum[i - 1];
         }
+        System.out.println("Prefix Sum Array: " + java.util.Arrays.toString(preSum));
     }
 
     public int pickIndex() {
@@ -77,7 +78,8 @@ public class RandomPickWithWeight {
                 left = mid + 1;
             }
         }
-        // 由于前缀和数组是从1开始的，所以返回时需要减去1
+        // 由于前缀和数组是从 1 开始的，所以返回时需要减去 1
+        //System.out.println("Picked index: " + (right - 1));
         return right - 1;
     }
 
