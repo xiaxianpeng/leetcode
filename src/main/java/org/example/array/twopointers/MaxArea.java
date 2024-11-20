@@ -13,24 +13,37 @@ package org.example.array.twopointers;
  */
 public class MaxArea {
 
+    /**
+     * 计算容器可以容纳的最大水量。
+     *
+     * @param height 每条垂直线的高度数组
+     * @return 最大的水量
+     */
     public static int maxArea(int[] height) {
-        // 初始化左指针
+        // 初始化左右指针
         int left = 0;
-        // 初始化右指针
         int right = height.length - 1;
-        // 用于存储最大面积
+
+        // 用于存储最大水量
         int maxArea = 0;
+
+        // 使用双指针法计算最大面积
         while (left < right) {
             // 贪心的策略 // 计算当前左右指针界定的容器能够存储的水量，[left,height]之间的面积
             int curArea = Math.min(height[left], height[right]) * (right - left);
+
+            // 更新最大水量
             maxArea = Math.max(maxArea, curArea);
-            // 双指针技巧，移动较低的一边
+
+            // 双指针技巧：移动较短的那一边，以尝试找到更大的容器
             if (height[left] < height[right]) {
                 left++;
             } else {
                 right--;
             }
         }
+
+        // 返回最大的水量
         return maxArea;
     }
 
