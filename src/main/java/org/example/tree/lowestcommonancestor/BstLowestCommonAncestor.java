@@ -53,18 +53,15 @@ public class BstLowestCommonAncestor {
         treeRoot.right.left = new TreeNode(7);
         treeRoot.right.right = new TreeNode(9);
 
-        // 创建 BstLowestCommonAncestor 实例
-        BstLowestCommonAncestor finder = new BstLowestCommonAncestor();
-
         // 示例 1: 查找节点 2 和节点 8 的 LCA
         TreeNode node2 = treeRoot.left; // 节点 2
         TreeNode node8 = treeRoot.right; // 节点 8
-        TreeNode lca1 = finder.lowestCommonAncestor(treeRoot, node2, node8);
+        TreeNode lca1 = lowestCommonAncestor(treeRoot, node2, node8);
         System.out.println("示例 1: 节点 2 和节点 8 的最近公共祖先是节点 " + lca1.val); // 应输出 6
 
         // 示例 2: 查找节点 2 和节点 4 的 LCA
         TreeNode node4 = treeRoot.left.right; // 节点 4
-        TreeNode lca2 = finder.lowestCommonAncestor(treeRoot, node2, node4);
+        TreeNode lca2 = lowestCommonAncestor(treeRoot, node2, node4);
         System.out.println("示例 2: 节点 2 和节点 4 的最近公共祖先是节点 " + lca2.val); // 应输出 2
     }
 }
