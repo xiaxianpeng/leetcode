@@ -18,25 +18,35 @@ import java.util.List;
  */
 public class ThreeSum {
 
+    /**
+     * 找到所有不重复的三元组，使得每个三元组的和为0。
+     *
+     * @param nums 输入的整数数组
+     * @return 所有不重复的三元组列表
+     */
     public static List<List<Integer>> threeSum(int[] nums) {
-        // 1、先将 nums 排序，时间复杂度为 O(NlogN)。
+        // 先将 nums 排序，时间复杂度为 O(NlogN)。
         Arrays.sort(nums);
         List<List<Integer>> ans = new ArrayList<>();
-        // 双指针
         int len = nums.length;
 
+        // 遍历排序后的数组
         for (int i = 0; i < len; i++) {
+            // 特殊情况：如果当前数大于0，后续不可能再找到和为0的组合
             // 当 nums[i] > 0 时直接break跳出：因为 nums[R] >= nums[L] >= nums[i] > 0，
             // 即 3 个元素都大于 0 ，在此固定指针 i 之后不可能再找到结果了。
             if (nums[i] > 0) {
                 break;
             }
-            // 避免重复
+
+            // 跳过重复的元素
             // 当 i > 0且nums[i] == nums[i - 1]时即跳过此元素nums[i]：
             // 因为已经将 nums[i - 1] 的所有组合加入到结果中，本次双指针搜索只会得到重复组合。
             if (i > 0 && nums[i] == nums[i - 1]) {
                 continue;
             }
+
+            // 定义双指针
             // L，R 分设在数组索引 (i,len(nums)) 两端，当L < R时循环计算sum = nums[i] + nums[L] + nums[R]，
             // 并按照以下规则执行双指针移动：
             //  当sum < 0时，L += 1并跳过所有重复的nums[L]；
@@ -51,21 +61,21 @@ public class ThreeSum {
                     list.add(nums[L]);
                     list.add(nums[R]);
                     ans.add(list);
-                    // 相同数过滤
+                    // 跳过重复的左指针元素
                     while (L < R && nums[L + 1] == nums[L]) {
                         L++;
                     }
+                    // 跳过重复的右指针元素
                     while (L < R && nums[R - 1] == nums[R]) {
                         R--;
                     }
+                    // 移动指针
                     L++;
                     R--;
                 } else if (sum < 0) {
-                    // sum<0，说明nums[L]过小
-                    L++;
+                    L++;// 如果 sum < 0，说明左指针所指元素过小
                 } else {
-                    // sum>0，说明nums[R]过大
-                    R--;
+                    R--;// 如果 sum > 0，说明右指针所指元素过大
                 }
             }
         }
