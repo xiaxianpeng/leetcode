@@ -19,6 +19,13 @@ package org.example.array.binarysearch;
  */
 public class MinEatingSpeed {
 
+    /**
+     * 计算最小吃香蕉速度
+     *
+     * @param piles 香蕉堆数组，每个元素代表一堆香蕉的数量
+     * @param h     珂珂想要在 h 小时内吃完所有香蕉
+     * @return 最小吃香蕉速度
+     */
     public static int minEatingSpeed(int[] piles, int h) {
         // 设置二分查找的左右界，速度最小为1，最大为最大堆的数量
         int left = 1;
