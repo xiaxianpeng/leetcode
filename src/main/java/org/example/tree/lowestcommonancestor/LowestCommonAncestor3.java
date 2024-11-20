@@ -64,12 +64,12 @@ public class LowestCommonAncestor3 {
      */
     public static Node lowestCommonAncestor(Node p, Node q) {
         Set<Node> ancestors = new HashSet<>();
-        // 记录 p 的所有祖先
+        // 记录p的所有祖先
         while (p != null) {
             ancestors.add(p);
             p = p.parent;
         }
-        // 检查 q 或其祖先是否是 p 的祖先
+        // 检查q或其祖先是否是p的祖先
         while (q != null) {
             if (ancestors.contains(q)) {
                 return q;
