@@ -28,29 +28,32 @@ public class RemoveDuplicateLetters {
     public static String removeDuplicateLetters(String s) {
         // 栈用来保存最终结果中的字符序列
         Stack<Character> stack = new Stack<>();
-        // 计数器记录字符串中字符的数量，大小 256 用于存储 ASCII 字符
+        // 计数器，记录每个字符在剩余字符串中出现的次数，大小 256 用于存储 ASCII 字符
         int[] count = new int[256];
         for (int i = 0; i < s.length(); i++) {
             count[s.charAt(i)]++;
         }
-        // inStack 数组用于标记字符是否已经在栈中
+        // inStack 数组用于标记字符是否在栈中
         boolean[] inStack = new boolean[256];
+
+        // 遍历字符串中的每个字符
         for (char c : s.toCharArray()) {
-            // 每遍历过一个字符，都将对应的计数减一
+            // 每遍历过一个字符，减少其计数
             count[c]--;
             // 如果字符已经存在于栈中，则跳过这个字符，因为不需要重复
             if (inStack[c]) {
                 continue;
             }
-            // 如果当前字符小于栈顶字符，且栈顶字符在后面还会再次出现
-            // 则可以将栈顶字符弹出，以便得到更小的字典序
+            // 当前字符小于栈顶字符，且栈顶字符在后续字符串中还会出现
+            // 可以移除栈顶字符以获取更小字典序
             while (!stack.isEmpty() && stack.peek() > c && count[stack.peek()] > 0) {
                 inStack[stack.pop()] = false;
             }
-            // 将当前字符推入栈中，并标记为已存在于栈中
+            // 将当前字符压入栈，并标记为已存在
             stack.push(c);
             inStack[c] = true;
         }
+        // 使用 StringBuffer 构建结果字符串
         // 由于使用了栈，最终得到的字符序列是逆序的，需要反转得到正确的顺序
         StringBuffer ans = new StringBuffer();
         while (!stack.isEmpty()) {
