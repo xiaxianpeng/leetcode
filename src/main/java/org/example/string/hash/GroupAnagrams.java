@@ -1,4 +1,4 @@
-package org.example.string;
+package org.example.string.hash;
 
 import java.util.ArrayList;
 import java.util.HashMap;

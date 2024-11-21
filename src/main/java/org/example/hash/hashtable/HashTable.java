@@ -1,7 +1,6 @@
-package org.example.hashtable;
+package org.example.hash.hashtable;
 
 import java.util.TreeMap;
-import javax.management.loading.MLet;
 
 /**
  * @date 2021/03/08

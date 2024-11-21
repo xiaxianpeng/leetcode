@@ -1,4 +1,4 @@
-package org.example.hashtable;
+package org.example.string.hash;
 
 import java.util.Arrays;
 

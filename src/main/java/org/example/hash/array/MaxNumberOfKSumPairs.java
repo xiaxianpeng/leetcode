@@ -1,4 +1,4 @@
-package org.example.hashtable;
+package org.example.hash.array;
 
 import java.util.HashMap;
 import java.util.Map;

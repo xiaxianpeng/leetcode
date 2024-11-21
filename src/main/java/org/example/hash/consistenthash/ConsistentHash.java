@@ -1,4 +1,4 @@
-package org.example.hash;
+package org.example.hash.consistenthash;
 
 import java.util.SortedMap;
 import java.util.TreeMap;
