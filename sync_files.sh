@@ -46,6 +46,13 @@ update_package_names() {
     fi
 }
 
+# 设置目标目录中的文件为只读
+set_read_only() {
+    local target_dir="$1"
+    echo "$(get_current_timestamp) - Setting files in $target_dir to read-only..."
+    find "$target_dir" -type f -exec chmod 444 {} \;
+}
+
 # 监听源目录的文件变动并执行同步和包名更新
 monitor_and_sync() {
     local source_dir="$1"
@@ -55,6 +62,7 @@ monitor_and_sync() {
         echo "$(get_current_timestamp) - Change detected in $source_dir, synchronizing files and updating package names..."
         perform_sync "$source_dir" "$target_dir"
         update_package_names "$source_dir" "$target_dir"
+        set_read_only "$target_dir"
     done &
 }
 
