@@ -3,8 +3,6 @@ package org.example.twopointers.linkedlist;
 import org.example.linkedlist.structure.ListNode;
 
 /**
- * @author xianpeng.xia
- * on 2022/4/21 8:35 PM
  * 19. 删除链表的倒数第N个结点
  * 给你一个链表，删除链表的倒数第 n 个结点，并且返回链表的头结点。
  * 示例 1：
@@ -19,6 +17,13 @@ import org.example.linkedlist.structure.ListNode;
  */
 public class RemoveNthFromEnd {
 
+    /**
+     * 删除链表的倒数第 N 个节点
+     *
+     * @param head 链表的头节点
+     * @param n    倒数第 n 个节点
+     * @return 修改后的链表的头节点
+     */
     public static ListNode removeNthFromEnd(ListNode head, int n) {
         // 创建一个虚拟头节点，这样对头节点的处理就和其他节点一致
         ListNode dummy = new ListNode(-1);
