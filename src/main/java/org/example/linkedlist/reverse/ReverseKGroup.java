@@ -28,11 +28,11 @@ public class ReverseKGroup {
     public static ListNode reverseKGroup(ListNode head, int k) {
         ListNode dummy = new ListNode(0);
         dummy.next = head;
-        ListNode prevGroupStart = dummy;
+        ListNode prevGroupEnd = dummy;
 
         while (true) {
             // 找到当前组最后一个节点（下一个组的开始）
-            ListNode kthNode = getKthNode(prevGroupStart, k);
+            ListNode kthNode = getKthNode(prevGroupEnd, k);
             if (kthNode == null) {
                 break;// 不足 k 个节点，结束循环
             }
@@ -41,8 +41,7 @@ public class ReverseKGroup {
             ListNode nextGroupStart = kthNode.next;
             // 翻转当前组的 k 个节点
             ListNode prev = null;
-            ListNode curr = prevGroupStart.next;
-            ListNode groupStart = curr;
+            ListNode curr = prevGroupEnd.next;
             while (curr != nextGroupStart) {
                 ListNode next = curr.next;
                 curr.next = prev;
@@ -50,12 +49,14 @@ public class ReverseKGroup {
                 curr = next;
             }
 
-            // 链接翻转后的节点
-            prevGroupStart.next = kthNode;
-            groupStart.next = nextGroupStart;
-
-            // 更新 prevGroupStart 为新组的结尾
-            prevGroupStart = groupStart;
+            // 当前组的起始节点（翻转前为组的开始，翻转后将成为组的末尾）
+            ListNode currGroupStart = prevGroupEnd.next;
+            // 将翻转后的当前组连接到前一个组的末尾
+            prevGroupEnd.next = kthNode;// kthNode 是翻转后的当前组的新头节点
+            // 将当前组的末尾节点连接到下一组的开始节点
+            currGroupStart.next = nextGroupStart;// 连接下一组或剩余节点
+            // 更新 prevGroupEnd 为当前组的末尾节点，为下一次迭代做准备
+            prevGroupEnd = currGroupStart;
 
             System.out.println(dummy.next);
         }
