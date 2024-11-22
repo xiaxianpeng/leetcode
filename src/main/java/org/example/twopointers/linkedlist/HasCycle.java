@@ -3,8 +3,6 @@ package org.example.twopointers.linkedlist;
 import org.example.linkedlist.structure.ListNode;
 
 /**
- * @author xianpeng.xia
- * on 2022/4/21 10:15 PM
  * * 判断链表是否包含环
  * * https://labuladong.gitee.io/algo/2/17/16/#判断链表是否包含环
  * * https://leetcode-cn.com/problems/linked-list-cycle/
