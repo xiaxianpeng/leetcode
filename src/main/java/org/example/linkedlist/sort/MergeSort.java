@@ -17,7 +17,7 @@ import org.example.linkedlist.structure.ListNode;
  * 链接：https://leetcode.cn/problems/sort-list/description/
  * Created on 2024/11/19 20:07
  */
-public class MergeSortLinkedList {
+public class MergeSort {
 
     public static ListNode sortList(ListNode head) {
         // 基本情况：如果链表为空或只有一个节点，直接返回
