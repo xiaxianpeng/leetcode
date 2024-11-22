@@ -15,62 +15,71 @@ package org.example.twopointers.array;
  * 输出：9
  * https://leetcode.cn/problems/trapping-rain-water/description/?envType=study-plan-v2&envId=labuladong-algorithm-note
  * Created on 2024/11/13 18:41
+ * ***
+ * 理解积水的核心原则
+ * 1、积水的高度由较低的边界决定：在一个凹槽中，积水的多少取决于两侧的边界高度。较低的边界决定了积水的上限。
+ * 2、动态边界的更新：通过双指针法，我们动态地更新和比较两侧的边界，确保在遍历到每个位置时，能准确地计算其可能的积水量。
  */
 public class Trap {
 
     /**
-     * 使用双指针法解决“接雨水”问题，我们可以不需要额外的空间来分别存储每个位置的左侧和右侧最大高度。
-     * 相反，我们只需要两个变量来跟踪左侧和右侧的最大高度，并根据这些最大值来计算每个位置上方的积水。
-     * 算法思想如下：
-     * 双指针初始化：我们设置两个指针 left 和 right 分别指向数组的起始位置和末尾位置。
-     * 同样，我们设置两个变量 leftMax 和 rightMax 来追踪 left 和 right 指针所指位置左侧和右侧的最大高度。
-     * 指针移动：当 left < right 时，我们比较 height[left] 和 height[right]。
-     * 根据两者的比较结果，我们移动 left 或 right 指针。
-     * 计算积水：如果 height[left] 小于 leftMax，我们可以确定 left 位置可以积水 leftMax - height[left]，
-     * 因为 rightMax 是更大的，并且是左侧积水的限制因素。否则，我们更新 leftMax。
-     * 反之，如果 height[right] 小于 rightMax，我们可以确定 right 位置可以积水 rightMax - height[right]，
-     * 否则我们更新 rightMax。
-     * 更新指针：如果 height[left] 小于 height[right]，我们移动 left 指针。否则，我们移动 right 指针。
-     * 结束条件：当 left 和 right 相遇时，我们完成了对积水量的计算。
+     * 使用双指针解决“接雨水”问题，不需要额外的空间。
+     * 算法步骤：
+     * 1. 使用两个指针 left 和 right，从数组的两端向中间移动。
+     * 2. 维护两个变量 leftMax 和 rightMax 来记录当前指针左边和右边的最大高度。
+     * 3. 当 left < right 时，比较 height[left] 和 height[right]：
+     * - 如果 height[left] 小于或等于 height[right]：
+     * - 此时，left 较低，故考虑左侧积水。
+     * - 如果 height[left] 小于 leftMax，计算积水量为 leftMax - height[left]。
+     * - 更新 leftMax 为当前看到的最大高度。
+     * - 移动左指针以继续检查下一个位置。
+     * - 如果 height[right] 小于 height[left]：
+     * - 此时，right 较低，故考虑右侧积水。
+     * - 如果 height[right] 小于 rightMax，计算积水量为 rightMax - height[right]。
+     * - 更新 rightMax 为当前看到的最大高度。
+     * - 移动右指针以继续检查下一个位置。
+     * 4. 当两个指针相遇时，结束计算，返回总积水量。
      */
     public static int trap(int[] height) {
-        // 如果数组为空或长度为0，无法积水
+        // 特殊情况：数组为空或只有一个元素，无法积水
         if (height == null || height.length == 1) {
             return 0;
         }
 
-        // 初始化左右指针
+        // 左右指针初始化
         int left = 0;
         int right = height.length - 1;
 
-        // 初始化左侧和右侧的最大高度
+        // 保存左右两边的最大高度
         int leftMax = 0;
         int rightMax = 0;
 
-        // 用于累加总的雨水量
+        // 用于累加雨水总量
         int totalWater = 0;
 
         // 当左指针小于右指针时继续计算
         while (left < right) {
+
             if (height[left] < height[right]) {
-                // 如果当前左柱子高度小于左侧最大高度，可以计算积水
-                if (height[left] >= leftMax) {
-                    // 更新左侧最大高度
-                    leftMax = height[left];
-                } else {
+                // 左侧较低时，考虑左侧的积水
+                if (height[left] < leftMax) {
                     // 计算当前位置的积水量，并累加到总积水量
                     totalWater += leftMax - height[left];
+                } else {
+                    // 更新左侧最大高度
+                    leftMax = Math.max(leftMax, height[left]);
                 }
                 // 移动左指针向右
                 left++;
             } else {
-                // 同理，如果当前右柱子高度小于右侧最大高度，可以计算积水
-                if (height[right] >= rightMax) {
-                    // 更新右侧最大高度
-                    rightMax = height[right];
-                } else {
+                // 右侧较低时，考虑右侧的积水
+                if (height[right] < rightMax) {
                     // 计算当前位置的积水量，并累加到总积水量
                     totalWater += rightMax - height[right];
+
+                } else {
+                    // 更新右侧最大高度
+                    rightMax = Math.max(rightMax, height[right]);
                 }
                 // 移动右指针向左
                 right--;
