@@ -3,8 +3,7 @@ package org.example.twopointers.linkedlist;
 import org.example.linkedlist.structure.ListNode;
 
 /**
- * @author xianpeng.xia
- * on 2022/4/21 11:16 PM
+ * 160. 相交链表
  * 给你两个单链表的头节点headA 和 headB ，
  * 请你找出并返回两个单链表相交的起始节点。
  * 如果两个链表不存在相交节点，返回 null 。
@@ -24,6 +23,13 @@ import org.example.linkedlist.structure.ListNode;
  */
 public class IntersectionNode {
 
+    /**
+     * 使用双指针法找到两个链表的相交节点。
+     *
+     * @param headA 第一个链表的头节点
+     * @param headB 第二个链表的头节点
+     * @return 相交的起始节点或 null
+     */
     public static ListNode getIntersectionNode(ListNode headA, ListNode headB) {
         // 如果任意一个链表为空，则不可能相交
         if (headA == null || headB == null) {
