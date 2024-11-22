@@ -1,4 +1,4 @@
-package org.example.tree.binarysearchtree;
+package org.example.dfs.tree;
 
 import org.example.tree.TreeNode;
 
