@@ -1,6 +1,7 @@
 package org.example.tree.dfs;
 
 import org.example.tree.TreeNode;
+import org.example.tree.traversal.PreorderTraversal;
 import org.example.util.TreeUtil;
 
 /**
@@ -61,6 +62,7 @@ public class Flatten2ListNode {
         root.left.right = new TreeNode(4);
         root.right.right = new TreeNode(6);
         TreeUtil.printTree(root);
+        System.out.println(PreorderTraversal.preOrderTraversal(root));
         flatten(root);
         TreeUtil.printTree(root);
     }
