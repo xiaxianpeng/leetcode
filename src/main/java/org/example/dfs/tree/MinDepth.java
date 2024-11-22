@@ -13,13 +13,19 @@ import org.example.util.TreeUtil;
  */
 public class MinDepth {
 
+    /**
+     * 计算二叉树的最小深度
+     *
+     * @param root 二叉树的根节点
+     * @return 最小深度
+     */
     public static int minDepth(TreeNode root) {
         if (root == null) {
-            return 0;
+            return 0;// 空节点的深度为0
         }
 
         if (root.left == null && root.right == null) {
-            return 1;
+            return 1;// 叶子节点的深度为1
         }
         int minDepth = Integer.MAX_VALUE;
         if (root.left != null) {
@@ -28,7 +34,7 @@ public class MinDepth {
         if (root.right != null) {
             minDepth = Math.min(minDepth, minDepth(root.right));
         }
-        return minDepth + 1;
+        return minDepth + 1; // 返回当前节点为根的子树的最小深度
     }
 
     public static void main(String[] args) {
