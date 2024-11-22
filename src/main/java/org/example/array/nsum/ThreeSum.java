@@ -26,16 +26,12 @@ public class ThreeSum {
         int len = nums.length;
 
         for (int i = 0; i < len; i++) {
-            // 当 nums[i] > 0 时直接break跳出：因为 nums[R] >= nums[L] >= nums[i] > 0，
-            // 即 3 个元素都大于 0 ，在此固定指针 i 之后不可能再找到结果了。
             if (nums[i] > 0) {
-                break;
+                break;// 因为后面的数都大于零，不可能和为零
             }
             // 避免重复
-            // 当 i > 0且nums[i] == nums[i - 1]时即跳过此元素nums[i]：
-            // 因为已经将 nums[i - 1] 的所有组合加入到结果中，本次双指针搜索只会得到重复组合。
             if (i > 0 && nums[i] == nums[i - 1]) {
-                continue;
+                continue;// 跳过重复元素
             }
             // L，R 分设在数组索引 (i,len(nums)) 两端，当L < R时循环计算sum = nums[i] + nums[L] + nums[R]，
             // 并按照以下规则执行双指针移动：
@@ -61,10 +57,10 @@ public class ThreeSum {
                     L++;
                     R--;
                 } else if (sum < 0) {
-                    // sum<0，说明nums[L]过小
+                    // 和小于零，左指针右移
                     L++;
                 } else {
-                    // sum>0，说明nums[R]过大
+                    // 和大于零，右指针左移
                     R--;
                 }
             }
