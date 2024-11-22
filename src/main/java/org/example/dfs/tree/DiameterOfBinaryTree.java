@@ -25,7 +25,7 @@ public class DiameterOfBinaryTree {
     public int diameterOfBinaryTree(TreeNode root) {
         // ans 初始化为 1，因为使用节点的数量来表示直径，然后在最后返回结果时减去 1，把结果转换为边的数量。
         // // 初始化为 1 是为了方便计算节点间边的数量
-        ans = 0;
+        ans = 1;
         depth(root);
         // 由于ans初始化为1，返回结果时需要减1得到边的数量
         return ans - 1;
