@@ -33,12 +33,12 @@ public class ZigzagLevelOrder {
     public static List<List<Integer>> zigzagLevelOrder(TreeNode root) {
         List<List<Integer>> ans = new ArrayList<>();
         if (root == null) {
-            return ans;
+            return ans;// 如果根节点为 null，直接返回空列表
         }
         Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(root);
-        // 默认根节点层数为0，层数为偶数
-        boolean isOrderLeft = true;
+
+        boolean isOrderLeft = true;// 控制遍历方向，初始为从左到右
         while (!queue.isEmpty()) {
             // 双端队列存储每层val
             Deque<Integer> levelQueue = new LinkedList<>();
@@ -59,9 +59,21 @@ public class ZigzagLevelOrder {
                 }
             }
             //
-            ans.add(new LinkedList<>(levelQueue));
-            isOrderLeft = !isOrderLeft;
+            ans.add(new LinkedList<>(levelQueue));// 当前层遍历结果加入最终答案
+            isOrderLeft = !isOrderLeft;// 切换方向
         }
         return ans;
+    }
+
+
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(3);
+        root.left = new TreeNode(9);
+        root.right = new TreeNode(20);
+        root.right.left = new TreeNode(15);
+        root.right.right = new TreeNode(7);
+
+        List<List<Integer>> result = zigzagLevelOrder(root);
+        System.out.println("Zigzag Level Order Traversal: " + result); // 输出: [[3], [20, 9], [15, 7]]
     }
 }
