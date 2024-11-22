@@ -1,4 +1,4 @@
-package org.example.tree;
+package org.example.dfs.tree;
 
 import java.util.LinkedList;
 import java.util.Queue;

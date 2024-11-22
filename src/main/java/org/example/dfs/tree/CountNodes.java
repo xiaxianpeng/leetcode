@@ -1,5 +1,6 @@
-package org.example.tree;
+package org.example.dfs.tree;
 
+import org.example.tree.TreeNode;
 import org.example.tree.construct.ConstructBinaryTree;
 
 /**

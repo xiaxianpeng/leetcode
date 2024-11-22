@@ -1,4 +1,6 @@
-package org.example.tree;
+package org.example.dfs.tree;
+
+import org.example.tree.TreeNode;
 
 /**
  * 计算一棵二叉树共有几个节点

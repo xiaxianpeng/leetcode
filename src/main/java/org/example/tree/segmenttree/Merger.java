@@ -1,4 +1,4 @@
-package org.example.tree;
+package org.example.tree.segmenttree;
 
 /**
  * @date 2021/03/03

@@ -1,7 +1,8 @@
-package org.example.tree;
+package org.example.tree.dfs;
 
 import java.util.LinkedList;
 
+import org.example.tree.TreeNode;
 import org.example.util.TreeUtil;
 
 /**

@@ -1,4 +1,6 @@
-package org.example.tree;
+package org.example.tree.dfs;
+
+import org.example.tree.TreeNode;
 
 /**
  * 112. 路径总和

@@ -1,4 +1,6 @@
-package org.example.tree;
+package org.example.dfs.tree;
+
+import org.example.tree.TreeNode;
 
 /**
  * @author xianpeng.xia

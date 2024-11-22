@@ -1,7 +1,9 @@
-package org.example.tree;
+package org.example.tree.bfs;
 
 import java.util.LinkedList;
 import java.util.Queue;
+
+import org.example.tree.TreeNode;
 
 /**
  * 完全二叉树：快速找到最后一个节点

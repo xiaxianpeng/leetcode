@@ -1,7 +1,5 @@
 package org.example.tree.segmenttree;
 
-import org.example.tree.Merger;
-
 /**
  * @date 2021/03/03
  * @time 17:50
