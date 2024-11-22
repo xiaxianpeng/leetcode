@@ -1,4 +1,4 @@
-package org.example.slidingwindow;
+package org.example.slidingwindow.string;
 
 import java.util.HashMap;
 import java.util.Map;

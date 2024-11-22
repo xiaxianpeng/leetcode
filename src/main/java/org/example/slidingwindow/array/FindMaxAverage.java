@@ -1,4 +1,4 @@
-package org.example.slidingwindow;
+package org.example.slidingwindow.array;
 
 /**
  * Created on 2024/11/18 11:32
