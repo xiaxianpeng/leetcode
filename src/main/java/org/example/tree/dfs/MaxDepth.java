@@ -21,10 +21,13 @@ public class MaxDepth {
      */
     public static int maxDepth(TreeNode root) {
         if (root == null) {
-            return 0;
+            return 0;// 如果节点为空，深度为0
         }
+        // 递归计算左子树的最大深度
         int leftMaxDepth = maxDepth(root.left);
+        // 递归计算右子树的最大深度
         int rightMaxDepth = maxDepth(root.right);
+        // 返回左子树和右子树中较大的深度，加上当前节点的深度1
         return Math.max(leftMaxDepth, rightMaxDepth) + 1;
     }
 
