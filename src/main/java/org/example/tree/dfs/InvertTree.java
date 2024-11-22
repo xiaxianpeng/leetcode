@@ -31,11 +31,15 @@ public class InvertTree {
      */
     public static TreeNode invertTree(TreeNode node) {
         if (node == null) {
-            return null;
+            return null;// 终止条件：当节点为空时，返回null
         }
+        // 暂存左子节点
         TreeNode left = node.left;
+        // 递归翻转右子树，并将其设置为当前节点的左子节点
         node.left = invertTree(node.right);
+        // 递归翻转左子树，并将其设置为当前节点的右子节点
         node.right = invertTree(left);
+        // 返回当前节点
         return node;
     }
 
