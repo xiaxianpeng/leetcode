@@ -1,21 +1,39 @@
 package org.example.linkedlist;
 
-import java.util.Stack;
-
 import org.example.linkedlist.structure.ListNode;
 
 /**
- * @date 2020/09/30
- * @time 16:38
- * 链表两数相加
+ * 2. 两数相加
+ * 给你两个 非空 的链表，表示两个非负的整数。
+ * 它们每位数字都是按照 逆序 的方式存储的，并且每个节点只能存储 一位 数字。
+ * 请你将两个数相加，并以相同形式返回一个表示和的链表。
+ * 你可以假设除了数字 0 之外，这两个数都不会以 0 开头。
+ * 示例 1：
+ * 输入：l1 = [2,4,3], l2 = [5,6,4]
+ * 输出：[7,0,8]
+ * 解释：342 + 465 = 807.
+ * 示例 2：
+ * 输入：l1 = [0], l2 = [0]
+ * 输出：[0]
+ * 示例 3：
+ * 输入：l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]
+ * 输出：[8,9,9,9,0,0,0,1]
  */
 public class AddTwoNumbers {
 
-    public static ListNode solution(ListNode l1, ListNode l2) {
+    /**
+     * 将两个链表表示的数字相加，返回和的链表。
+     *
+     * @param l1 第一个数字的链表表示
+     * @param l2 第二个数字的链表表示
+     * @return 和的链表表示
+     */
+    public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         // 虚拟头节点
         ListNode dummyHead = new ListNode(0);
         // 在两条链表上的指针
-        ListNode p1 = l1, p2 = l2;
+        ListNode p1 = l1;
+        ListNode p2 = l2;
         // 指针p负责构建新链表
         ListNode p = dummyHead;
         // 进位
@@ -43,59 +61,6 @@ public class AddTwoNumbers {
         return dummyHead.next;
     }
 
-    /**
-     * 正序链表相加
-     *
-     * @param l1 l1
-     * @param l2 l2
-     * @return ans
-     */
-    public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        Stack<Integer> s1 = new Stack<>();
-        Stack<Integer> s2 = new Stack<>();
-        Stack<Integer> s3 = new Stack<>();
-
-        ListNode temp = new ListNode(0);
-        ListNode ans = temp;
-
-        // s1存放l1的所有
-        while (l1 != null) {
-            s1.push(l1.val);
-            l1 = l1.next;
-        }
-        // s2存放l2的所有值
-        while (l2 != null) {
-            s2.push(l2.val);
-            l2 = l2.next;
-        }
-        // 进位
-        int carry = 0;
-        while (!s1.isEmpty() || !s2.isEmpty()) {
-            if (s1.isEmpty()) {
-                s1.push(0);
-            }
-            if (s2.isEmpty()) {
-                s2.push(0);
-            }
-            // sum
-            int sum = s1.pop() + s2.pop() + carry;
-            // 进位
-            carry = sum / 10;
-            // 余数
-            int val = sum % 10;
-            s3.push(val);
-        }
-        // 处理进位
-        if (carry > 0) {
-            s3.push(carry);
-        }
-
-        while (!s3.isEmpty()) {
-            temp.next = new ListNode(s3.pop());
-            temp = temp.next;
-        }
-        return ans.next;
-    }
 
     public static void main(String[] args) {
         ListNode l1 = new ListNode(new int[]{2, 4, 3});
@@ -103,7 +68,8 @@ public class AddTwoNumbers {
         // 342 + 465 = 807
         System.out.println(l1);
         System.out.println(l2);
-        ListNode sum = solution(l1, l2);
+
+        ListNode sum = addTwoNumbers(l1, l2);
         System.out.println(sum);
 
     }
