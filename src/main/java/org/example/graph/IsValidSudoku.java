@@ -1,8 +1,6 @@
 package org.example.graph;
 
 /**
- * @author xianpeng.xia
- * on 2022/4/8 11:17 PM
  * 有效的数独
  * https://leetcode-cn.com/problems/valid-sudoku/
  * 有效的数独满足以下条件：
