@@ -17,17 +17,29 @@ import java.util.PriorityQueue;
  */
 public class KthLargestElementInArray {
 
+    /**
+     * 方法：找到数组中第 K 个最大的元素
+     * 核心策略：使用最小堆维护数组中最大的 K 个元素，堆顶即为第 K 个最大元素。
+     *
+     * @param nums 输入的整数数组
+     * @param k    需要找到的第 k 个最大元素
+     * @return 数组中第 k 个最大的元素
+     */
     public static int findKthLargest(int[] nums, int k) {
-        // 小顶堆，维护堆中最大的 k 个元素
+        // 创建一个最小堆，堆的大小保持为 k
         PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+
+        // 遍历数组中的每个元素
         for (int num : nums) {
-            if (minHeap.size() < k) {
-                minHeap.offer(num);
-            } else if (num > minHeap.peek()) {
+            minHeap.offer(num);
+            // 将元素加入堆
+            // 如果堆的大小超过 k，则移除堆顶最小元素
+            if (minHeap.size() > k) {
                 minHeap.poll();
-                minHeap.offer(num);
             }
+            System.out.println("当前堆: " + minHeap);
         }
+        // 堆顶即为第 k 个最大元素
         return minHeap.peek();
     }
 
