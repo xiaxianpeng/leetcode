@@ -1,4 +1,4 @@
-package org.example.topk;
+package org.example.topk.array;
 
 import java.util.Arrays;
 import java.util.HashMap;

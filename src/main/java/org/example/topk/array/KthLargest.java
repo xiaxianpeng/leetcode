@@ -1,4 +1,4 @@
-package org.example.topk;
+package org.example.topk.array;
 
 import java.util.PriorityQueue;
 
@@ -7,7 +7,6 @@ import org.example.util.ArrayUtil;
 /**
  * LCR 059. 数据流中的第 K 大元素
  * 设计一个找到数据流中第 k 大元素的类（class）。注意是排序后的第 k 大元素，不是第 k 个不同的元素。
- * <p>
  * 请实现 KthLargest 类：
  * KthLargest(int k, int[] nums) 使用整数 k 和整数流 nums 初始化对象。
  * int add(int val) 将 val 插入数据流 nums 后，返回当前数据流中第 k 大的元素。
@@ -29,17 +28,18 @@ public class KthLargest {
      */
     public static int[] kthLargest(int k, int[] nums) {
         // 小顶堆
-        PriorityQueue<Integer> pq = new PriorityQueue();
+        PriorityQueue<Integer> minHeap = new PriorityQueue();
         for (int num : nums) {
             // 优先队列的队头为队列中最小的元素，也就是第 k 大的元素。
-            add(pq, k, num);
+            add(minHeap, k, num);
         }
+
         // result
-        int[] ans = new int[k];
+        int[] result = new int[k];
         for (int i = 0; i < k; i++) {
-            ans[i] = pq.poll();
+            result[i] = minHeap.poll();
         }
-        return ans;
+        return result;
     }
 
     public static int add(PriorityQueue<Integer> pq, int k, int num) {

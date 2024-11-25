@@ -1,4 +1,4 @@
-package org.example.topk;
+package org.example.array.topk;
 
 import java.util.PriorityQueue;
 
