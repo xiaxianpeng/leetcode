@@ -49,20 +49,19 @@ public class LetterCombinations {
         }
 
         // 开始回溯
-        findCombination(combinations, new StringBuffer(), digits, 0);
+        backtrack(digits, 0, new StringBuffer(), combinations);
         return combinations;
     }
 
     /**
-     * 辅助递归函数，生成字母组合。
-     * 回溯
+     * 辅助函数，使用回溯生成字母组合。
      *
-     * @param combinations 存储结果的列表。
-     * @param current      当前的组合。
      * @param digits       输入的数字字符串。
      * @param index        当前处理的字符串索引。
+     * @param current      当前的组合。
+     * @param combinations 存储结果的列表。
      */
-    private static void findCombination(List<String> combinations, StringBuffer current, String digits, int index) {
+    private static void backtrack(String digits, int index, StringBuffer current, List<String> combinations) {
         // 如果当前组合完成，加入到结果列表中
         if (index == digits.length()) {
             combinations.add(current.toString());
@@ -71,25 +70,25 @@ public class LetterCombinations {
         }
 
         // 获取当前数字对应的字母
-        Character c = digits.charAt(index);
-        String letters = KEYPAD[c - '0'];
+        int digit = digits.charAt(index) - '0';
+        String letters = KEYPAD[digit];
+        // 显示当前的数字和可能的字母
+        System.out.printf("Digit: %d, Letters: %s\n", digit, letters);
 
         for (char letter : letters.toCharArray()) {
             current.append(letter);// 将字母加入当前组合
-            System.out.println("Adding letter: " + letter);
-            findCombination(combinations, current, digits, index + 1);// 递归处理下一个数字
+            System.out.printf("Adding letter '%c' to current: %s\n", letter, current.toString());
+
+            backtrack(digits, index + 1, current, combinations);// 递归处理下一个数字
+
             current.deleteCharAt(current.length() - 1);// 撤销选择
+            System.out.printf("Backtracking, removing letter '%c', current: %s\n", letter, current.toString());
         }
     }
 
     public static void main(String[] args) {
-        // 示例测试用例1
         System.out.println(letterCombinations("23")); // 输出: ["ad","ae","af","bd","be","bf","cd","ce","cf"]
-
-        // 示例测试用例2
         System.out.println(letterCombinations("")); // 输出: []
-
-        // 示例测试用例3
         System.out.println(letterCombinations("2")); // 输出: ["a","b","c"]
     }
 
