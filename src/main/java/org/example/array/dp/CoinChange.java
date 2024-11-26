@@ -17,29 +17,42 @@ import java.util.Arrays;
  * 示例 3：
  * 输入：coins = [1], amount = 0
  * 输出：0
- * https://leetcode.cn/problems/coin-change/description/?envType=study-plan-v2&envId=labuladong-algorithm-note
  * Created on 2024/11/9 20:21
  */
 public class CoinChange {
-    //https://leetcode.cn/problems/coin-change/solutions/6568/dong-tai-gui-hua-tao-lu-xiang-jie-by-wei-lai-bu-ke/?envType=study-plan-v2&envId=labuladong-algorithm-note
+
+    /**
+     * 使用动态规划求解凑成总金额的最少硬币数。
+     * 核心思路：定义 dp[i] 表示凑成金额 i 所需的最少硬币数。
+     * 初始化：dp[0] = 0，因为凑成金额 0 需要 0 个硬币。
+     * 对于每个金额 i，尝试所有硬币面额 j，更新 dp[i] 为 dp[i - j] + 1 的最小值。
+     *
+     * @param coins  可用硬币的面额数组
+     * @param amount 目标金额
+     * @return 凑成目标金额所需的最少硬币个数
+     */
     public int coinChange(int[] coins, int amount) {
-        // dp 数组的大小为 amount + 1，填充的初始值也为 amount + 1
+        // 初始化动态规划数组，长度为 amount + 1，初始值为正无穷大
         int[] dp = new int[amount + 1];
-        // 填充 dp 数组，初始值设为一个不可能的硬币数量（比amount还大的数，表示无解）
+        // 使用 amount + 1 作为无穷大，因为不可能有 amount + 1 个硬币
         Arrays.fill(dp, amount + 1);
-        // base case
+
+        // 凑成金额0需要0个硬币
         dp[0] = 0;
+
+        // 计算dp数组
         for (int i = 1; i <= amount; i++) {
             // 内层 for 循环求所有选择的最小值
             for (int coin : coins) {
-                // 子问题无解，跳过
-                if (i - coin < 0) {
-                    continue;
+                if (i - coin >= 0) {// 只有在 i 大于等于 coin 时才能使用该硬币
+                    // 更新dp[i]，选择最小的硬币数
+                    dp[i] = Math.min(dp[i], dp[i - coin] + 1);
+                    System.out.println("dp[" + i + "] updated to " + dp[i] + " using coin " + coin);
                 }
-                dp[i] = Math.min(dp[i], 1 + dp[i - coin]);
             }
         }
-        // 如果最终dp数组最后一个元素值为amount+1，则标识误解
+
+        // 如果 dp[amount] 还是初始值，说明无法凑成该金额
         return dp[amount] == amount + 1 ? -1 : dp[amount];
     }
 
