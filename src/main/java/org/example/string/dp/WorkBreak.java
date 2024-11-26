@@ -1,70 +1,72 @@
 package org.example.string.dp;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 /**
- * @author xianpeng.xia
- * on 2022/4/2 11:28 AM
- *
- * https://leetcode-cn.com/problems/word-break/solution/dan-ci-chai-fen-by-leetcode-solution/
+ * 139. 单词拆分
+ * 给你一个字符串 s 和一个字符串列表 wordDict 作为字典。
+ * 如果可以利用字典中出现的一个或多个单词拼接出 s 则返回 true。
+ * 注意：不要求字典中出现的单词全部都使用，并且字典中的单词可以重复使用。
+ * 示例 1：
+ * 输入: s = "leetcode", wordDict = ["leet", "code"]
+ * 输出: true
+ * 解释: 返回 true 因为 "leetcode" 可以由 "leet" 和 "code" 拼接成。
+ * 示例 2：
+ * 输入: s = "applepenapple", wordDict = ["apple", "pen"]
+ * 输出: true
+ * 解释: 返回 true 因为 "applepenapple" 可以由 "apple" "pen" "apple" 拼接成。
+ * 注意，你可以重复使用字典中的单词。
+ * 示例 3：
+ * 输入: s = "catsandog", wordDict = ["cats", "dog", "sand", "and", "cat"]
+ * 输出: false
  */
 public class WorkBreak {
 
     /**
-     * 我们定义 \textit{dp}[i]dp[i] 表示字符串 ss 前 ii 个字符组成的字符串 s[0..i-1]s[0..i−1] 是否能被空格拆分成若干个字典中出现的单词。从前往后计算考虑转移方程，每次转移的时候我们需要枚举包含位置 i-1i−1 的最后一个单词，看它是否出现在字典中以及除去这部分的字符串是否合法即可。公式化来说，我们需要枚举 s[0..i-1]s[0..i−1] 中的分割点 jj ，看 s[0..j-1]s[0..j−1] 组成的字符串 s_1s
-     * 1
-     * ​
-     * （默认 j = 0j=0 时 s_1s
-     * 1
-     * ​
-     * 为空串）和 s[j..i-1]s[j..i−1] 组成的字符串 s_2s
-     * 2
-     * ​
-     * 是否都合法，如果两个字符串均合法，那么按照定义 s_1s
-     * 1
-     * ​
-     * 和 s_2s
-     * 2
-     * ​
-     * 拼接成的字符串也同样合法。由于计算到 \textit{dp}[i]dp[i] 时我们已经计算出了 \textit{dp}[0..i-1]dp[0..i−1] 的值，因此字符串 s_1s
-     * 1
-     * ​
-     * 是否合法可以直接由 dp[j]dp[j] 得知，剩下的我们只需要看 s_2s
-     * 2
-     * ​
-     * 是否合法即可，因此我们可以得出如下转移方程：
+     * 判断字符串 s 是否可以被拆分为字典中单词的组合。
+     * 核心思路：动态规划。
+     * 定义 dp[i] 表示字符串 s 从 0 到 i-1 的子串是否可以被拆分。
+     * 初始化 dp[0] 为 true，表示空字符串可以被拆分。
+     * 对于每一个位置 i，检查从 0 到 i 的子串是否包含字典中的单词，若是，则更新 dp[i]。
      *
-     * \textit{dp}[i]=\textit{dp}[j]\ \&\&\ \textit{check}(s[j..i-1])
-     * dp[i]=dp[j] && check(s[j..i−1])
-     *
-     * 其中 \textit{check}(s[j..i-1])check(s[j..i−1]) 表示子串 s[j..i-1]s[j..i−1] 是否出现在字典中。
-     *
-     * 对于检查一个字符串是否出现在给定的字符串列表里一般可以考虑哈希表来快速判断，同时也可以做一些简单的剪枝，枚举分割点的时候倒着枚举，如果分割点 jj 到 ii 的长度已经大于字典列表里最长的单词的长度，那么就结束枚举，但是需要注意的是下面的代码给出的是不带剪枝的写法。
-     *
-     * 对于边界条件，我们定义 \textit{dp}[0]=truedp[0]=true 表示空串且合法。
-     *
-     * 作者：LeetCode-Solution
-     * 链接：https://leetcode-cn.com/problems/word-break/solution/dan-ci-chai-fen-by-leetcode-solution/
-     * 来源：力扣（LeetCode）
-     * 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+     * @param s        待拆分的字符串
+     * @param wordDict 单词字典列表
+     * @return 字符串是否可以被拆分为字典中的单词
      */
-    public boolean wordBreak(String s, List<String> wordDict) {
+    public static boolean wordBreak(String s, List<String> wordDict) {
+        // 将列表转为set以提高查找速度
         Set<String> wordDictSet = new HashSet<>(wordDict);
 
+        // 动态规划数组，dp[i] 表示 s 的前 i 个字符是否可以被拆分
         boolean[] dp = new boolean[s.length() + 1];
 
-        dp[0] = true;
+        dp[0] = true; // 空串可以被拆分
+
+        // 遍历字符串的每个位置
         for (int i = 1; i <= s.length(); i++) {
 
+            // 如果前j个字符可以被拆分，且j到i的子串在字典中
             for (int j = 0; j < i; j++) {
                 if (dp[j] && wordDictSet.contains(s.substring(j, i))) {
-                    dp[i] = true;
-                    break;
+                    dp[i] = true;// 更新 dp[i]
+                    System.out.println("Substring to index " + i + " is valid with words: " + s.substring(j, i));
+                    break;// 结束内层循环
                 }
             }
         }
+
+        // 返回整个字符串能否被拆分
         return dp[s.length()];
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Can 'leetcode' be segmented? " + wordBreak("leetcode", Arrays.asList("leet", "code"))); // 输出: true
+
+        System.out.println("Can 'applepenapple' be segmented? " + wordBreak("applepenapple", Arrays.asList("apple", "pen"))); // 输出: true
+
+        System.out.println("Can 'catsandog' be segmented? " + wordBreak("catsandog", Arrays.asList("cats", "dog", "sand", "and", "cat"))); // 输出: false
     }
 }
