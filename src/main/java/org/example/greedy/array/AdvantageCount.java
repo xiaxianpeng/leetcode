@@ -1,4 +1,4 @@
-package org.example.greedy;
+package org.example.greedy.array;
 
 import java.util.Arrays;
 import java.util.PriorityQueue;

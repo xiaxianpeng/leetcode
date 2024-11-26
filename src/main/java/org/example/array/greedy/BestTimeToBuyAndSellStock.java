@@ -1,4 +1,4 @@
-package org.example.greedy;
+package org.example.array.greedy;
 
 /**
  * 121. 买卖股票的最佳时机

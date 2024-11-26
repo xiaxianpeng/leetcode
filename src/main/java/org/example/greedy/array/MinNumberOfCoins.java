@@ -1,4 +1,4 @@
-package org.example.greedy;
+package org.example.greedy.array;
 
 public class MinNumberOfCoins {
 

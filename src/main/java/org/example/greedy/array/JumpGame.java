@@ -1,4 +1,4 @@
-package org.example.greedy;
+package org.example.greedy.array;
 
 /**
  * 55. 跳跃游戏

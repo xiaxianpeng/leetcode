@@ -1,4 +1,4 @@
-package org.example.greedy;
+package org.example.array.greedy;
 
 /**
  * 605. 种花问题
