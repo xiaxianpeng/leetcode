@@ -3,16 +3,9 @@ package org.example.array;
 import java.util.Arrays;
 
 /**
- * @author xianpeng.xia
- * on 2022/4/11 2:10 PM
- *
  * 189. 轮转数组
  * 给你一个数组，将数组中的元素向右轮转 k 个位置，其中 k 是非负数。
- *
- *
- *
  * 示例 1:
- *
  * 输入: nums = [1,2,3,4,5,6,7], k = 3
  * 输出: [5,6,7,1,2,3,4]
  * 解释:
@@ -20,7 +13,6 @@ import java.util.Arrays;
  * 向右轮转 2 步: [6,7,1,2,3,4,5]
  * 向右轮转 3 步: [5,6,7,1,2,3,4]
  * 示例 2:
- *
  * 输入：nums = [-1,-100,3,99], k = 2
  * 输出：[3,99,-1,-100]
  * 解释:
@@ -30,45 +22,39 @@ import java.util.Arrays;
 public class RotateArray {
 
     /**
-     * @param nums num
-     * 使用额外的数组
+     * 轮转数组的方法
+     * 思路：使用三次反转的方法来实现数组的轮转。
+     * 1、反转整个数组：将所有元素的顺序倒转。
+     * 2、反转前 k 个元素：将原来数组中最后 k 个元素的顺序调整到目标位置。
+     * 3、反转剩余的 n-k 个元素：恢复这些元素的正确顺序。
+     *
+     * @param nums 输入的整数数组
+     * @param k    向右轮转的步数
      */
     public static void rotate(int[] nums, int k) {
-        int n = nums.length;
-        int[] newArray = new int[n];
-        //
-        for (int i = 0; i < n; i++) {
-            newArray[(i + k) % n] = nums[i];
-        }
-        System.arraycopy(newArray, 0, nums, 0, n);
+        k %= nums.length;// 处理 k 大于数组长度的情况
+        System.out.println("Original array: " + Arrays.toString(nums));
+
+        // 反转整个数组
+        reverse(nums, 0, nums.length - 1);
+        System.out.println("After reversing entire array: " + Arrays.toString(nums));
+
+        // 反转前 k 个元素
+        reverse(nums, 0, k - 1);
+        System.out.println("After reversing first k elements: " + Arrays.toString(nums));
+
+        // 反转剩余的元素
+        reverse(nums, k, nums.length - 1);
+        System.out.println("After reversing remaining elements: " + Arrays.toString(nums));
     }
 
     /**
-     * @param nums nums
-     * @param k k
+     * 反转数组中的一部分
      *
-     * 该方法基于如下的事实：当我们将数组的元素向右移动 k 次后，尾部 k mod n 个元素会移动至数组头部，其余元素向后移动 k mod n 个位置。
-     *
-     * 该方法为数组的翻转：
-     * 我们可以先将所有元素翻转，这样尾部的 k mod n 个元素就被移至数组头部，
-     * 然后我们再翻转 [0,(k mod n) - 1][0,(k mod n) − 1] 区间的元素和 [(k mod n), n-1][(k mod n),n−1] 区间的元素即能得到最后的答案。
-     *
-     * 作者：LeetCode-Solution
-     * 链接：https://leetcode-cn.com/problems/rotate-array/solution/xuan-zhuan-shu-zu-by-leetcode-solution-nipk/
-     * 来源：力扣（LeetCode）
-     * 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+     * @param nums  数组
+     * @param start 起始索引
+     * @param end   结束索引
      */
-    public static void rotateArray(int[] nums, int k) {
-        k %= nums.length;
-
-        // 翻转所有元素
-        reverse(nums, 0, nums.length - 1);
-        // 翻转[0,k mod n−1] 区间的元素
-        reverse(nums, 0, k - 1);
-        // 翻转[k mod n,n−1] 区间的元素
-        reverse(nums, k, nums.length - 1);
-    }
-
     private static void reverse(int[] nums, int start, int end) {
         while (start < end) {
             int temp = nums[start];
@@ -80,10 +66,12 @@ public class RotateArray {
     }
 
     public static void main(String[] args) {
-        int[] nums = new int[]{1, 2, 3, 4, 5, 6, 7};
-        int k = 3;
-        System.out.println(Arrays.toString(nums));
-        rotateArray(nums, k);
-        System.out.println(Arrays.toString(nums));
+        int[] nums1 = {1, 2, 3, 4, 5, 6, 7};
+        rotate(nums1, 3);
+        System.out.println("Rotated array for nums1: " + Arrays.toString(nums1)); // 输出 [5, 6, 7, 1, 2, 3, 4]
+
+        int[] nums2 = {-1, -100, 3, 99};
+        rotate(nums2, 2);
+        System.out.println("Rotated array for nums2: " + Arrays.toString(nums2)); // 输出 [3, 99, -1, -100]
     }
 }
