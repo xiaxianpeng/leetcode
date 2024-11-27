@@ -22,7 +22,7 @@ package org.example.dp.array;
 public class MaxSubArray {
 
     /**
-     * Kadane 算法的核心思想是遍历数组，同时维护两个变量：currentMaxSum 和 maxSum。
+     * Kadane算法的核心思想是遍历数组,同时维护两个变量：currentMaxSum 和 maxSum。
      * 变量 currentMaxSum 保存的是包含当前元素的子数组的最大和，它的值为 currentMaxSum + nums[i] 与 nums[i] 中较大的一个，
      * 这表示我们可以选择继续累加之前的子数组，或者从当前元素开始一个新的子数组。
      * 变量 maxSum 记录的是到目前为止遍历所得的最大子数组和，每次遍历到新元素时，
