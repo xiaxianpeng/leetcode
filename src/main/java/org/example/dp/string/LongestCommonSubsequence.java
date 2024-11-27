@@ -19,7 +19,6 @@ package org.example.dp.string;
  * 输入：text1 = "abc", text2 = "def"
  * 输出：0
  * 解释：两个字符串没有公共子序列，返回 0 。
- * https://leetcode.cn/problems/longest-common-subsequence/description/?envType=study-plan-v2&envId=leetcode-75
  * Created on 2024/11/19 14:51
  */
 public class LongestCommonSubsequence {
@@ -34,6 +33,20 @@ public class LongestCommonSubsequence {
      * @param text1 第一个字符串。
      * @param text2 第二个字符串。
      * @return 最长公共子序列的长度。
+     * ### 详细解释
+     * - **`i` 和 `j` 的含义**：
+     * - `i` 表示考虑到 `text1` 的前 `i` 个字符。
+     * - `j` 表示考虑到 `text2` 的前 `j` 个字符。
+     * - **为什么是 `i-1` 和 `j-1`**：
+     * - 在 `dp[i][j]` 中，`i` 和 `j` 都是从 1 开始的，因为我们在 `dp` 表中为每个字符串的空前缀（即 0 长度）留出了额外的位置。
+     * - `text1.charAt(i - 1)` 和 `text2.charAt(j - 1)` 是用来访问字符串的实际字符，因为字符串索引是从 0 开始的。
+     * ### 状态转移方程
+     * - **如果 `text1[i-1] == text2[j-1]`**：
+     * - 这意味着两个字符串在当前索引的字符匹配，那么最长公共子序列长度加 1。
+     * - 状态转移公式：`dp[i][j] = dp[i-1][j-1] + 1`
+     * - **如果 `text1[i-1] != text2[j-1]`**：
+     * - 当前字符不匹配，最长公共子序列需要通过比较不包含当前字符的两种情况得到：
+     * - 状态转移公式：`dp[i][j] = max(dp[i-1][j], dp[i][j-1])`
      */
     public static int longestCommonSubsequence(String text1, String text2) {
         int m = text1.length();
@@ -45,12 +58,12 @@ public class LongestCommonSubsequence {
         // 遍历每一个字符
         for (int i = 1; i <= m; i++) {
             for (int j = 1; j <= n; j++) {
-                // 如果text1的第i-1个字符等于text2的第j-1个字符
+                // 如果text1的第i-1个字符等于text2的第j-1个字符，取前一个状态加一
                 if (text1.charAt(i - 1) == text2.charAt(j - 1)) {
                     // 则取左上对角线的值加1
                     dp[i][j] = dp[i - 1][j - 1] + 1;
                 } else {
-                    // 否则取左边和上边的最大值
+                    // 如果不相同，取左边或上边的最大值
                     dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
                 }
                 // 打印当前dp状态
