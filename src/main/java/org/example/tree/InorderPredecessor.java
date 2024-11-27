@@ -20,14 +20,14 @@ package org.example.tree;
  */
 public class InorderPredecessor {
 
-    public static class TreeNode {
+    private static class TreeNode {
         int val;
         TreeNode left;
         TreeNode right;
         TreeNode parent;
 
-        TreeNode(int x) {
-            val = x;
+        TreeNode(int val) {
+            this.val = val;
         }
     }
 
@@ -57,12 +57,14 @@ public class InorderPredecessor {
         //.如果当前节点是其父节点的右子节点，那么父节点就是前驱节点。
         //.如果当前节点是其父节点的左子节点，则继续向上寻找，直到找到一个节点是其父节点的右子节点，返回该父节点。
         TreeNode current = node;
-        TreeNode parent = node.parent;
-        while (parent != null && current == parent.left) {
-            current = parent;
-            parent = parent.parent;
+        while (current.parent != null) {
+            if (current == current.parent.right) {
+                return current.parent;
+            }
+            current = current.parent;
         }
-        return parent;
+        // 如果没有找到满足条件的节点，则返回 null
+        return null;
     }
 
     public static void main(String[] args) {
@@ -77,17 +79,25 @@ public class InorderPredecessor {
         TreeNode node9 = new TreeNode(9);
         TreeNode node10 = new TreeNode(10);
 
-        root.left = node2; root.right = node3;
-        node2.parent = root; node3.parent = root;
+        root.left = node2;
+        root.right = node3;
+        node2.parent = root;
+        node3.parent = root;
 
-        node2.left = node4; node2.right = node5;
-        node4.parent = node2; node5.parent = node2;
+        node2.left = node4;
+        node2.right = node5;
+        node4.parent = node2;
+        node5.parent = node2;
 
-        node3.left = node6; node3.right = node7;
-        node6.parent = node3; node7.parent = node3;
+        node3.left = node6;
+        node3.right = node7;
+        node6.parent = node3;
+        node7.parent = node3;
 
-        node5.left = node10; node5.right = node9;
-        node10.parent = node5; node9.parent = node5;
+        node5.left = node10;
+        node5.right = node9;
+        node10.parent = node5;
+        node9.parent = node5;
 
         node6.left = node8;
         node8.parent = node6;
