@@ -25,6 +25,13 @@ package org.example.array.binarysearch;
  */
 public class FindMinimumInRotatedSortedArray {
 
+    /**
+     * 使用二分查找在旋转排序数组中找到最小值
+     * 思路：利用二分查找的方式，通过比较中间值与右边界值，来缩小搜索区间，从而找到最小值。
+     *
+     * @param nums 输入的旋转排序数组
+     * @return 数组中的最小元素
+     */
     public static int findMin(int[] nums) {
         int left = 0;
         int right = nums.length - 1;
