@@ -1,0 +1,83 @@
+package org.example.tree.dfs;
+
+import org.example.tree.TreeNode;
+
+/**
+ * 112. 路径总和
+ * 给你二叉树的根节点 root 和一个表示目标和的整数 targetSum 。
+ * 判断该树中是否存在 根节点到叶子节点 的路径，这条路径上所有节点值相加等于目标和 targetSum 。
+ * 如果存在，返回 true ；否则，返回 false 。
+ * 叶子节点 是指没有子节点的节点。
+ * 示例 1：
+ * 输入：root = [5,4,8,11,null,13,4,7,2,null,null,null,1], targetSum = 22
+ * 输出：true
+ * 解释：等于目标和的根节点到叶节点路径如上图所示。
+ * 示例 2：
+ * 输入：root = [1,2,3], targetSum = 5
+ * 输出：false
+ * 解释：树中存在两条根节点到叶子节点的路径：
+ * (1 --> 2): 和为 3
+ * (1 --> 3): 和为 4
+ * 不存在 sum = 5 的根节点到叶子节点的路径。
+ * 示例 3：
+ * 输入：root = [], targetSum = 0
+ * 输出：false
+ * 解释：由于树是空的，所以不存在根节点到叶子节点的路径。
+ * Created on 2024/11/28 09:25
+ */
+public class PathSum {
+
+    /**
+     * 判断是否存在从根节点到叶子节点的路径，其节点值之和等于 targetSum。
+     * 算法思路：
+     * 1. 使用递归遍历每个节点，更新目标和。
+     * 2. 如果当前节点为叶子节点且剩余目标和等于当前节点值，返回 true。
+     * 3. 递归检查左右子树是否存在满足条件的路径。
+     *
+     * @param node      根节点
+     * @param targetSum 目标和
+     * @return 是否存在满足条件的路径
+     */
+    public static boolean hasPathSum(TreeNode node, int targetSum) {
+        // 如果树为空，则没有路径
+        if (node == null) {
+            System.out.println("Reached a null node, returning false.");
+            return false;
+        }
+
+        // 计算更新后的目标和
+        targetSum -= node.val;
+        System.out.println("Visiting Node with value: " + node.val + ", Updated targetSum: " + targetSum);
+
+        // 检查是否到达叶子节点且目标和为0
+        if (node.left == null && node.right == null) {
+            System.out.println("Leaf Node reached. Current value: " + node.val + ", TargetSum after subtraction: " + targetSum);
+            return targetSum == 0;
+        }
+
+        // 递归检查左子树和右子树
+        return hasPathSum(node.left, targetSum) || hasPathSum(node.right, targetSum);
+    }
+
+    public static void main(String[] args) {
+        TreeNode root1 = new TreeNode(5);
+        root1.left = new TreeNode(4);
+        root1.right = new TreeNode(8);
+        root1.left.left = new TreeNode(11);
+        root1.left.left.left = new TreeNode(7);
+        root1.left.left.right = new TreeNode(2);
+        root1.right.left = new TreeNode(13);
+        root1.right.right = new TreeNode(4);
+        root1.right.right.right = new TreeNode(1);
+
+        System.out.println("Test Case 1: " + hasPathSum(root1, 22)); // 输出 true
+
+        TreeNode root2 = new TreeNode(1);
+        root2.left = new TreeNode(2);
+        root2.right = new TreeNode(3);
+        System.out.println("Test Case 2: " + hasPathSum(root2, 5)); // 输出 false
+
+        TreeNode root3 = null;
+        System.out.println("Test Case 3: " + hasPathSum(root3, 0)); // 输出 false
+    }
+}
