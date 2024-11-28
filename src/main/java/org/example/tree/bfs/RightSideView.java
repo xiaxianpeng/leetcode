@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Queue;
 
 import org.example.tree.TreeNode;
+import org.example.util.TreeUtil;
 
 /**
  * 199. 二叉树的右视图
@@ -68,13 +69,24 @@ public class RightSideView {
         root1.right = new TreeNode(3);
         root1.left.right = new TreeNode(5);
         root1.right.right = new TreeNode(4);
-        System.out.println("RightSideView: " + rightSideView(root1)); // 输出: [1, 3, 4]
+        TreeUtil.printTree(root1);
+        System.out.println("Right side view of Tree 1: " + rightSideView(root1)); // 输出：[1, 3, 4]
 
         TreeNode root2 = new TreeNode(1);
+        root2.left = new TreeNode(2);
         root2.right = new TreeNode(3);
-        System.out.println("RightSideView: " + rightSideView(root2)); // 输出: [1, 3]
+        root2.left.left = new TreeNode(4);
+        root2.left.left.left = new TreeNode(5);
+        TreeUtil.printTree(root2);
+        System.out.println("Right side view of Tree 2: " + rightSideView(root2)); // 输出：[1, 3, 4, 5]
 
-        TreeNode root3 = null;
-        System.out.println("RightSideView: " + rightSideView(root3)); // 输出: []
+        TreeNode root3 = new TreeNode(1);
+        root3.right = new TreeNode(3);
+        TreeUtil.printTree(root3);
+        System.out.println("Right side view of Tree 3: " + rightSideView(root3)); // 输出：[1, 3]
+
+        TreeNode root4 = null;
+        TreeUtil.printTree(root4);
+        System.out.println("Right side view of Tree 4: " + rightSideView(root4)); // 输出：[]
     }
 }
