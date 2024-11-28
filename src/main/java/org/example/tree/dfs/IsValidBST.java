@@ -1,6 +1,7 @@
 package org.example.tree.dfs;
 
 import org.example.tree.TreeNode;
+import org.example.util.TreeUtil;
 
 /**
  * 98. 验证二叉搜索树
@@ -41,10 +42,12 @@ public class IsValidBST {
      * @return 当前子树是否是有效的二叉搜索树
      */
     private static boolean validate(TreeNode node, Integer min, Integer max) {
-        // base case
+        // base case 如果节点为空，则直接返回true
         if (node == null) {
-            return false;
+            return true;
         }
+        System.out.println("Node value: " + node.val + ", Min: " + min + ", Max: " + max);
+
         // 若 root.val 不符合 max 和 min 的限制，说明不是合法 BST
         if (min != null && node.val <= min) {
             return false;
@@ -52,24 +55,27 @@ public class IsValidBST {
         if (max != null && node.val >= max) {
             return false;
         }
-        // 限定左⼦树的最⼤值是 root.val，右⼦树的最⼩值是 root.val
+
+        // 递归验证左子树和右子树
+        // 左子树：最大值更新为当前节点的值
+        // 右子树：最小值更新为当前节点的值
         return validate(node.left, min, node.val) && validate(node.right, node.val, max);
     }
 
 
     public static void main(String[] args) {
-        // 示例 1
         TreeNode root1 = new TreeNode(2);
         root1.left = new TreeNode(1);
         root1.right = new TreeNode(3);
+        TreeUtil.printTree(root1);
         System.out.println("Example 1: " + isValidBST(root1)); // 输出: true
 
-        // 示例 2
         TreeNode root2 = new TreeNode(5);
         root2.left = new TreeNode(1);
         root2.right = new TreeNode(4);
         root2.right.left = new TreeNode(3);
         root2.right.right = new TreeNode(6);
+        TreeUtil.printTree(root2);
         System.out.println("Example 2: " + isValidBST(root2)); // 输出: false
     }
 }
