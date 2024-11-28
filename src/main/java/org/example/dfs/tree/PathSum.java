@@ -45,18 +45,22 @@ public class PathSum {
             return false;
         }
 
-        // 计算更新后的目标和
-        targetSum -= node.val;
-        System.out.println("Visiting Node with value: " + node.val + ", Updated targetSum: " + targetSum);
-
-        // 检查是否到达叶子节点且目标和为0
+        // 检查是否到达叶子节点
         if (node.left == null && node.right == null) {
+            // 到达叶子节点时，检查目标和是否为节点值
             System.out.println("Leaf Node reached. Current value: " + node.val + ", TargetSum after subtraction: " + targetSum);
-            return targetSum == 0;
+            return node.val == targetSum;
         }
 
         // 递归检查左子树和右子树
-        return hasPathSum(node.left, targetSum) || hasPathSum(node.right, targetSum);
+        System.out.println("Exploring left subtree of node " + node.val);
+        boolean leftResult = hasPathSum(node.left, targetSum - node.val);
+
+        System.out.println("Exploring right subtree of node " + node.val);
+        boolean rightResult = hasPathSum(node.right, targetSum - node.val);
+
+        // 返回左右子树中任意一条路径是否满足条件
+        return leftResult || rightResult;
     }
 
     public static void main(String[] args) {
