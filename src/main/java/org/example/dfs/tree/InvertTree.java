@@ -6,39 +6,51 @@ import org.example.util.TreeUtil;
 /**
  * 226. 翻转二叉树
  * 给你一棵二叉树的根节点 root ，翻转这棵二叉树，并返回其根节点。
- * 方法一：递归法
- * 链接：https://leetcode.cn/problems/invert-binary-tree/solutions/2361621/226-fan-zhuan-er-cha-shu-fen-zhi-qing-xi-tqlf/
- * 根据二叉树镜像的定义，考虑递归遍历（dfs）二叉树，交换每个节点的左 / 右子节点，即可生成二叉树的镜像。
- * 递归解析：
- * 终止条件： 当节点 root 为空时（即越过叶节点），则返回 null 。
- * 递推工作：
- * 初始化节点 tmp ，用于暂存 root 的左子节点。
- * 开启递归 右子节点 invertTree(root.right) ，并将返回值作为 root 的 左子节点 。
- * 开启递归 左子节点 invertTree(tmp) ，并将返回值作为 root 的 右子节点 。
- * 返回值： 返回当前节点 root 。
+ * 示例 1：
+ * 输入：root = [4,2,7,1,3,6,9]
+ * 输出：[4,7,2,9,6,3,1]
+ * 示例 2：
+ * 输入：root = [2,1,3]
+ * 输出：[2,3,1]
+ * 示例 3：
+ * 输入：root = []
+ * 输出：[]
  */
 public class InvertTree {
 
-    /**
-     * * 根据二叉树镜像的定义，考虑递归遍历（dfs）二叉树，交换每个节点的左 / 右子节点，即可生成二叉树的镜像。
-     * * 递归解析：
-     * * 终止条件： 当节点 root 为空时（即越过叶节点），则返回 null 。
-     * * 递推工作：
-     * * 初始化节点 tmp ，用于暂存 root 的左子节点。
-     * * 开启递归 右子节点 invertTree(root.right) ，并将返回值作为 root 的 左子节点 。
-     * * 开启递归 左子节点 invertTree(tmp) ，并将返回值作为 root 的 右子节点 。
-     * * 返回值： 返回当前节点 root 。
-     */
+    // 方法1：递归地翻转二叉树
+    // 思路：对于每个节点，交换其左右子树，并递归地对子树进行同样的操作。
     public static TreeNode invertTree(TreeNode node) {
+        if (node == null) {
+            return null;
+        }
+
+        //System.out.println("Inverting Node with value: " + node.val);
+
+        // 递归地翻转左右子树
+        TreeNode left = invertTree(node.left);
+        TreeNode right = invertTree(node.right);
+
+        // 交换左右子树
+        node.left = right;
+        node.right = left;
+
+        // 返回当前节点
+        return node;
+    }
+
+    // 方法2：递归地翻转二叉树
+    // 思路：直接在当前节点上交换左右子树。
+    public static TreeNode invertTree2(TreeNode node) {
         if (node == null) {
             return null;// 终止条件：当节点为空时，返回null
         }
         // 暂存左子节点
         TreeNode left = node.left;
         // 递归翻转右子树，并将其设置为当前节点的左子节点
-        node.left = invertTree(node.right);
+        node.left = invertTree2(node.right);
         // 递归翻转左子树，并将其设置为当前节点的右子节点
-        node.right = invertTree(left);
+        node.right = invertTree2(left);
         // 返回当前节点
         return node;
     }
