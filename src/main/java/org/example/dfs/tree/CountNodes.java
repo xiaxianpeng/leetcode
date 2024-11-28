@@ -1,55 +1,41 @@
 package org.example.dfs.tree;
 
 import org.example.tree.TreeNode;
-import org.example.tree.construct.ConstructBinaryTree;
 
 /**
- * @author xianpeng.xia
- * on 2022/3/28 11:09 PM
- *
- * 完全⼆叉树的节点个数
+ * 题目：完全二叉树的节点个数
+ * 给定一棵完全二叉树的根节点，计算并返回这棵树的节点总数。
+ * 完全二叉树的定义是：除了最后一层之外，其他层的节点都是满的，
+ * 且最后一层的节点从左到右连续排列。
  */
 public class CountNodes {
 
     /**
-     * @param root 完全⼆叉树
-     * @return 完全⼆叉树的节点个数
+     * 计算二叉树的节点个数。
+     * 算法思路：
+     * 1. 使用递归方法计算节点总数。
+     * 2. 对于每个节点，递归计算其左右子树的节点总数，并加上自身。
      *
-     * 完全⼆叉树的节点个数
+     * @param root 二叉树的根节点
+     * @return 节点总数
      */
     public static int countNodes(TreeNode root) {
-        TreeNode l = root, r = root;
-
-        // 记录左右子树的高度
-        int hl = 0, hr = 0;
-        while (l != null) {
-            l = l.left;
-            hl++;
-        }
-        while (r != null) {
-            r = r.right;
-            hr++;
-        }
-
-        // 如果左右子树的高度相同，则是一颗满二叉树
-        if (hl == hr) {
-            return (int) Math.pow(2, hl) - 1;
-        }
-        // 如果左右子树不想等，则按照普通方式计算
-        return 1 + countNodes(root.left) + countNodes(root.right);
-    }
-
-    public static int count(TreeNode root) {
+        // 基础情况：如果节点为 null，返回 0
         if (root == null) {
             return 0;
         }
-        return Math.max(count(root.left), count(root.right)) + 1;
+        // 递归计算左子树和右子树的节点个数，加上当前节点
+        return countNodes(root.left) + countNodes(root.right) + 1;
     }
 
     public static void main(String[] args) {
-        ConstructBinaryTree constructBinaryTree = new ConstructBinaryTree();
-        TreeNode root = constructBinaryTree.constructMaximumBinaryTree(new int[]{1, 2, 3, 4, 5});
-        int count = count(root);
-        System.out.println(count);
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(5);
+        root.right.left = new TreeNode(6);
+
+        System.out.println("Total nodes: " + countNodes(root)); // 应该输出 6
     }
 }
