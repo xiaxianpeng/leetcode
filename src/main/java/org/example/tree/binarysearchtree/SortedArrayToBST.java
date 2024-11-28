@@ -27,18 +27,18 @@ public class SortedArrayToBST {
      * @return 高度平衡的二叉搜索树根节点
      */
     public static TreeNode sortedArrayToBST(int[] nums) {
-        return dfs(nums, 0, nums.length - 1);
+        return build(nums, 0, nums.length - 1);
     }
 
     /**
-     * 使用递归构建二叉搜索树。
+     * 辅助方法：递归构建平衡二叉搜索树
      *
-     * @param nums 有序数组
-     * @param low  当前子数组的左边界
-     * @param high 当前子数组的右边界
-     * @return 构建的子树的根节点
+     * @param nums 有序整数数组
+     * @param low  左边界
+     * @param high 右边界
+     * @return 当前子树的根节点
      */
-    private static TreeNode dfs(int[] nums, int low, int high) {
+    private static TreeNode build(int[] nums, int low, int high) {
         if (low > high) {
             return null;// 子数组为空时，返回 null
         }
@@ -47,17 +47,25 @@ public class SortedArrayToBST {
         int mid = low + (high - low) / 2;
         TreeNode root = new TreeNode(nums[mid]);
 
-        // 递归构建左子树
-        root.left = dfs(nums, low, mid - 1);
+        System.out.println("Creating node with value: " + nums[mid] + ", left: " + low + ", right: " + high);
 
-        // 递归构建右子树
-        root.right = dfs(nums, mid + 1, high);
+        // 递归构建左子树和右子树
+        root.left = build(nums, low, mid - 1);
+        root.right = build(nums, mid + 1, high);
+
+        // 返回当前子树的根节点
         return root;
     }
 
     public static void main(String[] args) {
-        int[] nums = new int[]{-10, -3, 0, 5, 9};
-        TreeNode root = sortedArrayToBST(nums);
-        TreeUtil.printTree(root);
+        int[] nums1 = {-10, -3, 0, 5, 9};
+        TreeNode root1 = sortedArrayToBST(nums1);
+        System.out.println("BST from sorted array 1: ");
+        TreeUtil.printTree(root1);
+
+        int[] nums2 = {1, 3};
+        TreeNode root2 = sortedArrayToBST(nums2);
+        System.out.println("BST from sorted array 2: ");
+        TreeUtil.printTree(root2);
     }
 }
