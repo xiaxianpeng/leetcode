@@ -2,6 +2,7 @@ package org.example.tree.binarysearchtree;
 
 
 import org.example.tree.TreeNode;
+import org.example.util.TreeUtil;
 
 /**
  * 230. 二叉搜索树中第K小的元素
@@ -16,20 +17,22 @@ import org.example.tree.TreeNode;
  */
 public class KthSmallest {
 
-    // 用于记录已访问节点的数量
+    // 用于记录已经遍历的节点数量
     private int count = 0;
-    // 用于存储第 k 小的节点值
+    // 存储第K小的节点值
     private int result = 0;
 
     /**
-     * 主方法，查找二叉搜索树中第 k 小的元素
+     * 计算二叉搜索树中第K小的元素。
+     * 核心思路：利用中序遍历遍历树，按升序访问节点并返回第K个节点的值。
      *
      * @param root 二叉搜索树的根节点
-     * @param k    目标第 k 小的索引
-     * @return 第 k 小的节点值
+     * @param k    第K小的元素
+     * @return 第K小的元素
      */
     public int kthSmallest(TreeNode root, int k) {
-        inOrderTraversal(root, k);
+        // 在递归中找到第K个元素
+        inorder(root, k);
         return result;
     }
 
@@ -39,41 +42,44 @@ public class KthSmallest {
      * @param node 当前节点
      * @param k    目标第 k 小的索引
      */
-    public void inOrderTraversal(TreeNode node, int k) {
+    public void inorder(TreeNode node, int k) {
+        // 递归结束条件：树为空
         if (node == null) {
             return;
         }
         // 遍历左子树
-        inOrderTraversal(node.left, k);
+        inorder(node.left, k);
 
         //*****中序遍历位置*****//
-        count++;
+        // 访问当前节点
+        count++; // 节点访问次数
         if (count == k) {
-            result = node.val;
+            result = node.val;// 找到第K小的节点
             return;
         }
         //********************//
 
         // 遍历右子树
-        inOrderTraversal(node.right, k);
+        inorder(node.right, k);
     }
 
 
     public static void main(String[] args) {
-        // 示例 1
+
         TreeNode root1 = new TreeNode(3);
         root1.left = new TreeNode(1);
         root1.right = new TreeNode(4);
         root1.left.right = new TreeNode(2);
+        TreeUtil.printTree(root1);
         System.out.println(new KthSmallest().kthSmallest(root1, 1)); // 输出 1
 
-        // 示例 2
         TreeNode root2 = new TreeNode(5);
         root2.left = new TreeNode(3);
         root2.right = new TreeNode(6);
         root2.left.left = new TreeNode(2);
         root2.left.right = new TreeNode(4);
         root2.left.left.left = new TreeNode(1);
+        TreeUtil.printTree(root2);
         System.out.println(new KthSmallest().kthSmallest(root2, 3)); // 输出 3
     }
 }
