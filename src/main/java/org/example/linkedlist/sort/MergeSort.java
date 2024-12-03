@@ -14,11 +14,17 @@ import org.example.linkedlist.structure.ListNode;
  * 示例 3：
  * 输入：head = []
  * 输出：[]
- * 链接：https://leetcode.cn/problems/sort-list/description/
  * Created on 2024/11/19 20:07
  */
 public class MergeSort {
 
+    /**
+     * 排序链表
+     * 使用归并排序方法，递归分割链表并合并。
+     *
+     * @param head 链表的头节点
+     * @return 排序后的链表头节点
+     */
     public static ListNode sortList(ListNode head) {
         // 基本情况：如果链表为空或只有一个节点，直接返回
         if (head == null || head.next == null) {
