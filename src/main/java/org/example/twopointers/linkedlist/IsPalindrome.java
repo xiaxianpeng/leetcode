@@ -3,45 +3,73 @@ package org.example.twopointers.linkedlist;
 import org.example.linkedlist.structure.ListNode;
 
 /**
- * @author xianpeng.xia
- * on 2022/3/28 6:40 PM
- * 判断是否是回文单链表
+ * 234. 回文链表
+ * 给你一个单链表的头节点 head ，请你判断该链表是否为
+ * 回文链表
+ * 。如果是，返回 true ；否则，返回 false 。
+ * 示例 1：
+ * 输入：head = [1,2,2,1]
+ * 输出：true
+ * 示例 2：
+ * 输入：head = [1,2]
+ * 输出：false
  */
 public class IsPalindrome {
 
+    /**
+     * 判断链表是否为回文链表
+     * 核心思路：通过快慢指针找到链表的中点，然后将后半部分链表反转，
+     * 最后比较前半部分和反转后的后半部分是否相同。
+     * 对于奇数节点，跳过中间的节点进行比较；对于偶数节点，完全比较前后两部分。
+     *
+     * @param head 链表的头节点
+     * @return 如果是回文链表，返回true；否则返回false
+     */
     public static boolean isPalindrome(ListNode head) {
-        ListNode slow = head, fast = head;
-        // 快慢指针找到链表的中点
+        // 空链表或只有一个元素是回文链表
+        if (head == null || head.next == null) {
+            return true;
+        }
+        ListNode slow = head;
+        ListNode fast = head;
+        // 步骤1：快慢指针找到链表的中点
         while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
         }
-        // 如果fast指针没有指向null，说明链表长度为奇数，slow再往前一步
-        if (fast != null) {
-            slow = slow.next;
-        }
-        // 对比回文子串
-        ListNode left = head;
-        ListNode right = reverse(slow);
-        while (right != null) {
-            if (left.val != right.val) {
-                return false;
+        System.out.println("中点：slow指向的节点值是 " + slow.val);
+        // 步骤2：反转链表的后半部分
+        ListNode secondHalf = reverse(slow);
+        System.out.println("反转后的后半部分链表:" + secondHalf);
+        // 步骤3：比较前半部分和反转后的后半部分是否相同
+        ListNode firstHalf = head;
+        System.out.println("反转后的前半部分链表:" + firstHalf);
+        while (secondHalf != null) {
+            if (firstHalf.val != secondHalf.val) {
+                return false; // 如果有不相等的值，返回false
             }
-            left = left.next;
-            right = right.next;
+            firstHalf = firstHalf.next;
+            secondHalf = secondHalf.next;
         }
         return true;
     }
 
+    /**
+     * 反转链表
+     *
+     * @param head 链表的头节点
+     * @return 反转后的链表头节点
+     */
     static ListNode reverse(ListNode head) {
-        ListNode pre = null, cur = head;
-        while (cur != null) {
-            ListNode next = cur.next;
-            cur.next = pre;
-            pre = cur;
-            cur = next;
+        ListNode prev = null;
+        ListNode curr = head;
+        while (curr != null) {
+            ListNode next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
         }
-        return pre;
+        return prev;
     }
 
     public static void main(String[] args) {
