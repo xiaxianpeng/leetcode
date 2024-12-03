@@ -19,14 +19,20 @@ import java.util.Map;
 public class PermutationInString {
 
     /**
-     * 滑动窗口
-     * 由于排列不会改变字符串中每个字符的个数，所以只有当两个字符串每个字符的个数均相等时，一个字符串才是另一个字符串的排列。
-     * 窗口收缩条件是：
-     * 1、字符个数相等时
-     * 2、返回true的条件是：valid == need.size()
-     * 链接：https://leetcode-cn.com/problems/permutation-in-string/solution/zi-fu-chuan-de-pai-lie-by-kylin-x-ym50/
+     * 判断 s2 是否包含 s1 的排列
+     * 核心思路：使用滑动窗口法，统计 s1 中字符频率并与 s2 中当前窗口的字符频率进行比较。
+     * 如果窗口内的字符频率与 s1 完全一致，则返回 true。
+     *
+     * @param s1 字符串 s1，目标字符串的排列
+     * @param s2 字符串 s2，检查的源字符串
+     * @return 如果 s2 包含 s1 的排列，返回 true；否则返回 false
      */
     public static boolean checkInclusion(String s1, String s2) {
+        // 如果 s1 比 s2 长，直接返回 false，因为 s2 不可能包含 s1 的任何排列
+        if (s1.length() > s2.length()) {
+            return false;
+        }
+
         // window 哈希表记录当前检查的窗口中每个字符的实际出现次数
         Map<Character, Integer> window = new HashMap<>();
         // need 哈希表记录 s1 中每个字符的期望出现次数
@@ -35,33 +41,44 @@ public class PermutationInString {
         for (char c : s1.toCharArray()) {
             need.put(c, need.getOrDefault(c, 0) + 1);
         }
+
         // left 和 right 分别代表滑动窗口的左右边界指针。
         int left = 0;
         int right = 0;
-        // valid 记录窗口中满足 need 条件的字符数量
+        // 用来记录当前窗口中符合 s1 字符频率的字符数
         int valid = 0;
+
+        // 滑动窗口
         while (right < s2.length()) {
+            // 移动右指针，扩大窗口
             // c 是进入窗口的字符
             char c = s2.charAt(right);
             right++; // 扩大窗口
-            // 更新窗口中字符 c 的计数
+
+            // 更新窗口中字符频率
             if (need.containsKey(c)) {
                 window.put(c, window.getOrDefault(c, 0) + 1);
+                // 如果窗口中的字符数量符合 s1 中的字符数量，valid 增加
                 if (window.get(c).equals(need.get(c))) {
                     valid++;
                 }
             }
-            // 当窗口大小大于等于 s1 的长度时，尝试收缩窗口
-            while (right - left >= s1.length()) {
+
+            // 当窗口大小等于 s1 的长度时，开始收缩左边界
+            while (right - left == s1.length()) {
                 // 如果窗口内有效字符计数等于 need 中字符种类数，说明找到了合法排列
                 if (valid == need.size()) {
                     return true;
                 }
+
+                // 移动左指针，收缩窗口
                 // d 是离开窗口的字符
                 char d = s2.charAt(left);
                 left++;// 缩小窗口
-                // 更新窗口内字符计数
+
+                // 更新窗口字符频率
                 if (need.containsKey(d)) {
+                    // 如果窗口中的字符数量符合要求，valid 减少
                     if (window.get(d).equals(need.get(d))) {
                         // 移除了一个有效字符，所以减少有效计数
                         valid--;
@@ -71,7 +88,8 @@ public class PermutationInString {
                 }
             }
         }
-        // 未找到符合条件的子串
+
+        // 如果没有找到符合的子串，返回 false
         return false;
     }
 
