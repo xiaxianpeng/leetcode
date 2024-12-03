@@ -22,11 +22,21 @@ import java.util.Map;
  * 输出: ""
  * 解释: t 中两个字符 'a' 均应包含在 s 的子串中，
  * 因此没有符合条件的子字符串，返回空字符串
- * https://leetcode.cn/problems/minimum-window-substring/description/?envType=study-plan-v2&envId=labuladong-algorithm-note
+ * 链接：https://leetcode.cn/problems/minimum-window-substring/description/?envType=study-plan-v2&envId=labuladong-algorithm-note
  * Created on 2024/11/11 11:48
  */
 public class MinWindow {
 
+    /**
+     * 寻找字符串 s 中最小的覆盖 t 中所有字符的子串
+     * 核心思路：使用滑动窗口法，借助两个指针 `left` 和 `right` 扩展和收缩窗口，
+     * 并通过哈希表 `need` 和 `window` 来记录窗口内和目标字符的数量。
+     * 当窗口满足条件时，记录最小的子串。
+     *
+     * @param s 输入字符串 s
+     * @param t 输入字符串 t
+     * @return 返回 s 中最小的覆盖子串
+     */
     public static String minWindow(String s, String t) {
         // window 记录当前滑动窗口中每个字符的出现次数。
         Map<Character, Integer> window = new HashMap<>();
@@ -39,18 +49,21 @@ public class MinWindow {
         // left 和 right 表示滑动窗口的左右边界 【left ，right），初始都指向字符串 s 的第一个元素位置。
         int left = 0;
         int right = 0;
-        //valid表示是否满足了t中的字符，不算重复的
+        // valid 用来记录窗口内符合条件的字符数
         int valid = 0;
-        // 记录最小覆盖子串的起始索引及长度。起始索引初始化为 0，长度初始化为一个不可能的大值 Integer.MAX_VALUE。
+        // start 记录最小窗口的起始位置，minLength 记录最小窗口的长度
         int start = 0;
-        int len = Integer.MAX_VALUE;
+        int minLength = Integer.MAX_VALUE;
+
         // 开始滑动窗口的操作，right 不断向右移动，直到 s 的末尾
         while (right < s.length()) {
             // c 是将要移入窗口的字符。
             char c = s.charAt(right);
             // 右移窗口的右边界。
             right++;
-            // 如果 c 是 need 中记录的字符，更新 window 计数
+
+            // 如果 c 是 need 中记录的字符，
+            // 更新窗口的字符计数
             if (need.containsKey(c)) {
                 window.put(c, window.getOrDefault(c, 0) + 1);
                 // 当窗口中的某个字符数量满足 need 要求时，增加 valid
@@ -58,22 +71,26 @@ public class MinWindow {
                     valid++;
                 }
             }
-            // 判断左侧窗口是否要收缩，即检查当前窗口是否涵盖了所有 t 的字符
+
+            // 当窗口满足条件时，尝试缩小窗口，找最小的子串
             while (valid == need.size()) {
-                // 检查当前窗口的大小是否比之前的最小子串还小
-                if (right - left < len) {
+                // 更新最小窗口
+                if (right - left < minLength) {
                     // 更新子串的起始位置
                     start = left;
                     // 更新子串的长度
-                    len = right - left;
+                    minLength = right - left;
                 }
+
+                // 获取左指针对应的字符，准备收缩窗口
                 // d 是即将移出窗口的字符
                 char d = s.charAt(left);
                 //左移窗口
                 left++;
-                // 如果 d 是 need 中记录的字符，更新 window 数量，可能需要更新 valid
+
+                // 更新窗口的字符计数
                 if (need.containsKey(d)) {
-                    // 只有当 d 的数量严格等于 need 中的数量时，valid 才减少
+                    // 如果字符 d 的出现次数满足要求，valid 减少
                     if (window.get(d).equals(need.get(d))) {
                         valid--;
                     }
@@ -82,8 +99,9 @@ public class MinWindow {
                 }
             }
         }
-        // 根据 len 的值判断是否找到了符合条件的子串
-        return len == Integer.MAX_VALUE ? "" : s.substring(start, start + len);
+
+        // 如果 minLength 未更新，说明没有满足条件的子串，返回空字符串
+        return minLength == Integer.MAX_VALUE ? "" : s.substring(start, start + minLength);
     }
 
     public static void main(String[] args) {
