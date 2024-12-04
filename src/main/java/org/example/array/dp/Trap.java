@@ -2,9 +2,6 @@ package org.example.array.dp;
 
 /**
  * 42. 接雨水
- * 困难
- * 相关标签
- * 相关企业
  * 给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。
  * 示例 1：
  * 输入：height = [0,1,0,2,1,0,1,3,2,1,2,1]
@@ -13,26 +10,20 @@ package org.example.array.dp;
  * 示例 2：
  * 输入：height = [4,2,0,3,2,5]
  * 输出：9
- * https://leetcode.cn/problems/trapping-rain-water/description/?envType=study-plan-v2&envId=labuladong-algorithm-note
+ * 链接：https://leetcode.cn/problems/trapping-rain-water/description/?envType=study-plan-v2&envId=labuladong-algorithm-note
  * Created on 2024/11/13 18:41
  */
 public class Trap {
 
     /**
-     * 动态规划（DP）的方法来解决“接雨水”问题
-     * ***
-     * 检查数组是否为空：如果输入数组是空的或者长度为0，那么直接返回0，因为没有柱子可以积水。
-     * 构造辅助数组：创建两个辅助数组 leftMax 和 rightMax。
-     * leftMax 数组存储从左向右遍历时，每个位置左侧（包括当前位置）的最高柱子高度。
-     * rightMax 数组存储从右向左遍历时，每个位置右侧（包括当前位置）的最高柱子高度。
-     * 填充 leftMax 数组：从左向右遍历输入数组 height，
-     * 计算并填充 leftMax 数组，使得 leftMax[i] 是 height[0] 到 height[i] 中的最大值。
-     * 填充 rightMax 数组：从右向左遍历输入数组 height，
-     * 计算并填充 rightMax 数组，使得 rightMax[i] 是 height[i] 到 height[height.length - 1] 中的最大值。
-     * 计算总积水量：遍历 height 数组，对于每个位置 i，计算在此位置上方可以积水的量，
-     * 通过找到 leftMax[i] 和 rightMax[i] 中较小的一个，然后减去 height[i] 本身的高度。
-     * 这个差值如果是正数，表示当前位置可以积水；累加这个差值到 totalWater 中即可得到最终的总积水量。
-     * 返回结果：返回 totalWater，这就是下雨后所有柱子上方可以积累的雨水总量。
+     * 计算雨水的积存量
+     * 算法思路：
+     * 1. 创建两个数组 leftMax 和 rightMax 分别存储每个位置左侧和右侧的最大高度。
+     * 2. 使用动态规划填充这两个数组。
+     * 3. 根据左右最大高度计算每个位置能积存的雨水量。
+     *
+     * @param height 高度图数组
+     * @return 积存的雨水量
      */
     public static int trap(int[] height) {
         // 如果输入数组为空或长度为0，则返回0，因为没有地方可以积水
@@ -72,7 +63,10 @@ public class Trap {
     }
 
     public static void main(String[] args) {
-        int[] testHeights = {0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
-        System.out.println("能接的雨水量: " + trap(testHeights)); // 应该输出 6
+        int[] height1 = {0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
+        System.out.println("能接的雨水量: " + trap(height1)); // 应该输出 6
+
+        int[] height2 = {4, 2, 0, 3, 2, 5};
+        System.out.println("能接的雨水量: " + trap(height2)); // 应该输出 9
     }
 }
