@@ -13,14 +13,23 @@ import java.util.Arrays;
  */
 public class CandyDistribution {
 
+    /**
+     * 分配糖果，最大化满足孩子的数量
+     *
+     * @param candies  糖果的大小数组
+     * @param children 孩子的需求数组
+     * @return 满足的孩子数量
+     */
     public static int distributeCandies(int[] candies, int[] children) {
-        // 排序
+        // 对糖果和孩子的需求数组进行排序
         Arrays.sort(candies);
         Arrays.sort(children);
+
         // 当前考虑的糖果索引
         int candyIndex = 0;
         // 当前考虑的孩子索引
         int childIndex = 0;
+
         while (candyIndex < candies.length && childIndex < children.length) {
             if (candies[candyIndex] >= children[childIndex]) {
                 // 满足孩子需求，移动到下一个孩子
