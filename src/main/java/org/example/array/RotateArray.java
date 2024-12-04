@@ -22,7 +22,7 @@ import java.util.Arrays;
 public class RotateArray {
 
     /**
-     * 轮转数组的方法
+     * 轮转数组，将数组中的元素向右轮转 k 个位置
      * 思路：使用三次反转的方法来实现数组的轮转。
      * 1、反转整个数组：将所有元素的顺序倒转。
      * 2、反转前 k 个元素：将原来数组中最后 k 个元素的顺序调整到目标位置。
@@ -32,6 +32,10 @@ public class RotateArray {
      * @param k    向右轮转的步数
      */
     public static void rotate(int[] nums, int k) {
+        // 特殊情况：数组为空或者不需要轮转的情况
+        if (nums == null || nums.length == 0 || k % nums.length == 0) {
+            return;
+        }
         k %= nums.length;// 处理 k 大于数组长度的情况
         System.out.println("Original array: " + Arrays.toString(nums));
 
