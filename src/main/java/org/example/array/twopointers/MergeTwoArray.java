@@ -63,7 +63,6 @@ public class MergeTwoArray {
             nums2Index--;
             mergeIndex--;
         }
-        System.out.println();
     }
 
 
