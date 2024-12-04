@@ -1,4 +1,4 @@
-package org.example.string;
+package org.example.twopointers.string;
 
 /**
  * 151. 反转字符串中的单词
@@ -20,26 +20,44 @@ package org.example.string;
  * 解释：如果两个单词间有多余的空格，反转后的字符串需要将单词间的空格减少到仅有一个。
  */
 public class ReverseWords {
+
+    /**
+     * 反转字符串中的单词
+     * 算法思路：
+     * 1. 使用 trim() 方法去除字符串的前导和尾随空格。
+     * 2. 使用双指针（i 和 j）从字符串的末尾开始遍历，逐个提取单词。
+     * 3. 每次找到一个单词后，加入结果字符串，并跳过单词之间的空格。
+     * 4. 拼接完成后，返回最终结果时去除多余的空格。
+     *
+     * @param s 输入的字符串
+     * @return 反转后的字符串，单词之间用单个空格分隔
+     */
     public static String reverseWords(String s) {
+        // 去除前导和尾随空格
         s = s.trim();
         int j = s.length() - 1;
         int i = j;
-        StringBuffer res = new StringBuffer();
+        StringBuffer result = new StringBuffer();
+
         while (i >= 0) {
             // 搜索首个空格
             while (i >= 0 && s.charAt(i) != ' ') {
                 i--;
             }
-            // 添加单词
-            res.append(s.substring(i + 1, j + 1) + " ");
+
+            // 将单词拼接到结果中
+            result.append(s.substring(i + 1, j + 1) + " ");
+
             // 跳过单词间空格
             while (i >= 0 && s.charAt(i) == ' ') {
                 i--;
             }
+            // 更新 j 为当前单词的结束位置
             j = i;
         }
 
-        return res.toString();
+        // 返回结果
+        return result.toString();
     }
 
     public static void main(String[] args) {
