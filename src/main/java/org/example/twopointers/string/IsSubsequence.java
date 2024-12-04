@@ -18,27 +18,30 @@ package org.example.twopointers.string;
 public class IsSubsequence {
 
     /**
-     * 判断子序列：使用双指针遍历两个字符串，依次匹配字符。
-     * 核心思路：
-     * 1. 使用两个指针 i 和 j，分别遍历字符串 s 和 t。
-     * 2. 如果 s[i] 等于 t[j]，则移动 i 和 j；否则只移动 j。
-     * 3. 当 i 遍历完 s 时，说明 s 是 t 的子序列。
-     * 时间复杂度：O(n + m)，其中 n 是 s 的长度，m 是 t 的长度。
-     * 空间复杂度：O(1)。
+     * 判断 s 是否为 t 的子序列
+     * 算法思路：
+     * 使用双指针的方法，遍历字符串 s 和 t。
+     * 如果 s 的字符在 t 中按顺序找到匹配，则返回 true，否则返回 false。
+     *
+     * @param s 字符串 s
+     * @param t 字符串 t
+     * @return true 如果 s 是 t 的子序列，否则 false
      */
     public static boolean isSubsequence(String s, String t) {
-        int i = 0;
-        int j = 0;
-        // 遍历 t 直到 s 被完全匹配或 t 遍历结束
+        int i = 0;// 指向 s 的指针
+        int j = 0;// 指向 t 的指针
+
+        // 遍历 t，当 i 小于 s 的长度时
         while (i < s.length() && j < t.length()) {
-            // 如果字符匹配，移动 s 的指针
+            // 如果 s[i] 和 t[j] 匹配，指针 i 向前移动
             if (s.charAt(i) == t.charAt(j)) {
                 i++;
             }
-            // 无论是否匹配，都移动 t 的指针
+            // 无论是否匹配，指针 j 向前移动
             j++;
         }
-        // 如果 i 遍历完整个 s，则说明 s 是 t 的子序列
+
+        // 如果 i == s.length(), 说明所有字符都匹配上了
         return i == s.length();
     }
 
