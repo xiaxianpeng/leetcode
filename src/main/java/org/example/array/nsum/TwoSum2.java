@@ -40,19 +40,19 @@ public class TwoSum2 {
      * @return 和为 target 的两个数的下标，若没有则返回 null
      */
     public static int[] twoSum(int[] nums, int target) {
-        int left = 0;
-        int right = nums.length - 1;
-        while (left < right) {
-            int sum = nums[left] + nums[right];
+        int low = 0;
+        int height = nums.length - 1;
+        while (low < height) {
+            int sum = nums[low] + nums[height];
             if (sum == target) {
                 // 返回找到的下标
-                return new int[]{left, right};
+                return new int[]{low, height};
             } else if (sum < target) {
                 // 如果当前和小于目标，左指针右移
-                left++;
+                low++;
             } else {
                 // 如果当前和大于目标，右指针左移
-                right--;
+                height--;
             }
         }
 
