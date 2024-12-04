@@ -1,4 +1,4 @@
-package org.example.greedy.array;
+package org.example.array.greedy;
 
 /**
  * 134. 加油站
@@ -29,7 +29,7 @@ package org.example.greedy.array;
  * 你无法返回 2 号加油站，因为返程需要消耗 4 升汽油，但是你的油箱只有 3 升汽油。
  * 因此，无论怎样，你都不可能绕环路行驶一周。
  */
-public class CanCompleteCircuit {
+public class GasStation {
 
     /**
      * 利用贪心算法，遍历每个加油站作为起点，尝试从该加油站出发，计算能否完成一圈。
