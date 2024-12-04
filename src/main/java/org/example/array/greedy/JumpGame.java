@@ -18,32 +18,37 @@ package org.example.array.greedy;
 public class JumpGame {
 
     /**
-     * 判断是否能够到达最后一个下标。
-     * 核心思路：使用贪心算法，维护一个变量来记录当前能到达的最远位置。
-     * 如果在遍历过程中，当前位置超过了最远位置，则无法到达最后一个下标。
+     * 判断是否能够跳跃到最后一个下标
+     * 算法思路：
+     * - 使用贪心算法，维护一个变量 maxReach，表示目前能跳到的最远位置。
+     * - 遍历数组，更新 maxReach 并判断是否能到达最后一个下标。
+     * - 如果 maxReach 在遍历过程中超过或等于数组的最后一个位置，则返回 true。
+     * - 如果无法更新 maxReach，说明无法到达最后一个下标，返回 false。
      *
-     * @param nums 非负整数数组
-     * @return 能否到达最后一个下标
+     * @param nums 输入的数组，nums[i] 表示当前位置能跳跃的最大步数。
+     * @return 如果能到达最后一个下标，返回 true；否则返回 false。
      */
     public static boolean canJump(int[] nums) {
-        // 记录当前能到达的最远位置
+        // 初始化最大可达位置为0
         int maxReach = 0;
 
         // 遍历数组的每个位置
         for (int i = 0; i < nums.length; i++) {
-            // 如果当前位置 i 超出了 maxReach，说明我们无法到达 i
+            // 如果当前位置 i 超过了当前的最大可达位置，说明无法到达
             if (i > maxReach) {
                 return false;
             }
 
-            // 从当前位置 i 出发，能跳跃到的最远位置。
+            // 从当前位置 i 出发，更新最大可达位置
             maxReach = Math.max(maxReach, i + nums[i]);
 
-            // maxReach 已经到达或超过最后一个位置的索引，说明我们可以到达最后一个位置
+            // 如果已经能够到达或超过最后一个下标，直接返回 true
             if (maxReach >= nums.length - 1) {
                 return true;
             }
         }
+
+        // 如果遍历完后仍无法到达最后一个下标，返回 false
         return false;
     }
 
