@@ -22,42 +22,52 @@ import org.example.linkedlist.structure.ListNode;
 public class AddTwoNumbers {
 
     /**
-     * 将两个链表表示的数字相加，返回和的链表。
+     * 给定两个链表 l1 和 l2，表示两个逆序存储的非负整数，返回它们的和，也以链表形式存储。
+     * 核心策略：使用两个指针分别遍历两个链表，逐位相加，处理进位，最终返回结果链表。
      *
-     * @param l1 第一个数字的链表表示
-     * @param l2 第二个数字的链表表示
-     * @return 和的链表表示
+     * @param l1 链表1
+     * @param l2 链表2
+     * @return 相加后的链表
      */
     public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         // 虚拟头节点
         ListNode dummyHead = new ListNode(0);
+        // 指针p负责构建新链表
+        ListNode p = dummyHead;
         // 在两条链表上的指针
         ListNode p1 = l1;
         ListNode p2 = l2;
-        // 指针p负责构建新链表
-        ListNode p = dummyHead;
         // 进位
         int carry = 0;
+
         // 执行加法，两条链表走完且没有进位才能结束循环
         while (p1 != null || p2 != null || carry > 0) {
-            // 先加上进位
-            int val = carry;
+            // 当前位的和
+            int sum = carry;
+
+            // 如果 p1 不为空，则加上 p1 当前位的数字
             if (p1 != null) {
-                val += p1.val;
-                p1 = p1.next;
+                sum += p1.val;
+                p1 = p1.next;// 移动p1
             }
+
+            // 如果 p2 不为空，则加上 p2 当前位的数字
             if (p2 != null) {
-                val += p2.val;
-                p2 = p2.next;
+                sum += p2.val;
+                p2 = p2.next;// 移动p2
             }
-            // 进位
-            carry = val / 10;
-            // 余数
-            int remainder = val % 10;
-            // 构建新节点
+
+            // 更新进位，当前位的和可能大于或等于 10
+            carry = sum / 10;
+            // 余数，当前位的结果
+            int remainder = sum % 10;
+
+            // 创建一个新节点存储当前位的结果
             p.next = new ListNode(remainder);
             p = p.next;
         }
+
+        // 返回结果链表（跳过虚拟头节点）
         return dummyHead.next;
     }
 
