@@ -52,6 +52,9 @@ public class RandomizedSet {
         this.random = new Random();
     }
 
+    /**
+     * 插入一个元素，如果元素已存在返回false
+     */
     public boolean insert(int val) {
         // 检查值是否存在，存在则返回 false
         if (indices.containsKey(val)) {
@@ -64,6 +67,9 @@ public class RandomizedSet {
         return true;
     }
 
+    /**
+     * 删除一个元素，如果元素存在返回true
+     */
     public boolean remove(int val) {
         // 检查值是否存在，不存在则返回 false
         if (!indices.containsKey(val)) {
@@ -72,16 +78,21 @@ public class RandomizedSet {
 
         // 获取要删除值的索引
         int index = indices.get(val);
+
         // 将数组最后一个元素移到被删除元素的位置，并更新映射
         int lastVal = nums.get(nums.size() - 1);
         nums.set(index, lastVal);
         indices.put(lastVal, index);
+
         // 删除数组最后一个元素和映射中的要删除的值
         nums.remove(nums.size() - 1);
         indices.remove(val);
         return true;
     }
 
+    /**
+     * 获取一个随机元素
+     */
     public int getRandom() {
         // 生成一个随机索引，并返回该索引对应的值
         int randomIndex = random.nextInt(nums.size());
