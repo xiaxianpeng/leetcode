@@ -16,7 +16,7 @@ package org.example.greedy.array;
  * 解释：在这种情况下, 没有交易完成, 所以最大利润为 0。
  * Created on 2024/11/25 17:14
  */
-public class BestTimeToBuyAndSellStock {
+public class BuyAndSellStock {
 
     /**
      * 计算可以获得的最大利润。
