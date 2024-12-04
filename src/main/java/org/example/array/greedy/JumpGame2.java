@@ -21,12 +21,14 @@ package org.example.array.greedy;
 public class JumpGame2 {
 
     /**
-     * 找到到达最后一个索引的最小跳跃次数。
-     * 核心思路：使用贪心算法，通过迭代更新当前跳跃所能到达的最远范围，
-     * 并在每次到达当前范围的末尾时增加跳跃次数。
+     * 计算跳跃到最后一个下标的最小跳跃次数
+     * 算法思路：
+     * - 使用贪心算法，维护变量 jumps（跳跃次数），currentEnd（当前跳跃范围的末尾），farthest（当前跳跃范围内最远可达位置）。
+     * - 遍历数组，每次更新跳跃范围的最远位置，并在跳跃范围结束时增加跳跃次数。
+     * - 如果当前跳跃范围的末尾能够到达数组末尾，直接返回跳跃次数。
      *
-     * @param nums 非负整数数组
-     * @return 到达最后一个索引的最小跳跃次数
+     * @param nums 输入的数组，nums[i] 表示当前位置能跳跃的最大步数。
+     * @return 达到最后一个下标所需的最小跳跃次数。
      */
     public static int jump(int[] nums) {
         // 用于记录跳跃次数
@@ -38,20 +40,21 @@ public class JumpGame2 {
 
         // 遍历数组，最后一个位置不需要再跳
         for (int i = 0; i < nums.length - 1; i++) {
-            // 更新当前能到达的最远位置
+            // 更新当前跳跃过程中能到达的最远位置
             maxReach = Math.max(maxReach, i + nums[i]);
 
-            // 当到达当前跳跃的末尾时，需要进行一次新的跳跃
+            // 如果到达当前跳跃范围的末尾，进行下一次跳跃
             if (i == currentJumpEnd) {
-                jumps++;
-                currentJumpEnd = maxReach;// 更新新的跳跃的结束位置
+                jumps++; // 增加跳跃次数
+                currentJumpEnd = maxReach;// 更新当前跳跃范围的末尾
 
-                // 如果已经可以到达或超过最后一个位置，跳出循环
+                // 如果能到达或超过最后一个下标，结束
                 if (currentJumpEnd >= nums.length - 1) {
                     break;
                 }
             }
         }
+
         return jumps;
     }
 
