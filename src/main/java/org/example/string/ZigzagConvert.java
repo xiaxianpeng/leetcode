@@ -29,7 +29,7 @@ import java.util.List;
  * 输出："A"
  * Created on 2024/12/5 09:35
  */
-public class zigzagConvert {
+public class ZigzagConvert {
 
     /**
      * 将字符串进行 Z 字形排列并返回结果字符串
