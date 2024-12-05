@@ -1,4 +1,7 @@
-package org.example.string;
+package org.example.hash.string;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 242. 有效的字母异位词
@@ -14,42 +17,46 @@ package org.example.string;
 public class IsAnagrams {
 
     /**
-     * 判断两个字符串是否是字母异位词。
-     * 核心思路：使用固定大小的计数数组记录每个字母出现的频次。
-     * - 遍历字符串 s 时，对对应字母频次增加。
-     * - 遍历字符串 t 时，对对应字母频次减少。
-     * - 如果最终计数数组中所有值均为 0，表示两个字符串互为字母异位词。
+     * 判断 t 是否是 s 的字母异位词
+     * 核心思路：
+     * - 通过字符频次判断两个字符串是否相同。
+     * - 用一个哈希表统计 s 中每个字符的频次，然后遍历 t 减少对应字符的频次。
+     * - 最后检查所有字符频次是否为 0。
      *
      * @param s 字符串 s
      * @param t 字符串 t
-     * @return 如果 t 是 s 的字母异位词，返回 true；否则返回 false。
+     * @return 如果 t 是 s 的字母异位词返回 true，否则返回 false
      */
     public static boolean isAnagram(String s, String t) {
         // 如果两个字符串长度不同，则不可能是字母异位词
         if (s.length() != t.length()) {
-            return false;
+            return false;// 长度不同，直接返回 false
         }
-        // 用于记录每个字母的出现频次
-        int[] charFrequency = new int[26];
+        // 创建一个哈希表统计字符频次
+        Map<Character, Integer> charCount = new HashMap<>();
 
-        // 遍历字符串 s 和 t，更新字母频次
-        for (int i = 0; i < s.length(); i++) {
-            charFrequency[s.charAt(i) - 'a']++;// 对 s 中的字符计数加 1
-            charFrequency[t.charAt(i) - 'a']--;// 对 t 中的字符计数减 1
+        // 遍历 s，增加每个字符的频次
+        for (char c : s.toCharArray()) {
+            charCount.put(c, charCount.getOrDefault(c, 0) + 1);
         }
 
-        // 检查计数数组中是否所有值均为 0
-        for (int i = 0; i < charFrequency.length; i++) {
-            if (charFrequency[i] != 0) {
-                return false;// 如果存在非 0 的值，说明两字符串频次不同
+        // 遍历 t，减少每个字符的频次
+        for (char c : t.toCharArray()) {
+            charCount.put(c, charCount.getOrDefault(c, 0) - 1);
+        }
+
+        // 检查所有频次是否为 0
+        for (Character c : charCount.keySet()) {
+            if (charCount.get(c) > 0) {
+                return false;
             }
         }
+
         // 所有计数均为 0，表示是字母异位词
         return true;
     }
 
     public static void main(String[] args) {
-        // 测试用例
         System.out.println(isAnagram("anagram", "nagaram")); // 输出: true
         System.out.println(isAnagram("rat", "car"));         // 输出: false
         System.out.println(isAnagram("", ""));               // 输出: true
