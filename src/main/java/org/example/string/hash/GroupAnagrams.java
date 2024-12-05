@@ -23,34 +23,41 @@ public class GroupAnagrams {
 
     /**
      * 使用字符计数法对字母异位词进行分组
+     * 算法思路：
+     * - 对于每个字符串，我们统计其中每个字母的频次。
+     * - 将频次数组作为键（key），使用 HashMap 来分组。
+     * - 相同字母频次的字符串会映射到同一个 key，从而分到同一组。
      *
      * @param strs 输入字符串数组
      * @return 按字母异位词分组的结果列表
      */
     public static List<List<String>> groupAnagrams(String[] strs) {
         if (strs == null || strs.length == 0) {
-            return new ArrayList<>();
+            return new ArrayList<>();// 如果输入为空，返回空列表
         }
 
-        Map<String, List<String>> ans = new HashMap<>();
+        Map<String, List<String>> ans = new HashMap<>(); // 用来存储分组的结果
 
+        // 遍历每个字符串
         for (String str : strs) {
-            // 统计字符出现次数
-            int[] chars = new int[26];
+            // 创建一个长度为 26 的数组，用于统计每个字符出现的次数
+            int[] chars = new int[26];// 只有小写字母，所以数组大小为 26
             for (char c : str.toCharArray()) {
-                chars[c - 'a']++;
+                chars[c - 'a']++; // 通过字符 'a' 的 ASCII 值来找到字符的对应位置
             }
 
-            // 将字符计数数组转换为唯一的字符串键
+            // 将字符计数数组转换为唯一的字符串作为键
             StringBuffer keyBuffer = new StringBuffer();
             for (int i = 0; i < chars.length; i++) {
-                keyBuffer.append("#").append(chars[i]);
+                keyBuffer.append("#").append(chars[i]);// 拼接字符频次形成一个字符串
             }
-            String key = keyBuffer.toString();
+            String key = keyBuffer.toString(); // 将字符频次数组转为字符串作为唯一键
 
-            // 将当前字符串加入对应分组
-            ans.computeIfAbsent(key, k -> new ArrayList<>()).add(str);// key不存在则调用new ArrayList
+            // 使用 HashMap 分组，将具有相同字符频次的字符串归为一组
+            ans.computeIfAbsent(key, k -> new ArrayList<>()).add(str);// 如果key不存在，创建新列表
         }
+
+        // 返回 HashMap 中的所有值，即字母异位词分组的结果
         return new ArrayList<>(ans.values());
     }
 

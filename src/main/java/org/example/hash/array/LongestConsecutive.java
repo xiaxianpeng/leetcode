@@ -18,13 +18,16 @@ import java.util.Set;
 public class LongestConsecutive {
 
     /**
-     * 使用哈希集合实现 O(n) 时间复杂度的算法，找到最长的连续序列长度。
+     * 算法思路：
+     * 1. 使用 HashSet 存储数组中的元素，以便 O(1) 时间复杂度进行查找。
+     * 2. 遍历数组中的每个元素，判断该元素是否是某个连续序列的起点（即 num-1 不在集合中）。
+     * 3. 对于每个起点，向后查找连续的数字，更新最大长度。
+     * 4. 最终返回最长连续序列的长度。
      *
      * @param nums 输入的整数数组
      * @return 最长连续序列的长度
      */
     public static int longestConsecutive(int[] nums) {
-
         // 使用 HashSet 存储数组中的所有数字
         Set<Integer> numSet = new HashSet<>();
         for (int num : nums) {
@@ -36,15 +39,15 @@ public class LongestConsecutive {
         // 遍历集合中的每个数字
         for (Integer num : numSet) {
 
-            // 如果当前数字是序列的起点
+            // 只从序列的起点开始查找
             if (!numSet.contains(num - 1)) {
                 int curNum = num; // 当前数字
                 int curLength = 1;// 当前序列长度
 
-                // 查找后续的连续数字
+                // 查找连续的数字
                 while (numSet.contains(curNum + 1)) {
                     curNum++;
-                    curLength ++;
+                    curLength++;
                 }
 
                 // 更新最大长度
