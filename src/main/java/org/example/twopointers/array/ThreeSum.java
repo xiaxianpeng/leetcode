@@ -5,87 +5,105 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * 三数之和等于0
- * 特判，对于数组长度 n，如果数组为 null或者数组长度小于 3，返回 []。
- * 对数组进行排序。
- * 遍历排序后数组：
- * 若 nums[i]>0：因为已经排序好，所以后面不可能有三个数加和等于 0，直接返回结果。
- * 对于重复元素：跳过，避免出现重复解
- * 令左指针 L=i+1，右指针 R=n−1，当 L<R 时，执行循环：
- * 当 nums[i]+nums[L]+nums[R]==0，执行循环，判断左界和右界是否和下一位置重复，去除重复解。并同时将 L,R 移到下一位置，寻找新的解
- * 若和大于 0，说明 nums[R] 太大，R左移
- * 若和小于 0，说明 nums[L] 太小，L右移
+ * 15. 三数之和
+ * 给你一个整数数组 nums ，判断是否存在三元组 [nums[i], nums[j], nums[k]] 满足 i != j、i != k 且 j != k ，
+ * 同时还满足 nums[i] + nums[j] + nums[k] == 0 。请你返回所有和为 0 且不重复的三元组。
+ * 注意：答案中不可以包含重复的三元组。
+ * 示例 1：
+ * 输入：nums = [-1,0,1,2,-1,-4]
+ * 输出：[[-1,-1,2],[-1,0,1]]
+ * 解释：
+ * nums[0] + nums[1] + nums[2] = (-1) + 0 + 1 = 0 。
+ * nums[1] + nums[2] + nums[4] = 0 + 1 + (-1) = 0 。
+ * nums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0 。
+ * 不同的三元组是 [-1,0,1] 和 [-1,-1,2] 。
+ * 注意，输出的顺序和三元组的顺序并不重要。
+ * 示例 2：
+ * 输入：nums = [0,1,1]
+ * 输出：[]
+ * 解释：唯一可能的三元组和不为 0 。
+ * 示例 3：
+ * 输入：nums = [0,0,0]
+ * 输出：[[0,0,0]]
+ * 解释：唯一可能的三元组和为 0 。
  */
 public class ThreeSum {
 
     /**
-     * 找到所有不重复的三元组，使得每个三元组的和为0。
+     * 使用排序和双指针方法查找三数之和为 0 的所有三元组。
+     * <p>
+     * 算法思路：
+     * 1. 首先对数组进行排序。
+     * 2. 遍历数组，固定一个数 nums[i]，然后使用双指针查找满足条件的其他两个数。
+     * 3. 跳过重复元素，避免重复结果。
      *
      * @param nums 输入的整数数组
-     * @return 所有不重复的三元组列表
+     * @return 所有满足条件的三元组
      */
     public static List<List<Integer>> threeSum(int[] nums) {
-        // 先将 nums 排序，时间复杂度为 O(NlogN)。
+        // 特殊情况处理
+        if (nums == null || nums.length < 3) {
+            return new ArrayList<>();
+        }
+
+        // 1. 对数组进行排序，时间复杂度为 O(NlogN)。
         Arrays.sort(nums);
-        List<List<Integer>> ans = new ArrayList<>();
+        System.out.println("Sorted nums: " + Arrays.toString(nums));
+
+        List<List<Integer>> results = new ArrayList<>();
         int len = nums.length;
 
-        // 遍历排序后的数组
+        // 2. 遍历排序后的数组
         for (int i = 0; i < len; i++) {
-            // 特殊情况：如果当前数大于0，后续不可能再找到和为0的组合
-            // 当 nums[i] > 0 时直接break跳出：因为 nums[R] >= nums[L] >= nums[i] > 0，
-            // 即 3 个元素都大于 0 ，在此固定指针 i 之后不可能再找到结果了。
+            // 如果当前数字大于 0，三数之和不可能为 0，直接跳出循环
             if (nums[i] > 0) {
                 break;
             }
-
-            // 跳过重复的元素
-            // 当 i > 0且nums[i] == nums[i - 1]时即跳过此元素nums[i]：
-            // 因为已经将 nums[i - 1] 的所有组合加入到结果中，本次双指针搜索只会得到重复组合。
+            // 跳过重复的数字，避免重复三元组
             if (i > 0 && nums[i] == nums[i - 1]) {
                 continue;
             }
+            // 双指针初始化
+            int left = i + 1;// 左指针
+            int right = len - 1;// 右指针
 
-            // 定义双指针
-            // L，R 分设在数组索引 (i,len(nums)) 两端，当L < R时循环计算sum = nums[i] + nums[L] + nums[R]，
-            // 并按照以下规则执行双指针移动：
-            //  当sum < 0时，L += 1并跳过所有重复的nums[L]；
-            //  当sum > 0时，R -= 1并跳过所有重复的nums[R]；
-            //  当sum == 0时，记录组合[k, L, R]至res，执行L += 1和R -= 1并跳过所有重复的nums[L]和nums[R]，防止记录到重复组合。
-            int L = i + 1, R = len - 1;
-            while (L < R) {
-                int sum = nums[i] + nums[L] + nums[R];
+            // 3. 双指针查找满足条件的组合
+            while (left < right) {
+                int sum = nums[i] + nums[left] + nums[right];
                 if (sum == 0) {
-                    List<Integer> list = new ArrayList<>();
-                    list.add(nums[i]);
-                    list.add(nums[L]);
-                    list.add(nums[R]);
-                    ans.add(list);
+                    // 找到一个符合条件的三元组
+                    List<Integer> result = new ArrayList<>();
+                    result.add(nums[i]);
+                    result.add(nums[left]);
+                    result.add(nums[right]);
+                    results.add(result);
+                    System.out.println("Found triplet: " + nums[i] + ", " + nums[left] + ", " + nums[right]);
                     // 跳过重复的左指针元素
-                    while (L < R && nums[L + 1] == nums[L]) {
-                        L++;
+                    while (left < right && nums[left + 1] == nums[left]) {
+                        left++;
                     }
                     // 跳过重复的右指针元素
-                    while (L < R && nums[R - 1] == nums[R]) {
-                        R--;
+                    while (left < right && nums[right - 1] == nums[right]) {
+                        right--;
                     }
                     // 移动指针
-                    L++;
-                    R--;
+                    left++;
+                    right--;
                 } else if (sum < 0) {
-                    L++;// 如果 sum < 0，说明左指针所指元素过小
+                    left++;// 如果 sum < 0，说明左指针所指元素过小
                 } else {
-                    R--;// 如果 sum > 0，说明右指针所指元素过大
+                    right--;// 如果 sum > 0，说明右指针所指元素过大
                 }
             }
         }
 
-        return ans;
+        return results;
     }
 
     public static void main(String[] args) {
         int[] nums = new int[]{-1, 0, 1, 2, -1, -4};
-        List<List<Integer>> lists = threeSum(nums);
-        System.out.println(lists);
+        System.out.println("Input: " +Arrays.toString(nums));
+        List<List<Integer>> results = threeSum(nums);
+        System.out.println("Triplets: " + results);
     }
 }
