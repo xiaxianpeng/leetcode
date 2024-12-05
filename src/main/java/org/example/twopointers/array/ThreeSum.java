@@ -31,7 +31,6 @@ public class ThreeSum {
 
     /**
      * 使用排序和双指针方法查找三数之和为 0 的所有三元组。
-     * <p>
      * 算法思路：
      * 1. 首先对数组进行排序。
      * 2. 遍历数组，固定一个数 nums[i]，然后使用双指针查找满足条件的其他两个数。
@@ -102,7 +101,7 @@ public class ThreeSum {
 
     public static void main(String[] args) {
         int[] nums = new int[]{-1, 0, 1, 2, -1, -4};
-        System.out.println("Input: " +Arrays.toString(nums));
+        System.out.println("Input: " + Arrays.toString(nums));
         List<List<Integer>> results = threeSum(nums);
         System.out.println("Triplets: " + results);
     }
