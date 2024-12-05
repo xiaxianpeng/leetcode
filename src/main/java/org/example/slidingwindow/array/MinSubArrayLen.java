@@ -1,4 +1,4 @@
-package org.example.array.slidingwindow;
+package org.example.slidingwindow.array;
 
 /**
  * 209. 长度最小的子数组
