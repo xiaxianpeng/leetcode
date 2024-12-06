@@ -26,39 +26,39 @@ import java.util.Arrays;
  * 解释：气球可以用2支箭来爆破:
  * - 在x = 2处发射箭，击破气球[1,2]和[2,3]。
  * - 在x = 4处射出箭，击破气球[3,4]和[4,5]。
- * 链接：https://leetcode.cn/problems/minimum-number-of-arrows-to-burst-balloons/?envType=study-plan-v2&envId=leetcode-75
  * Created on 2024/11/19 10:43
  */
 public class FindMinArrowShots {
 
     /**
-     * 使用贪心算法解决最少弓箭问题。
-     * 首先按气球的右边界进行排序，然后选择尽可能多的重叠气球进行爆破。
+     * 用最少的箭引爆所有气球
+     * 核心思路：
+     * 1. 将气球按结束位置进行排序。
+     * 2. 使用贪心策略：每次选择一个箭的位置尽可能覆盖最多的气球。
+     * 3. 通过遍历，判断当前气球是否可以被之前射出的箭覆盖，如果不可以，则射出新的箭。
      *
-     * @param points 气球的直径数组。
-     * @return 引爆所有气球所需的最小弓箭数量。
+     * @param points 输入的气球区间数组
+     * @return 最少的箭数
      */
     public static int findMinArrowShots(int[][] points) {
-        if (points.length == 0) {
+        // 如果气球为空，直接返回0
+        if (points == null || points.length == 0) {
             return 0;
         }
-        // 按照气球的右边界进行排序
+
+        // 1. 按照气球的结束位置排序
         Arrays.sort(points, (a, b) -> a[1] - b[1]);
 
-        // 至少需要一支箭
-        int arrows = 1;
-        // 初始化当前箭的射出位置
-        int end = points[0][1];
+        // 2. 贪心算法：遍历所有气球
+        int arrows = 1; // 至少需要一支箭
+        int arrowPos = points[0][1];// 第一个气球的结束位置，作为第一支箭的位置
 
-        // 遍历排序后的气球
         for (int i = 1; i < points.length; i++) {
-
-            // 如果当前气球的起始位置大于当前箭的射出位置，说明需要新的箭
-            if (points[i][0] > end) {
-                // 增加箭的数量
+            // 如果当前气球的起始位置大于之前箭的位置，说明不能被当前箭覆盖
+            if (points[i][0] > arrowPos) {
+                // 射出新的箭，并更新箭的位置
                 arrows++;
-                // 更新当前箭的射出位置
-                end = points[i][1];
+                arrowPos = points[i][1];
             }
         }
         // 返回需要的弓箭数量
@@ -67,15 +67,12 @@ public class FindMinArrowShots {
 
     public static void main(String[] args) {
 
-        // 示例测试用例1
         int[][] points1 = {{10, 16}, {2, 8}, {1, 6}, {7, 12}};
         System.out.println(findMinArrowShots(points1)); // 输出: 2
 
-        // 示例测试用例2
         int[][] points2 = {{1, 2}, {3, 4}, {5, 6}, {7, 8}};
         System.out.println(findMinArrowShots(points2)); // 输出: 4
 
-        // 示例测试用例3
         int[][] points3 = {{1, 2}, {2, 3}, {3, 4}, {4, 5}};
         System.out.println(findMinArrowShots(points3)); // 输出: 2
     }
