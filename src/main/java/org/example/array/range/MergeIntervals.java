@@ -1,4 +1,4 @@
-package org.example.array;
+package org.example.array.range;
 
 import java.util.ArrayList;
 import java.util.Arrays;
