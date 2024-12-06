@@ -25,7 +25,14 @@ public class ConstructFromPostIn {
      */
     Map<Integer, Integer> valToIndex = new HashMap<>();
 
+
     /**
+     * 方法：递归构造二叉树
+     * 思路：利用后序遍历确定根节点，中序遍历划分左右子树，递归构造整个树。
+     *
+     * @param inorder   二叉树的中序遍历结果
+     * @param postorder 二叉树的后序遍历结果
+     * @return 构造的二叉树的根节点
      * 算法思路：
      * 1. 后序遍历的特点：
      * - 最后一个节点是当前子树的根节点。
@@ -38,7 +45,6 @@ public class ConstructFromPostIn {
      * 4. 加速优化：
      * - 使用哈希表存储中序数组中每个值对应的索引，以便快速查找根节点位置。
      */
-
     public TreeNode buildTree(int[] inorder, int[] postorder) {
         // 构建中序数组值到索引的映射
         for (int i = 0; i < inorder.length; i++) {
@@ -49,6 +55,17 @@ public class ConstructFromPostIn {
                 postorder, 0, postorder.length - 1);
     }
 
+    /**
+     * 递归构建二叉树的辅助函数
+     *
+     * @param inorder   中序遍历数组
+     * @param inStart   中序遍历当前子树的起始索引
+     * @param inEnd     中序遍历当前子树的结束索引
+     * @param postorder 后序遍历数组
+     * @param postStart 后序遍历当前子树的起始索引
+     * @param postEnd   后序遍历当前子树的结束索引
+     * @return 当前子树的根节点
+     */
     private TreeNode build(int[] inorder, int inStart, int inEnd,
                            int[] postorder, int postStart, int postEnd) {
         // base case: 如果中序区间无效，返回 null
@@ -70,15 +87,15 @@ public class ConstructFromPostIn {
 
         // 递归构造右子树
         root.right = build(inorder,
-                index + 1, inEnd, // 中序右子树的范围，根节点的右边部分
+                index + 1, inEnd, // 中序右子树的范围[index+1,inEnd]，根节点的右边部分
                 postorder,
-                postStart + leftSize, postEnd - 1);// 后序右子树的范围,右子树的根节点是后序遍历中的倒数第二个元素
+                postStart + leftSize, postEnd - 1);// 后序右子树的范围[postStart+leftSize,postEnd-1],右子树的根节点是后序遍历中的倒数第二个元素
 
         // 递归构造左子树
         root.left = build(inorder,
-                inStart, index - 1, // 中序左子树的范围，根节点的左边部分
+                inStart, index - 1, // 中序左子树的范围[inStart,index-1]，根节点的左边部分
                 postorder,
-                postStart, postStart + leftSize - 1); // 后序左子树的范围，左子树的根节点是后序遍历中的倒数第 leftSize 个元素
+                postStart, postStart + leftSize - 1); // 后序左子树的范围[postStart,postStart+leftSize-1]，左子树的根节点是后序遍历中的倒数第 leftSize 个元素
 
         // 返回构造好的子树根节点
         return root;
