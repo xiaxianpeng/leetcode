@@ -22,37 +22,47 @@ import org.example.util.TreeUtil;
 public class Flatten2ListNode {
 
     /**
-     * 方法：递归展开二叉树为单链表
-     * 思路：使用前序遍历，将每个节点的左子树插入其右子树位置。
+     * 将二叉树展开为链表
+     * 算法思路：
+     * 1. 使用递归方式遍历树，返回当前子树展开后的尾节点。
+     * 2. 对每个节点，先递归展开左子树和右子树。
+     * 3. 如果左子树存在，将其插入到当前节点的右侧，并将原右子树连接到左子树的尾部。
+     * 4. 返回当前子树展开后的尾节点。
      *
-     * @param node 二叉树的根节点
+     * @param root 需要展开的二叉树的根节点
      */
-    public static void flatten(TreeNode node) {
-        // base case：如果当前节点为空，直接返回
+    public static void flatten(TreeNode root) {
+        flattenTree(root);
+    }
+
+    /**
+     * 递归辅助方法，展开子树并返回展开后的尾节点。
+     *
+     * @param node 当前处理的节点
+     * @return 展开后的子树的尾节点
+     */
+    private static TreeNode flattenTree(TreeNode node) {
         if (node == null) {
-            return;
+            return null;// 空节点直接返回
+        }
+        if (node.left == null && node.right == null) {
+            return node;// 叶子节点本身就是尾节点
         }
 
-        System.out.println("Flattening node with value: " + node.val);
+        // 递归展开左子树
+        TreeNode leftTail = flattenTree(node.left);
+        // 递归展开右子树
+        TreeNode rightTail = flattenTree(node.right);
 
-        // 1、暂存左右子树
-        TreeNode left = node.left;
-        TreeNode right = node.right;
-
-        // 2、将左子树接到右边
-        node.right = left;
-        node.left = null;
-
-        // 3、找到新的右子树的最后一个节点并连接原右子树
-        TreeNode curr = node;
-        while (curr.right != null) {
-            curr = curr.right;
+        if (node.left != null) {
+            // 将左子树插入到右子树的位置
+            leftTail.right = node.right;
+            node.right = node.left;
+            node.left = null;
         }
 
-        // 4、将之前保存的右子树连接到新的右子树末端
-        curr.right = right;
-
-        flatten(node.right);
+        // 返回展开后的尾节点
+        return rightTail != null ? rightTail : leftTail;
     }
 
     public static void main(String[] args) {
