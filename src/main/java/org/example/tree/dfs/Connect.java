@@ -1,8 +1,5 @@
 package org.example.tree.dfs;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
 /**
  * 116. 填充每个节点的下一个右侧节点指针
  * 给定一个 完美二叉树 ，其所有叶子节点都在同一层，每个父节点都有两个子节点。二叉树定义如下：
@@ -48,6 +45,10 @@ public class Connect {
     }
 
     /**
+     * 使用深度优先搜索（DFS）递归方法连接每个节点的 next 指针指向其右侧节点。
+     *
+     * @param root 完美二叉树的根节点
+     * @return 修改后的二叉树根节点
      * 算法思路：
      * 1、主函数 connect：
      * 检查根节点是否为空。如果为空，直接返回null。
@@ -62,77 +63,66 @@ public class Connect {
      * 连接右节点的左子节点和右子节点。
      * 连接左节点的右子节点和右节点的左子节点。
      */
+
     public static Node connect(Node root) {
         if (root == null) {
-            return null;
+            return null;// 如果树为空，直接返回 null
         }
         // 遍历[三叉树]，连接相邻节点
         connectTwoNode(root.left, root.right);
         return root;
     }
 
-    // [三叉树]遍历框架
+    /**
+     * 递归连接当前节点的两个子节点，以及跨越父节点的子节点。
+     *
+     * @param left  当前节点的左子节点
+     * @param right 当前节点的右子节点
+     */
     private static void connectTwoNode(Node left, Node right) {
         if (left == null || right == null) {
-            return;
+            return;// 如果其中一个子节点为空，直接返回
         }
         // ---前序位置---
-        // 将传入的两个节点串起来
+        // 将左子节点的 next 指向右子节点
         left.next = right;
 
-        // 连接相同父节点的两个子节点
+        // 连接相同父节点的子节点
         connectTwoNode(left.left, left.right);
         connectTwoNode(right.left, right.right);
 
-        // 连接跨越父节点的两个子节点
+        // 连接跨越父节点的子节点
         connectTwoNode(left.right, right.left);
     }
 
-    /**
-     * 层序遍历
-     */
-    public static Node connectByLevelOrder(Node root) {
-        if (root == null) {
-            return root;
-        }
-        Queue<Node> queue = new LinkedList<>();
-        queue.add(root);
-
-        while (!queue.isEmpty()) {
-            int size = queue.size();
-            for (int i = 0; i < size; i++) {
-                // 从队首取出元素
-                Node node = queue.poll();
-                // 连接
-                if (i < size - 1) {
-                    node.next = queue.peek();
-                }
-                // 拓展下一层节点
-                if (node.left != null) {
-                    queue.add(node.left);
-                }
-                if (node.right != null) {
-                    queue.add(node.right);
-                }
-            }
-        }
-        // 返回root
-        return root;
-    }
-
     public static void main(String[] args) {
+        // 二叉树：[1,2,3,4,5,6,7]
         Node root = new Node(1);
-
         root.left = new Node(2);
         root.right = new Node(3);
-
         root.left.left = new Node(4);
         root.left.right = new Node(5);
-
-        root.right.left = new Node(6);
+        root.right.left = new Node(6); // 添加节点 6
         root.right.right = new Node(7);
 
-        Node connect = connect(root);
-        System.out.printf("");
+        connect(root);
+
+        System.out.println("节点 1 的 next: " + getNextVal(root)); // null
+        System.out.println("节点 2 的 next: " + getNextVal(root.left)); // 3
+        System.out.println("节点 3 的 next: " + getNextVal(root.right)); // null
+        System.out.println("节点 4 的 next: " + getNextVal(root.left.left)); // 5
+        System.out.println("节点 5 的 next: " + getNextVal(root.left.right)); // 6
+        System.out.println("节点 6 的 next: " + getNextVal(root.right.left)); // 7
+        System.out.println("节点 7 的 next: " + getNextVal(root.right.right)); // null
+    }
+
+    /**
+     * 获取节点的 next 指针值。
+     *
+     * @param node 目标节点
+     * @return next 节点的值或 "null"
+     */
+    private static String getNextVal(Node node) {
+        return (node.next == null) ? "null" : String.valueOf(node.next.val);
     }
 }
