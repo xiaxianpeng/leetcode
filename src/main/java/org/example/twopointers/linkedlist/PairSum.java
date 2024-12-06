@@ -30,15 +30,21 @@ import org.example.linkedlist.structure.ListNode;
  * 输出：100001
  * 解释：
  * 链表中只有一对孪生节点，孪生和为 1 + 100000 = 100001 。
- * https://leetcode.cn/problems/maximum-twin-sum-of-a-linked-list/description/?envType=study-plan-v2&envId=leetcode-75
  * Created on 2024/11/18 16:23
  */
 public class PairSum {
 
+    /**
+     * 计算链表的最大孪生和
+     *
+     * @param head 链表的头节点
+     * @return 链表的最大孪生和
+     */
     public static int pairSum(ListNode head) {
         // 快慢指针找到链表中点
         ListNode slow = head;
         ListNode fast = head;
+
         while (fast != null && fast.next != null) {
             // 慢指针每次走一步
             slow = slow.next;
@@ -48,11 +54,14 @@ public class PairSum {
         System.out.println("链表中点位置：" + slow.val);
 
         // 反转链表后半部分
-        ListNode secondHalf = reverse(slow);
+        ListNode reverseSecondHalf = reverse(slow);
 
-        // 遍历前后两部分，计算最大孪生和
+        // 计算最大孪生和
         int maxSum = 0;
         ListNode firstHalf = head;
+        ListNode secondHalf = reverseSecondHalf;
+
+        // 遍历前后两部分
         while (secondHalf != null) {
             int twinSum = firstHalf.val + secondHalf.val;
             maxSum = Math.max(maxSum, twinSum);
@@ -60,9 +69,16 @@ public class PairSum {
             firstHalf = firstHalf.next;
             secondHalf = secondHalf.next;
         }
+
         return maxSum;
     }
 
+    /**
+     * 反转链表
+     *
+     * @param head 链表的头节点
+     * @return 反转后的链表头节点
+     */
     public static ListNode reverse(ListNode head) {
         ListNode prev = null;
         ListNode curr = head;
@@ -80,19 +96,16 @@ public class PairSum {
     }
 
     public static void main(String[] args) {
-        // 测试用例 1
         ListNode head1 = new ListNode(new int[]{5, 4, 2, 1});
         System.out.println("链表最大孪生和：" + pairSum(head1));
 
         System.out.println();
 
-        // 测试用例 2
         ListNode head2 = new ListNode(new int[]{4, 2, 2, 3});
         System.out.println("链表最大孪生和：" + pairSum(head2));
 
         System.out.println();
 
-        // 测试用例 3
         ListNode head3 = new ListNode(new int[]{1, 100000});
         System.out.println("链表最大孪生和：" + pairSum(head3));
     }
