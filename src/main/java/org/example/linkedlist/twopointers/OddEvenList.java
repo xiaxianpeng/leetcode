@@ -14,53 +14,56 @@ import org.example.linkedlist.structure.ListNode;
  * 示例 2:
  * 输入: head = [2,1,3,5,6,4,7]
  * 输出: [2,3,6,7,1,5,4]
- * Created on 2024/11/18 15:04
  */
 public class OddEvenList {
 
+    /**
+     * 思路：
+     * 1. 定义两个链表，分别存储奇数位置的节点和偶数位置的节点。
+     * 2. 遍历链表时，将奇数节点和偶数节点分别加入到两个链表中。
+     * 3. 最后，将奇数链表与偶数链表连接起来，返回新的链表头。
+     *
+     * @param head 链表的头节点
+     * @return 返回调整后的链表头节点
+     */
     public static ListNode oddEvenList(ListNode head) {
-        // 链表为空或只有一个节点，直接返回
+        // 如果链表为空或只有一个节点，直接返回
         if (head == null || head.next == null) {
-            return null;
+            return head;
         }
-        // 初始化奇数链表和偶数链表的头节点
-        // 奇数链表
-        ListNode odd = head;
-        // 偶数链表
-        ListNode even = head.next;
-        // 保存偶数链表的头节点
-        ListNode evenHead = head.next;
-        while (even != null && even.next != null) {
-            // 奇数节点链接下一个奇数节点
-            odd.next = even.next;
-            // 奇数指针向前移动
-            odd = odd.next;
+        // odd 和 even 用来分别存储奇数位置和偶数位置节点
+        ListNode odd = head;// 奇数链表的头部
+        ListNode even = head.next;// 偶数链表的头部
+        // 指针链表
+        ListNode oddTail = odd;// 奇数链表的尾部
+        ListNode evenTail = even;// 偶数链表的尾部
 
-            // 偶数节点链接下一个偶数节点
-            even.next = odd.next;
-            // 偶数指针向前移动
-            even = even.next;
+        // 遍历链表
+        while (evenTail != null && evenTail.next != null) {
+            oddTail.next = oddTail.next.next;// oddTail 指向下一个奇数节点
+            evenTail.next = evenTail.next.next;// evenTail 指向下一个偶数节点
 
-            System.out.println("Current odd pointer: " + odd.val);
-            System.out.println("Current even pointer: " + (even != null ? even.val : "null"));
+            oddTail = oddTail.next;// oddTail 向后移动
+            evenTail = evenTail.next;// evenTail 向后移动
         }
-        // 将奇数链表尾部与偶数链表头部链接
-        odd.next = evenHead;
 
-        return head;
+        // 将奇数链表与偶数链表连接起来
+        oddTail.next = even;
+
+        return odd;// 返回合并后的链表头
     }
 
     public static void main(String[] args) {
-        // 测试用例 1
+        // 示例 1
         ListNode head1 = new ListNode(new int[]{1, 2, 3, 4, 5});
-        System.out.println(" Original list: " + head1);
-        System.out.println("Reordered list: " + oddEvenList(head1));
+        System.out.println("Before: " + head1);
+        ListNode result1 = oddEvenList(head1);
+        System.out.println("After: " + result1);
 
-        System.out.println();
-
-        // 测试用例 2
+        // 示例 2
         ListNode head2 = new ListNode(new int[]{2, 1, 3, 5, 6, 4, 7});
-        System.out.println(" Original list: " + head2);
-        System.out.println("Reordered list: " + oddEvenList(head2));
+        System.out.println("Before: " + head2);
+        ListNode result2 = oddEvenList(head2);
+        System.out.println("After: " + result2);
     }
 }
