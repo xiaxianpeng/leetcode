@@ -1,5 +1,8 @@
 package org.example.linkedlist.structure;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * @author xianpeng.xia
  * on 2021/1/22 8:59 下午
@@ -26,14 +29,31 @@ public class ListNode {
         }
     }
 
+    /**
+     * 重写 toString 方法，以安全的方式打印链表。
+     * 如果链表存在环形结构，则在检测到环后停止遍历，并在字符串中标记环的存在。
+     *
+     * @return 链表的字符串表示
+     */
     @Override
     public String toString() {
-        StringBuffer sb = new StringBuffer();
-        ListNode cur = this;
-        while (cur != null) {
-            sb.append(cur.val + " -> ");
-            cur = cur.next;
+        StringBuilder sb = new StringBuilder();
+        ListNode current = this;
+        Set<ListNode> visited = new HashSet<>(); // 用于检测环形链表
+
+        while (current != null) {
+            // 检查当前节点是否已经访问过，防止无限循环
+            if (visited.contains(current)) {
+                sb.append("... (cycle detected)");
+                break;
+            }
+            visited.add(current);
+
+            sb.append(current.val);
+            sb.append(" -> ");
+            current = current.next;
         }
+
         sb.append("NULL");
         return sb.toString();
     }
