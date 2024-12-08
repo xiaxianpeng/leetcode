@@ -32,44 +32,53 @@ import org.example.linkedlist.structure.ListNode;
 public class MergeKSortedLists {
 
     /**
-     * @param list k个有序链表
-     * @return 合并有序链表
-     * 这个算法是面试常考题，它的时间复杂度是多少呢？
-     * <p>
-     * 优先队列 pq 中的元素个数最多是 k，所以一次 poll 或者 add 方法的时间复杂度是 O(logk)；
-     * 所有的链表节点都会被加入和弹出 pq，所以算法整体的时间复杂度是 O(Nlogk)，其中 k 是链表的条数，N 是这些链表的节点总数。
+     * 使用优先队列（最小堆）合并K个升序链表。
+     * 算法思路：
+     * 1. 初始化一个优先队列，根据节点值进行排序。
+     * 2. 将所有链表的头节点加入优先队列。
+     * 3. 依次从优先队列中取出最小的节点，连接到结果链表中。
+     * 4. 如果取出的节点有下一个节点，将其下一个节点加入优先队列。
+     * 5. 重复步骤3和4，直到优先队列为空。
+     *
+     * @param lists 一个包含K个已排序链表的数组
+     * @return 合并后的升序链表的头节点
      */
-    public static ListNode mergeKList(List<ListNode> list) {
+    public static ListNode mergeKList(List<ListNode> lists) {
         // 当链表列表为空时，直接返回 null
-        if (list.size() == 0) {
+        if (lists.size() == 0) {
             return null;
         }
-        // 创建一个最小堆，用于维护各个链表的当前节点
+        // 创建一个最小堆，按节点值从小到大排序
         PriorityQueue<ListNode> minHeap = new PriorityQueue<>((l1, l2) -> l1.val - l2.val);
         // 将每个链表的头节点加入最小堆
-        for (ListNode head : list) {
+        for (ListNode head : lists) {
             if (head != null) {
                 minHeap.add(head);
             }
         }
+
+
         // 创建一个虚拟头节点作为合并后链表的头节点
         ListNode dummy = new ListNode(-1);
         // p 指针用于构建最终合并的链表
-        ListNode p = dummy;
+        ListNode current = dummy;
         // 当最小堆不为空时，重复以下操作
         while (!minHeap.isEmpty()) {
-            // 弹出最小堆中的最小节点
+            // 取出当前最小的节点
             ListNode node = minHeap.poll();
-            // 将其接到合并链表的末尾
-            p.next = node;
-            // 将弹出节点的下一个节点加入最小堆（如果存在）
+
+            // 将最小节点连接到结果链表
+            current.next = node;
+            current = current.next;
+
+            // 如果最小节点有下一个节点,加入最小堆（如果存在）
             if (node.next != null) {
                 minHeap.add(node.next);
             }
-            // 移动 p 指针
-            p = p.next;
+
         }
-        // 返回合并后的链表的头节点（虚拟头节点的下一个节点）
+
+        // 返回合并后的链表，跳过虚拟头节点
         return dummy.next;
     }
 
