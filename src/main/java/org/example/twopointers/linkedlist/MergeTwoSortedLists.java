@@ -1,4 +1,4 @@
-package org.example.linkedlist;
+package org.example.twopointers.linkedlist;
 
 import org.example.linkedlist.structure.ListNode;
 
@@ -25,28 +25,28 @@ public class MergeTwoSortedLists {
     public static ListNode mergeTwoLists(ListNode L1, ListNode L2) {
         // 虚拟头节点
         ListNode dummy = new ListNode(-1);
-        ListNode p = dummy;
-        ListNode p1 = L1;
-        ListNode p2 = L2;
-        while (p1 != null && p2 != null) {
+        ListNode current = dummy;
+
+        // 遍历两个链表，选择较小的节点连接到合并链表中
+        while (L1 != null && L2 != null) {
             // 比较 p1 和 p2 两个指针
-            // 升序
-            if (p1.val <= p2.val) {
-                p.next = p1;
-                p1 = p1.next;
+            if (L1.val <= L2.val) {
+                current.next = L1;
+                L1 = L1.next;
             } else {
-                p.next = p2;
-                p2 = p2.next;
+                current.next = L2;
+                L2 = L2.next;
             }
             // p 指针不断前进
-            p = p.next;
+            current = current.next;
         }
 
-        if (p1 != null) {
-            p.next = p1;
+        // 连接剩余的节点
+        if (L1 != null) {
+            current.next = L1;
         }
-        if (p2 != null) {
-            p.next = p2;
+        if (L2 != null) {
+            current.next = L2;
         }
         return dummy.next;
     }
