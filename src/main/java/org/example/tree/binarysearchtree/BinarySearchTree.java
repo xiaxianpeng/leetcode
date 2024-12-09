@@ -87,19 +87,23 @@ public class BinarySearchTree {
     }
 
     /**
-     * 二叉查找树的查找、插入操作都比较简单易懂，但是它的删除操作就比较复杂了 。针对要删除节点的子节点个数的不同，我们需要分三种情况来处理。
-     * 第一种情况是，如果要删除的节点没有子节点，我们只需要直接将父节点中，指向要删除节点的指针置为 null。
-     * 第二种情况是，如果要删除的节点只有一个子节点（只有左子节点或者右子节点），
-     * 我们只需要更新父节点中，指向要删除节点的指针，让它指向要删除节点的子节点就可以了。
-     * 第三种情况是，如果要删除的节点有两个子节点，这就比较复杂了。我们需要找到这个节点的右子树中的最小节点，把它替换到要删除的节点上。
-     * 然后再删除掉这个最小节点，因为最小节点肯定没有左子节点（如果有左子结点，那就不是最小节点了），
-     * 所以，我们可以应用上面两条规则来删除这个最小节点。
+     * 从二叉查找树（Binary Search Tree, BST）中删除指定值的节点。
+     * 删除操作根据要删除节点的子节点数量分为三种情况：
+     * 节点没有子节点（叶子节点）：直接移除节点。
+     * 节点只有一个子节点：用子节点替换被删除节点。
+     * 节点有两个子节点：找到右子树中的最小节点（中序后继），
+     * 用其值替换被删除节点的值，然后删除该最小节点。
+     *
+     * @param data 要删除的节点的值。
      */
     public void delete(int data) {
-        // p 指向要删除的节点，初始化指向根节点
+        // 1、初始化指针
+        // p 指向要删除的节点，从根节点开始查找
         Node p = root;
-        // pp 记录的是 p 的父节点
+        // pp 保存 p 的父节点，初始为 null (因为 p 初始为 root)
         Node pp = null;
+
+        // 2、在 BST 中查找值为 data 的节点
         while (p != null && p.data != data) {
             pp = p;
             if (data > p.data) {
@@ -108,42 +112,49 @@ public class BinarySearchTree {
                 p = p.left;
             }
         }
+
+        // 如果没有找到，直接返回
         if (p == null) {
-            // 没有找到
+            // 没有找到要删除的节点
             return;
         }
 
-        // 1、要删除的节点有两个子节点
+        // 3、如果 p 有两个子节点
         if (p.left != null && p.right != null) {
-            // // 查找右子树中最小节点
+            // 3.1 找到 p 的右子树的最小节点 minP 及其父节点 minPP
             Node minP = p.right;
             Node minPP = p;
             while (minP.left != null) {
                 minPP = minP;
                 minP = minP.left;
             }
-            // // 将 minP 的数据替换到 p 中
+            // 3.2 用 minP 的值替换 p 的值
             p.data = minP.data;
-            // // 下面就变成了删除 minP 了
+            // 因为 minP 是右子树的最小节点，它最多只有一个右子节点，
+            // 3.3 将删除目标节点转移成 minP
             p = minP;
             pp = minPP;
         }
 
-        // 2、删除节点是叶子节点或者仅有一个子节点
-        Node child;
+        // 4、处理 p 至多只有一个节点的情况
+        Node child;// p 的子节点
         if (p.left != null) {
             child = p.left;
         } else if (p.right != null) {
             child = p.right;
         } else {
-            child = null;
+            child = null;// p 是叶子节点的情况
         }
-        // 3、删除的节点是根节点
+
+        // 5、更新父节点的指针
         if (pp == null) {
+            // 5.1 如果 p 没有父节点，说明 p 是根节点，更新 root 指针
             root = child;
         } else if (pp.left == p) {
+            // 5.2 如果 p 是 pp 的左子节点，将 pp 的左指针指向 child
             pp.left = child;
         } else {
+            // 5.3 如果 p 是 pp 的右子节点，将 pp 的右指针指向 child
             pp.right = child;
         }
     }
