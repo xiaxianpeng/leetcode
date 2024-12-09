@@ -23,7 +23,7 @@ package org.example.array.binarysearch;
  * 解释：原数组为 [11,13,15,17] ，旋转 4 次得到输入数组。
  * Created on 2024/11/27 18:17
  */
-public class FindMinimumInRotatedSortedArray {
+public class FindMin {
 
     /**
      * 使用二分查找在旋转排序数组中找到最小值
@@ -35,19 +35,24 @@ public class FindMinimumInRotatedSortedArray {
     public static int findMin(int[] nums) {
         int left = 0;
         int right = nums.length - 1;
+
+        // 当左指针小于右指针时，继续查找
         while (left < right) {
             int mid = left + (right - left) / 2;
             System.out.println("Left: " + left + ", Mid: " + mid + ", Right: " + right);
 
+            // 判断中间值与右边界值的关系，以确定最小值的位置
             if (nums[mid] > nums[right]) {
+                // 最小值在 mid 右侧
                 left = mid + 1;
             } else {
+                // 最小值在 mid 或左侧
                 right = mid;
             }
             System.out.println("Updated Left: " + left + ", Right: " + right);
         }
 
-        // 返回最小值的位置
+        // 当左右指针相遇，left 指向的即为最小值
         System.out.println("Minimum value found at index: " + left);
         return nums[left];
     }
