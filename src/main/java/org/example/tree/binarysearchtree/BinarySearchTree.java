@@ -31,7 +31,7 @@ public class BinarySearchTree {
      * 如果要查找的数据比根节点的值小，那就在左子树中递归查找；
      * 如果要查找的数据比根节点的值大，那就在右子树中递归查找。
      */
-    public Node find(int data) {
+    public Node findNode(int data) {
         Node p = root;
         // 我们先取根节点，如果它等于我们要查找的数据，那就返回
         while (p != null) {
@@ -269,6 +269,40 @@ public class BinarySearchTree {
         return successor;
     }
 
+    /**
+     * 查找给定子树中的最大节点
+     *
+     * @param node 节点
+     * @return 给定子树中的最大节点
+     */
+    private Node findMax(Node node) {
+        while (node.right != null) {
+            node = node.right;
+        }
+        return node;
+    }
+
+    /**
+     * 查找前驱节点（Predecessor）
+     *
+     * @param data 要查找前驱节点的值
+     * @return 前驱节点
+     */
+    public Node findPredecessor(int data) {
+
+        Node targetNode = findNode(data);
+        if (targetNode == null) {
+            throw new RuntimeException("树中不存在值为：" + data + " 的节点");
+        }
+
+        Node predecessor = findPredecessor(targetNode);
+        if (predecessor == null) {
+            throw new RuntimeException("节点：" + data + " 没有前驱节点");
+        }
+
+        return predecessor;
+    }
+
 
     /**
      * 查找前驱节点（Predecessor）
@@ -276,20 +310,18 @@ public class BinarySearchTree {
      * 1、如果节点有左子树，那么前驱节点是其左子树中的最大节点（最右边的节点）。
      * 2、如果节点没有左子树，那么前驱节点是该节点的最低祖先节点，同时该祖先节点的右子节点也是该节点的一个祖先。
      */
-    public Node findPredecessor(Node root, Node node) {
+    public Node findPredecessor(Node node) {
+
         if (node == null) {
-
+            return null;
         }
-        // 如果节点有左子树，则前驱在左子树中的最大节点
+        // 情况1：节点有左子树，前驱是左子树中的最大节点
         if (node.left != null) {
-            Node predecessor = node.left;
-            while (predecessor.right != null) {
-                predecessor = predecessor.right;
-            }
-            return predecessor;
+            return findMax(node.left);
         }
 
-        // 如果节点没有左子树，则需要从根节点向下搜索前驱
+        // 情况2：节点没有左子树，前驱是其最近的一个祖先节点
+        // 其中，节点在该祖先节点的右子树中
         Node predecessor = null;
         Node current = root;
         while (current != null) {
@@ -305,6 +337,7 @@ public class BinarySearchTree {
         }
         return predecessor;
     }
+
 
     public static void main(String[] args) {
         BinarySearchTree bst = new BinarySearchTree();
@@ -352,9 +385,9 @@ public class BinarySearchTree {
         System.out.println();
 
         int data = 50;
-        Node node = bst.find(data);
+        Node node = bst.findNode(data);
         System.out.println(data + " successor: " + bst.findSuccessor(bst.root, node));
-        System.out.println(data + " predecessor: " + bst.findPredecessor(bst.root, node));
+        System.out.println(data + " predecessor: " + bst.findPredecessor(data));
 
         System.out.println("maxDepth:" + maxDepth(bst.root));
 
