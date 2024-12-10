@@ -22,33 +22,46 @@ package org.example.array.binarysearch;
 public class FindPeakElement {
 
     /**
-     * 使用二分查找法找到峰值元素的索引。
-     * 在每次迭代中，检查中间元素及其与相邻元素的关系，然后选择合适的子区间进行查找。
+     * 算法思路：
+     * 使用二分查找：O(log n)
+     * 1、设置左右指针，left=0，right=nums.length-1
+     * 2、计算中间位置mid
+     * 3、比较nums[mid]与nums[mid+1]：
+     * - nums[mid]<nums[mid+1],mid到mid+1呈上升趋势，则峰值在右半部分，因此移动left=mid+1
+     * - 否则，峰值在左半部分(包括mid)，移动right=mid
+     * 4、当left=right，该位置就是峰值位置
      *
      * @param nums 输入的整数数组。
      * @return 峰值元素的索引。
      */
     public static int findPeakElement(int[] nums) {
+        // 初始化左右指针
         int left = 0;
         int right = nums.length - 1;
+
+        // 使用二分查找逼近峰值位置
         while (left < right) {
+            // 取中点
             int mid = left + (right - left) / 2;
-            if (nums[mid] < nums[mid + 1]) {// 如果中间元素小于右边元素，则峰值在右边
+
+            // 判断中点与其右侧元素的关系
+            if (nums[mid] < nums[mid + 1]) {
+                // 如果中点值小于右侧值，则峰值必在右侧
                 left = mid + 1;
-            } else {// 否则，峰值在左边或当前元素就是峰值
+            } else {
+                // 否则，峰值在左侧(包含mid)
                 right = mid;
             }
         }
-        // 当left == right时，已经找到一个峰值
+
+        // 循环结束后，left==right，指向峰值
         return left;
     }
 
     public static void main(String[] args) {
-        // 示例测试用例1
         int[] nums1 = {1, 2, 3, 1};
         System.out.println("Peak Index: " + findPeakElement(nums1)); // 输出: 2
 
-        // 示例测试用例2
         int[] nums2 = {1, 2, 1, 3, 5, 6, 4};
         System.out.println("Peak Index: " + findPeakElement(nums2)); // 输出: 1 或 5
     }
