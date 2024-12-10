@@ -1,31 +1,21 @@
 package org.example.array;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
- * @author xianpeng.xia
- * on 2022/4/6 11:30 PM
- *
  * 448. 找到所有数组中消失的数字
  * 给你一个含 n 个整数的数组 nums ，其中 nums[i] 在区间 [1, n] 内。
  * 请你找出所有在 [1, n] 范围内但没有出现在 nums 中的数字，
  * 并以数组的形式返回结果。
- *
- *
- *
  * 示例 1：
- *
  * 输入：nums = [4,3,2,7,8,2,3,1]
  * 输出：[5,6]
  * 示例 2：
- *
  * 输入：nums = [1,1]
  * 输出：[2]
- *
- *
  * 提示：
- *
  * n == nums.length
  * 1 <= n <= 105
  * 1 <= nums[i] <= n
@@ -37,25 +27,27 @@ public class FindDisappearedNumbers {
      * 遍历 nums，每遇到一个数 x，就让 nums[x−1] 增加 n。
      * 由于 nums 中所有数均在 [1,n] 中，增加以后，这些数必然大于 n。
      * 最后我们遍历 nums，若 nums[i] 未大于 n，就说明没有遇到过数 i+1。
-     *
-     * 作者：LeetCode-Solution
-     * 链接：https://leetcode-cn.com/problems/find-all-numbers-disappeared-in-an-array/solution/zhao-dao-suo-you-shu-zu-zhong-xiao-shi-d-mabl/
-     * 来源：力扣（LeetCode）
-     * 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
      */
     public static List<Integer> findDisappearedNumbers(int[] nums) {
         int n = nums.length;
+        // 1，通过遍历，将出现过的数字对应位置上的元素进行累加n的操作
         for (int num : nums) {
-            int x = (num - 1) % n;
-            nums[x] = nums[x] + n;
+            // 利用 (num-1)%n 找到数字num对应的索引位置
+            int index = (num - 1) % n;
+            // 对应位置加n，表示出现过该数字
+            nums[index] = nums[index] + n;
         }
-        List<Integer> ret = new ArrayList<>();
+        System.out.println("标记完成，开始寻找缺失数字：" + Arrays.toString(nums));
+        List<Integer> missNums = new ArrayList<>();
         for (int i = 0; i < n; i++) {
             if (nums[i] <= n) {
-                ret.add(i + 1);
+                int missNum = i + 1;
+                missNums.add(missNum);
             }
         }
-        return ret;
+
+        System.out.println("缺失的数字列表：" + missNums);
+        return missNums;
     }
 
     public static void main(String[] args) {
