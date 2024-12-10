@@ -32,18 +32,18 @@ public class BinarySearchTree {
      * 如果要查找的数据比根节点的值大，那就在右子树中递归查找。
      */
     public Node findNode(int data) {
-        Node p = root;
+        Node current = root;
         // 我们先取根节点，如果它等于我们要查找的数据，那就返回
-        while (p != null) {
-            if (data < p.data) {
+        while (current != null) {
+            if (data < current.data) {
                 // 如果要查找的数据比根节点的值小，那就在左子树中递归查找；
-                p = p.left;
-            } else if (data > p.data) {
+                current = current.left;
+            } else if (data > current.data) {
                 // 如果要查找的数据比根节点的值大，那就在右子树中递归查找。
-                p = p.right;
+                current = current.right;
             } else {
                 // 如果它等于我们要查找的数据，那就返回
-                return p;
+                return current;
             }
         }
         return null;
@@ -64,25 +64,29 @@ public class BinarySearchTree {
         // 新插入的数据一般都是在叶子节点上，
         // 所以我们只需要从根节点开始，依次比较要插入的数据和节点的大小关系。
         Node p = root;
+        Node parent = null;
         while (p != null) {
             if (data > p.data) {
                 // 如果要插入的数据比节点的数据大，并且节点的右子树为空，就将新数据直接插到右子节点的位置；
                 // 如果不为空，就再递归遍历右子树，查找插入位置。
-                if (p.right == null) {
-                    p.right = new Node(data);
-                    return;
-                }
                 p = p.right;
-            } else {
+            } else if (data < p.data) {
                 // data < p.data
                 // 如果要插入的数据比节点数值小，并且节点的左子树为空，就将新数据插入到左子节点的位置；
                 // 如果不为空，就再递归遍历左子树，查找插入位置。
-                if (p.left == null) {
-                    p.left = new Node(data);
-                    return;
-                }
                 p = p.left;
+            } else {
+                // 数据已存在，拒绝插入
+                System.out.println("数据 " + data + " 已存在，拒绝插入。");
+                return;
             }
+        }
+
+        Node newNode = new Node(data);
+        if (data > parent.data) {
+            parent.right = newNode;
+        } else {
+            parent.left = newNode;
         }
     }
 
@@ -235,33 +239,69 @@ public class BinarySearchTree {
     }
 
     /**
+     * 查找给定子树中的最小节点
+     *
+     * @param node 节点
+     * @return 给定子树中的最小节点
+     */
+    private Node findMin(Node node) {
+        while (node.left != null) {
+            node = node.left;
+        }
+        return node;
+    }
+
+    /**
+     * 查找后继结点
+     */
+    public Node findSuccessor(int data) {
+        Node targetNode = findNode(data);
+        if (targetNode == null) {
+            throw new RuntimeException("树中不存在值为：" + data + " 的节点");
+        }
+
+        Node successor = findSuccessor(targetNode);
+        if (successor == null) {
+            throw new RuntimeException("节点：" + data + " 没有后继节点");
+        }
+        return successor;
+    }
+
+    /**
      * 查找后继结点
      * 后继节点可以通过以下两种情况找到：
      * 1、如果节点有右子树，那么后继节点是其右子树中的最小节点（最左边的节点）。
      * 2、如果节点没有右子树，那么后继节点是该节点的最低祖先节点，同时该祖先节点的左子节点也是该节点的一个祖先。
      */
-    public Node findSuccessor(Node root, Node node) {
+    public Node findSuccessor(Node node) {
         if (node == null) {
             return null;
         }
-        // 如果节点有右子树，则后继在右子树中的最小节点
+        // 情况1：如果节点有右子树，则后继在右子树中的最小节点
         if (node.right != null) {
-            Node successor = node.right;
-            while (successor.left != null) {
-                successor = successor.left;
-            }
-            return successor;
+            return findMin(node.right);
         }
-        // 如果节点没有右子树，则需要从根节点向下搜索后继,即最低祖先节点
+        // 情况2：节点没有右子树，后继是其最近的一个祖先节点
+        // 其中节点在该祖先节点的左子树中
+        Node successorAncestor = findSuccessorAncestor(node);
+        return successorAncestor;
+    }
+
+    /**
+     * 查找节点没有右子树时，其后继节点的祖先节点
+     *
+     * @param node 当前节点。
+     * @return 后继节点的祖先节点，如果不存在则返回 {@code null}。
+     */
+    private Node findSuccessorAncestor(Node node) {
         Node successor = null;
-        Node cur = root;
-        while (cur != null) {
-            if (node.data < cur.data) {
-                successor = cur;
-                cur = cur.left;
-            } else if (node.data > cur.data) {
-                successor = cur;
-                cur = cur.right;
+        Node current = root;
+        while (current != null) {
+            if (node.data < current.data) {
+                successor = current;
+                current = current.left;
+            } else if (node.data > current.data) {
+                current = current.right;
             } else {
                 break;
             }
@@ -322,6 +362,17 @@ public class BinarySearchTree {
 
         // 情况2：节点没有左子树，前驱是其最近的一个祖先节点
         // 其中，节点在该祖先节点的右子树中
+        Node predecessorAncestor = findPredecessorAncestor(node);
+        return predecessorAncestor;
+    }
+
+    /**
+     * 查找节点没有左子树时，其前驱节点的祖先节点。
+     *
+     * @param node 当前节点。
+     * @return 前驱节点的祖先节点，如果不存在则返回 {@code null}。
+     */
+    private Node findPredecessorAncestor(Node node) {
         Node predecessor = null;
         Node current = root;
         while (current != null) {
@@ -329,7 +380,6 @@ public class BinarySearchTree {
                 predecessor = current;
                 current = current.right;
             } else if (node.data < current.data) {
-                predecessor = current;
                 current = current.left;
             } else {
                 break;
@@ -337,7 +387,6 @@ public class BinarySearchTree {
         }
         return predecessor;
     }
-
 
     public static void main(String[] args) {
         BinarySearchTree bst = new BinarySearchTree();
@@ -385,8 +434,7 @@ public class BinarySearchTree {
         System.out.println();
 
         int data = 50;
-        Node node = bst.findNode(data);
-        System.out.println(data + " successor: " + bst.findSuccessor(bst.root, node));
+        System.out.println(data + " successor: " + bst.findSuccessor(data));
         System.out.println(data + " predecessor: " + bst.findPredecessor(data));
 
         System.out.println("maxDepth:" + maxDepth(bst.root));
