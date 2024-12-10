@@ -24,9 +24,12 @@ import java.util.List;
 public class FindDisappearedNumbers {
 
     /**
-     * 遍历 nums，每遇到一个数 x，就让 nums[x−1] 增加 n。
-     * 由于 nums 中所有数均在 [1,n] 中，增加以后，这些数必然大于 n。
-     * 最后我们遍历 nums，若 nums[i] 未大于 n，就说明没有遇到过数 i+1。
+     * 使用加 n 的方式标记
+     * 算法思想：
+     * 1、数组长度为n
+     * 2、对数组遍历，每遇到一个数num，通过(num-1)%n,得出对应下标index
+     * 对nums[index]累加n，表示出现过数字(index+1);
+     * 3、完成标记后，再次遍历数组，如果nums[i]<=n,表示数字(i+1)没被标记过，因此该数字未出现过
      */
     public static List<Integer> findDisappearedNumbers(int[] nums) {
         int n = nums.length;
