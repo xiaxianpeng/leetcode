@@ -15,13 +15,19 @@ package org.example.hash.array;
  */
 public class FirstUniqueChar {
 
+    /**
+     * 算法思路：
+     * 1. 使用一个长度为26的频率数组统计字符串中每个字符的出现次数。
+     * 2. 再次遍历字符串，找到第一个频率为1的字符，返回其索引。
+     * 3. 如果没有找到这样的字符，返回 -1。
+     */
     public static int firstUniqueChar(String s) {
         int[] freq = new int[26];
-        // 遍历字符串统计字符频次
+        // 第一次遍历，统计每个字符的出现次数
         for (int i = 0; i < s.length(); i++) {
             freq[s.charAt(i) - 'a']++;
         }
-        // 遍历字符串找到字符频次为1的索引
+        // 第二次遍历，查找频率为1的字符
         for (int i = 0; i < s.length(); i++) {
             if (freq[s.charAt(i) - 'a'] == 1) {
                 return i;
