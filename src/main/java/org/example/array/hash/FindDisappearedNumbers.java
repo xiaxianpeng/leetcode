@@ -1,4 +1,4 @@
-package org.example.array;
+package org.example.array.hash;
 
 import java.util.ArrayList;
 import java.util.Arrays;

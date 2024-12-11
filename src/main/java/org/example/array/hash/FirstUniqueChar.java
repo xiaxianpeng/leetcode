@@ -1,16 +1,21 @@
-package org.example.array;
+package org.example.array.hash;
 
 /**
- * @author xianpeng.xia
- * on 2021/2/28 9:14 下午
- *
- * https://leetcode.com/problems/first-unique-character-in-a-string/
- *
- * 字符串中的第一个唯一字符
+ * 387. 字符串中的第一个唯一字符
+ * 给定一个字符串 s ，找到 它的第一个不重复的字符，并返回它的索引 。如果不存在，则返回 -1 。
+ * 示例 1：
+ * 输入: s = "leetcode"
+ * 输出: 0
+ * 示例 2:
+ * 输入: s = "loveleetcode"
+ * 输出: 2
+ * 示例 3:
+ * 输入: s = "aabb"
+ * 输出: -1
  */
 public class FirstUniqueChar {
 
-    public static int solution(String s) {
+    public static int firstUniqueChar(String s) {
         int[] freq = new int[26];
         // 遍历字符串统计字符频次
         for (int i = 0; i < s.length(); i++) {
@@ -27,6 +32,6 @@ public class FirstUniqueChar {
 
     public static void main(String[] args) {
         String s = "loveleetcode";
-        System.out.println(solution(s));
+        System.out.println(firstUniqueChar(s));
     }
 }
