@@ -18,40 +18,42 @@ package org.example.array.dp;
 public class MaxProduct {
 
     /**
-     * 找出乘积最大的连续子数组。
-     * 核心思路：动态规划。
-     * 使用两个变量来追踪当前子数组的最大值和最小值，因为负数乘以最小值可能变成最大值。
-     * 每次更新全局最大值。
-     *
-     * @param nums 输入整数数组
-     * @return 最大乘积
+     * 算法思路：
+     * 使用动态规划的方法同时跟踪当前子数组的最大和最小乘积。
+     * 1. 初始化两个变量 currentMax 和 currentMin 为第一个元素，表示以当前元素结尾的最大和最小乘积。
+     * 2. 初始化全局最大乘积 maxProductOverall 为第一个元素。
+     * 3. 遍历数组，从第二个元素开始：
+     * * a. 如果当前元素为负数，则交换 currentMax 和 currentMin，因为乘以负数会使最大乘积变为最小，最小乘积变为最大。
+     * * b. 更新 currentMax 为当前元素和 currentMax * 当前元素中的较大者。
+     * * c. 更新 currentMin 为当前元素和 currentMin * 当前元素中的较小者。
+     * * d. 更新全局最大乘积 maxProduct 为 currentMax 和 maxProduct 中的较大者。
+     * 4. 返回全局最大乘积 maxProduct。
      */
     public static int maxProduct(int[] nums) {
         if (nums == null || nums.length == 0) {
             return 0;
         }
-
-        int maxProduct = nums[0];
+        // 初始化currentMax和currentMin为第一个元素
         int currentMax = nums[0];
         int currentMin = nums[0];
+        // 初始化全局最大元素为maxProduct
+        int maxProduct = nums[0];
 
+        // 从第二个元素开始遍历
         for (int i = 1; i < nums.length; i++) {
-            int num = nums[i];
-
-            // 如果当前数为负数，则交换当前最大和最小
-            if (num < 0) {
+            // 如果当前元素是负数，交换currentMax和currentMin
+            if (nums[i] < 0) {
                 int temp = currentMax;
                 currentMax = currentMin;
                 currentMin = temp;
             }
-
-            // 更新当前最大和最小乘积
-            currentMax = Math.max(num, num * currentMax);
-            currentMin = Math.min(num, num * currentMin);
+            // 更新currentMax为nums[i]与nums[i]*currentMax的较大者
+            currentMax = Math.max(nums[i], nums[i] * currentMax);
+            // 更新currentMin为nums[i]与nums[i]*currentMin的较小者
+            currentMin = Math.min(nums[i], nums[i] * currentMin);
 
             // 更新全局最大乘积
             maxProduct = Math.max(maxProduct, currentMax);
-            System.out.println("Index: " + i + ", Num: " + num + ", CurrentMax: " + currentMax + ", CurrentMin: " + currentMin + ", MaxProduct: " + maxProduct);
         }
 
         return maxProduct;
