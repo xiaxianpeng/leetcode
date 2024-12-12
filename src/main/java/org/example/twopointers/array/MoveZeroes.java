@@ -12,7 +12,6 @@ import java.util.Arrays;
  * 示例 2:
  * 输入: nums = [0]
  * 输出: [0]
- * https://leetcode.cn/problems/move-zeroes/description/?envType=study-plan-v2&envId=leetcode-75
  * Created on 2024/11/18 00:26
  */
 public class MoveZeroes {
@@ -28,7 +27,7 @@ public class MoveZeroes {
         int j = 0;
         // 遍历整个数组
         for (int i = 0; i < nums.length; i++) {
-            // 如果当前元素不为0，进行交换
+            // 如果当前元素不为0 进行交换
             if (nums[i] != 0) {
                 // 交换 nums[i] 和 nums[j]
                 int temp = nums[i];
