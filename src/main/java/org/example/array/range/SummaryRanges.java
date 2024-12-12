@@ -45,15 +45,16 @@ public class SummaryRanges {
         if (nums == null || nums.length == 0) {
             return ranges;
         }
+
         int start = 0; // 记录每个区间的开始位置
 
         // 遍历数组
         for (int i = 1; i <= nums.length; i++) {
-            // 当 i 达到数组末尾，或者当前元素与前一个元素不连续
+            // 如果当前元素与前一个元素不连续，或者当 i 达到数组末尾
             if (i == nums.length || nums[i] != nums[i - 1] + 1) {
                 if (i - start == 1) {
                     // 如果区间内只有一个数字，则直接添加该数字
-                    ranges.add("" + nums[start]);
+                    ranges.add("" + nums[i - 1]);
                 } else {
                     // 否则添加区间 "a->b"
                     ranges.add(nums[start] + "->" + nums[i - 1]);
