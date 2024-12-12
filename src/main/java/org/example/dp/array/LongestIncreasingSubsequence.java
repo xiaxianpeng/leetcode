@@ -1,5 +1,7 @@
 package org.example.dp.array;
 
+import java.util.Arrays;
+
 /**
  * 300. 最长递增子序列
  * 给你一个整数数组 nums ，找到其中最长严格递增子序列的长度。
@@ -15,7 +17,6 @@ package org.example.dp.array;
  * 示例 3：
  * 输入：nums = [7,7,7,7,7,7,7]
  * 输出：1
- * https://leetcode.cn/problems/longest-increasing-subsequence/description/?envType=study-plan-v2&envId=labuladong-algorithm-note
  * Created on 2024/11/14 17:54
  */
 public class LongestIncreasingSubsequence {
@@ -34,22 +35,20 @@ public class LongestIncreasingSubsequence {
         if (nums == null || nums.length == 0) {
             return 0;
         }
-        // dp[i] 表示以 nums[i] 结尾的最长递增子序列的长度
+
+        // dp[i]表示以nums[i]结尾的最长递增子序列的长度
         int[] dp = new int[nums.length];
-        // 记录最长递增子序列的长度，至少为 1
+        Arrays.fill(dp, 1);
+
+        // 记录最长递增子序列的长度，至少为1
         int maxLIS = 1;
 
-        // 初始化 dp 数组
-        for (int i = 0; i < nums.length; i++) {
-            dp[i] = 1;
-        }
-
-        // 动态规划计算 LIS
+        // 遍历
         for (int i = 1; i < nums.length; i++) {
             for (int j = 0; j < i; j++) {
-                // 如果 nums[j] 小于 nums[i]，则可以在以 nums[j] 结尾的序列上追加 nums[i]
+                // 如果nums[j]<nums[i]，则可以在nums[j]结尾的序列上追加nums[i]
                 if (nums[j] < nums[i]) {
-                    // 更新以 nums[i] 结尾的最长递增子序列的长度
+                    // 更新以nums[i]结尾的长度
                     dp[i] = Math.max(dp[i], dp[j] + 1);
                 }
             }
@@ -63,12 +62,12 @@ public class LongestIncreasingSubsequence {
     public static void main(String[] args) {
 
         int[] nums1 = {10, 9, 2, 5, 3, 7, 101, 18};
-        System.out.println("示例 1 - 最长递增子序列的长度：" + lengthOfLIS(nums1)); // 期望输出 4
+        System.out.println("最长递增子序列的长度：" + lengthOfLIS(nums1)); // 期望输出 4
 
         int[] nums2 = {0, 1, 0, 3, 2, 3};
-        System.out.println("示例 2 - 最长递增子序列的长度：" + lengthOfLIS(nums2)); // 期望输出 4
+        System.out.println("最长递增子序列的长度：" + lengthOfLIS(nums2)); // 期望输出 4
 
         int[] nums3 = {7, 7, 7, 7, 7, 7, 7};
-        System.out.println("示例 3 - 最长递增子序列的长度：" + lengthOfLIS(nums3)); // 期望输出 1
+        System.out.println("最长递增子序列的长度：" + lengthOfLIS(nums3)); // 期望输出 1
     }
 }
