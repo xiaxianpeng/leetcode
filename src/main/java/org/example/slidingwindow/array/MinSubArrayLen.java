@@ -3,9 +3,9 @@ package org.example.slidingwindow.array;
 /**
  * 209. 长度最小的子数组
  * 给定一个含有 n 个正整数的数组和一个正整数 target 。
- * 找出该数组中满足其总和大于等于 target 的长度最小的
- * 子数组
- * [numsl, numsl+1, ..., numsr-1, numsr] ，并返回其长度。如果不存在符合条件的子数组，返回 0 。
+ * 找出该数组中满足其总和大于等于 target 的长度最小的子数组
+ * [numsl, numsl+1, ..., numsr-1, numsr] ，
+ * 并返回其长度。如果不存在符合条件的子数组，返回 0 。
  * 示例 1：
  * 输入：target = 7, nums = [2,3,1,2,4,3]
  * 输出：2
@@ -23,7 +23,7 @@ public class MinSubArrayLen {
     /**
      * 使用滑动窗口方法查找满足条件的最小子数组长度。
      * 算法思路：
-     * 1. 初始化左右指针以及当前窗口的和 sum。
+     * 1. 初始化左右指针以及当前窗口的和currentSum。
      * 2. 移动右指针扩展窗口，更新窗口和。
      * 3. 当窗口和大于等于 target 时，移动左指针收缩窗口，同时更新最小长度。
      * 4. 返回最终的最小长度，若未找到则返回 0。
@@ -33,23 +33,27 @@ public class MinSubArrayLen {
      * @return 满足条件的最小子数组长度
      */
     public static int minSubArrayLen(int target, int[] nums) {
-        int left = 0;
-        int sum = 0;
+
+        // 初始化当前窗口的和
+        int currentSum = 0;
+        // 记录最小子数组长度
         int minLength = Integer.MAX_VALUE;
 
+        // 初始化左右指针
+        int left = 0;
         for (int right = 0; right < nums.length; right++) {
-            // 增加窗口右边界的值
-            sum += nums[right];
-            System.out.println("Window expanded: [" + left + ", " + right + "], Current sum: " + sum);
+            // 扩展窗口
+            currentSum += nums[right];
+            System.out.println("扩展窗口: [" + left + ", " + right + "], currentSum: " + currentSum);
 
             // 尝试收缩窗口
-            while (sum >= target) {
+            while (currentSum >= target) {
                 minLength = Math.min(minLength, right - left + 1);
                 System.out.println("Valid window: [" + left + ", " + right + "], Length: " + (right - left + 1));
                 // 移除窗口左边界的值
-                sum -= nums[left];
+                currentSum -= nums[left];
                 left++;
-                System.out.println("Window shrunk: [" + left + ", " + right + "], Current sum: " + sum);
+                System.out.println("收缩窗口: [" + left + ", " + right + "], Current sum: " + currentSum);
             }
         }
 
