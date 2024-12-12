@@ -1,6 +1,7 @@
 package org.example.slidingwindow.string;
 
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * 3. 无重复字符的最长子串
@@ -30,42 +31,41 @@ public class LengthOfLongestSubstring {
      * @return 无重复字符的最长子串长度
      */
     public static int lengthOfLongestSubstring(String s) {
-        // 初始化滑动窗口的左指针和右指针
+        // 初始化左右指针
         int left = 0;
         int right = 0;
-        // 用于存储当前窗口中的字符
-        HashSet<Character> window = new HashSet<>();
+        // 无重复字符的最长子串的长度
         int maxLength = 0;
+        // 用来存储当前窗口的字符
+        Set<Character> window = new HashSet<>();
 
-        // 遍历整个字符串
+        // 遍历字符串
         while (right < s.length()) {
             char c = s.charAt(right);
-
-            // 扩展窗口，如果字符 c 不在当前窗口内
+            // 如果c不在窗口，扩展窗口
             if (!window.contains(c)) {
                 window.add(c);// 加入当前字符到窗口
-                right++; // 右指针扩展
+                right++;// 右指针右移
                 maxLength = Math.max(maxLength, right - left);// 更新最大长度
-            } else {
-                // 遇到重复字符，收缩窗口，直到去除重复字符
-                window.remove(s.charAt(left));// 移除窗口最左边的字符
-                left++;// 左指针右移，缩小窗口
             }
-            System.out.println("Current window: " + window + ", Current max length: " + maxLength);
+            // 遇到重复字符，收缩窗口
+            else {
+                window.remove(s.charAt(left));// 移除最左边字符
+                left++;// 左指针右移
+            }
         }
-
         // 返回无重复字符的最长子串的长度
         return maxLength;
     }
 
     public static void main(String[] args) {
         String s1 = "abcabcbb";
-        System.out.println("Input: " + s1 + ", Output: " + lengthOfLongestSubstring(s1)); // 应该输出 3
+        System.out.println("Input: " + s1 + ", Output: " + lengthOfLongestSubstring(s1)); // 输出 3
 
         String s2 = "bbbbb";
-        System.out.println("Input: " + s2 + ", Output: " + lengthOfLongestSubstring(s2)); // 应该输出 1
+        System.out.println("Input: " + s2 + ", Output: " + lengthOfLongestSubstring(s2)); // 输出 1
 
         String s3 = "pwwkew";
-        System.out.println("Input: " + s3 + ", Output: " + lengthOfLongestSubstring(s3)); // 应该输出 3
+        System.out.println("Input: " + s3 + ", Output: " + lengthOfLongestSubstring(s3)); // 输出 3
     }
 }
