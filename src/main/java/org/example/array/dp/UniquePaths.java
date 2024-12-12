@@ -23,7 +23,6 @@ package org.example.array.dp;
  * 示例 4：
  * 输入：m = 3, n = 3
  * 输出：6
- * 链接：https://leetcode-cn.com/problems/unique-paths
  */
 public class UniquePaths {
 
@@ -66,16 +65,12 @@ public class UniquePaths {
     }
 
     public static void main(String[] args) {
-        // 示例测试用例1
         System.out.println(uniquePaths(3, 7)); // 输出: 28
 
-        // 示例测试用例2
         System.out.println(uniquePaths(3, 2)); // 输出: 3
 
-        // 示例测试用例3
         System.out.println(uniquePaths(7, 3)); // 输出: 28
 
-        // 示例测试用例4
         System.out.println(uniquePaths(3, 3)); // 输出: 6
     }
 }
