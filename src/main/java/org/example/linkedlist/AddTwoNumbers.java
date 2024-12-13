@@ -1,4 +1,4 @@
-package org.example.twopointers.linkedlist;
+package org.example.linkedlist;
 
 import org.example.linkedlist.structure.ListNode;
 
@@ -31,44 +31,39 @@ public class AddTwoNumbers {
      */
     public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         // 虚拟头节点
-        ListNode dummyHead = new ListNode(0);
+        ListNode dummy = new ListNode(0);
         // 指针p负责构建新链表
-        ListNode p = dummyHead;
-        // 在两条链表上的指针
-        ListNode p1 = l1;
-        ListNode p2 = l2;
+        ListNode current = dummy;
         // 进位
         int carry = 0;
 
-        // 执行加法，两条链表走完且没有进位才能结束循环
-        while (p1 != null || p2 != null || carry > 0) {
+        // 遍历两个链表，直到所有的数字加完，并处理最后的进位
+        while (l1 != null || l2 != null || carry > 0) {
             // 当前位的和
             int sum = carry;
 
-            // 如果 p1 不为空，则加上 p1 当前位的数字
-            if (p1 != null) {
-                sum += p1.val;
-                p1 = p1.next;// 移动p1
+            // 加上 l1 当前位的值
+            if (l1 != null) {
+                sum += l1.val;
+                l1 = l1.next;// 移动p1
             }
 
-            // 如果 p2 不为空，则加上 p2 当前位的数字
-            if (p2 != null) {
-                sum += p2.val;
-                p2 = p2.next;// 移动p2
+            // 加上 l2 当前位的值
+            if (l2 != null) {
+                sum += l2.val;
+                l2 = l2.next;// 移动p2
             }
 
-            // 更新进位，当前位的和可能大于或等于 10
+            //  计算新的进位
             carry = sum / 10;
-            // 余数，当前位的结果
-            int remainder = sum % 10;
 
-            // 创建一个新节点存储当前位的结果
-            p.next = new ListNode(remainder);
-            p = p.next;
+            // 当前位的结果节点
+            current.next = new ListNode(sum % 10);
+            current = current.next;
         }
 
-        // 返回结果链表（跳过虚拟头节点）
-        return dummyHead.next;
+        // 返回结果链表
+        return dummy.next;
     }
 
 
