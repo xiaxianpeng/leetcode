@@ -22,27 +22,29 @@ import java.util.Arrays;
 public class CoinChange {
 
     /**
+     * 计算凑成目标金额所需的最少硬币数
+     *
+     * @param coins  可用的硬币面值数组
+     * @param amount 目标金额
+     * @return 最少硬币数，如果无法凑成目标金额，则返回 -1
+     * 算法思想：
      * 使用动态规划求解凑成总金额的最少硬币数。
      * 核心思路：定义 dp[i] 表示凑成金额 i 所需的最少硬币数。
      * 初始化：dp[0] = 0，因为凑成金额 0 需要 0 个硬币。
-     * 对于每个金额 i，尝试所有硬币面额 j，更新 dp[i] 为 dp[i - j] + 1 的最小值。
-     *
-     * @param coins  可用硬币的面额数组
-     * @param amount 目标金额
-     * @return 凑成目标金额所需的最少硬币个数
+     * 对于每个金额 i，尝试所有硬币面额 coin，更新 dp[i] 为 dp[i] 与 dp[i - coin] + 1 的最小值。
      */
     public int coinChange(int[] coins, int amount) {
-        // 初始化动态规划数组，长度为 amount + 1，初始值为正无穷大
+        // dp[i]表示凑成金额i所需的最少硬币数
         int[] dp = new int[amount + 1];
-        // 使用 amount + 1 作为无穷大，因为不可能有 amount + 1 个硬币
-        Arrays.fill(dp, amount + 1);
 
-        // 凑成金额0需要0个硬币
+        Arrays.fill(dp, amount + 1);// 初始化不可能状态，因为不可能有 amount + 1 个硬币
+
+        // 凑成金额 0 需要 0个硬币
         dp[0] = 0;
 
-        // 计算dp数组
+        // 遍历每个金额
         for (int i = 1; i <= amount; i++) {
-            // 内层 for 循环求所有选择的最小值
+            // 遍历每个币种
             for (int coin : coins) {
                 if (i - coin >= 0) {// 只有在 i 大于等于 coin 时才能使用该硬币
                     // 更新dp[i]，选择最小的硬币数
@@ -52,7 +54,7 @@ public class CoinChange {
             }
         }
 
-        // 如果 dp[amount] 还是初始值，说明无法凑成该金额
+        // 如果 dp[amount] 还是初始值，说明无法凑成目标金额
         return dp[amount] == amount + 1 ? -1 : dp[amount];
     }
 
@@ -60,9 +62,10 @@ public class CoinChange {
         int[] coins = {5, 2, 1};
         int amount = 11;
         System.out.println(new CoinChange().coinChange(coins, amount));
-        coins = new int[]{2};
-        amount = 1;
-        System.out.println(new CoinChange().coinChange(coins, amount));
+
+        int[] coins2 = new int[]{2};
+        int amount2 = 1;
+        System.out.println(new CoinChange().coinChange(coins2, amount2));
     }
 
 }
