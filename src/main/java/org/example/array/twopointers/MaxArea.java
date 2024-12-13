@@ -20,26 +20,26 @@ public class MaxArea {
      * @return 最大的水量
      */
     public static int maxArea(int[] height) {
-        // 初始化左右指针
+        // 初始化左右指针，分别指向数组的两端
         int left = 0;
         int right = height.length - 1;
 
-        // 用于存储最大水量
+        // 用于存储当前最大水量
         int maxArea = 0;
 
-        // 使用双指针法计算最大面积
+        // 使用双指针法收缩区间，直到两指针相遇
         while (left < right) {
-            // 贪心的策略 // 计算当前左右指针界定的容器能够存储的水量，[left,height]之间的面积
+            // 计算当前区域的水量
             int curArea = Math.min(height[left], height[right]) * (right - left);
 
             // 更新最大水量
             maxArea = Math.max(maxArea, curArea);
 
-            // 双指针技巧：移动较短的那一边，以尝试找到更大的容器
+            // 双指针策略：移动较短的那一边，以尝试找到更大的容器
             if (height[left] < height[right]) {
-                left++;
+                left++;//左指针右移
             } else {
-                right--;
+                right--;//右指针左移
             }
         }
 
