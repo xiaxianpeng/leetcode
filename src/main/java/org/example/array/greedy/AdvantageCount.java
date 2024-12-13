@@ -18,29 +18,42 @@ import java.util.PriorityQueue;
  */
 public class AdvantageCount {
 
+    /**
+     * 优势洗牌的实现，最大化 nums1 对 nums2 的相对优势。
+     *
+     * @param nums1 数组1
+     * @param nums2 数组2
+     * @return nums1 的重新排列结果
+     */
     public static int[] advantageCount(int[] nums1, int[] nums2) {
+        // 最大堆存储 nums2 的值和索引，按值降序排列
         PriorityQueue<int[]> maxHeap = new PriorityQueue<>((pair1, pair2) -> pair2[1] - pair1[1]);
         for (int i = 0; i < nums2.length; i++) {
             maxHeap.add(new int[]{i, nums2[i]});
         }
+        // 对 nums1 升序排列
         Arrays.sort(nums1);
         int[] result = new int[nums1.length];
-        // 分别指向 nums1 的最小和最大元素
-        int low = 0;
-        int high = nums1.length - 1;
+
+        // 双指针，分别指向nums1的最小和最大元素
+        int left = 0;
+        int right = nums1.length - 1;
+
+        // 遍历堆，匹配 nums2 的最大值
         while (!maxHeap.isEmpty()) {
-            // 获取当前 nums2 中的最大元素及其索引
+            // 获取 nums2 中的最大值及其索引
             int[] pair = maxHeap.poll();
             int index = pair[0];
-            int val = pair[1];
-            // 如果 nums1 中的最大元素可以占优，则用于占优
-            if (nums1[high] > val) {
-                result[index] = nums1[high];
-                high--;
+            int value = pair[1];
+
+            // 贪心策略：如果 nums1[right] 能击败它，
+            if (nums1[right] > value) {
+                result[index] = nums1[right];
+                right--;
             } else {
-                // 否则，用 nums1 中的最小元素与之对抗（为了保存较大的数值用于更大的 nums2 元素）
-                result[index] = nums1[low];
-                low++;
+                // 否则，用 nums1[left] 消耗掉value
+                result[index] = nums1[left];
+                left++;
             }
         }
         return result;
