@@ -31,17 +31,19 @@ public class MergeSort {
             return head;
         }
 
-        // 找到链表的中间节点
+        // 使用快慢指针找到链表的中间节点，以进行拆分
         ListNode mid = getMiddle(head);
+
         ListNode left = head;
         ListNode right = mid.next;
-        mid.next = null;// 切断链表
+        // 将链表在中间处断开
+        mid.next = null;
 
-        // 递归地排序左右两个子链表
+        // 分别对左右部分进行递归排序
         left = sortList(left);
         right = sortList(right);
 
-        // 合并排序后的子链表
+        // 将两个有序链表合并
         return merge(left, right);
     }
 
@@ -53,8 +55,13 @@ public class MergeSort {
      * @return 中间节点。
      */
     private static ListNode getMiddle(ListNode head) {
+        // 慢指针从head出发
         ListNode slow = head;
+        // 快指针从head的下一个节点出发
+        // 这样可以保证当fast到末尾时，slow正好在中点，便于均衡分割
         ListNode fast = head.next;
+
+        // fast前进两步，slow前进一步
         while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
@@ -64,8 +71,8 @@ public class MergeSort {
     }
 
     /**
-     * 合并两个已排序的链表。
-     * 使用双指针方法来合并两个链表。
+     * 合并两个有序链表。
+     * 使用双指针来比较两个链表的头节点，将较小的节点依次接入新链表的尾部
      *
      * @param l1 第一个已排序链表。
      * @param l2 第二个已排序链表。
