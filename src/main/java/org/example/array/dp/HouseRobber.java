@@ -24,6 +24,8 @@ public class HouseRobber {
     /**
      * 使用动态规划解决打家劫舍问题。
      * 对于每间房屋，决定偷或不偷，通过状态转移方程更新最高金额。
+     * 状态转移方程:
+     * dp[i]=Math.max(dp[i-1],dp[i-2]+nums[i])
      *
      * @param nums 每个房屋存放的金额数组。
      * @return 能偷窃到的最高金额。
@@ -53,11 +55,39 @@ public class HouseRobber {
         return dp[nums.length - 1];
     }
 
-    public static void main(String[] args) {
-        // 示例测试用例1
-        System.out.println(rob(new int[]{1, 2, 3, 1})); // 输出: 4
+    /**
+     * 算法思路：
+     * 对于每间房屋都有两种选择：偷或者不偷。
+     * 如果偷当前房子，就不能偷前一间房，只能加上前两间房的最佳收益；
+     * 如果不偷当前房子，则收益保持为上一间房已计算出的最大收益。
+     *
+     * @param nums 每间房子的金额数组
+     * @return 不触发警报的情况下可以偷取的最高金额
+     */
+    public static int rob2(int[] nums) {
+        // 表示处理到前一个房屋的最大收益
+        int prevMax = 0;
+        // 表示处理到当前房屋的最大收益
+        int currMax = 0;
 
-        // 示例测试用例2
+        // 遍历没见房屋
+        for (int num : nums) {
+            // 考虑当前房屋后的最大收益：
+            // 不偷(currMax不变)，偷(prevMax+num)
+            int nextMax = Math.max(currMax, prevMax + num);
+
+            // 更新滚动变量
+            prevMax = currMax;
+            currMax = nextMax;
+        }
+        return currMax;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(rob(new int[]{1, 2, 3, 1})); // 输出: 4
+        System.out.println(rob2(new int[]{1, 2, 3, 1})); // 输出: 4
+
         System.out.println(rob(new int[]{2, 7, 9, 3, 1})); // 输出: 12
+        System.out.println(rob2(new int[]{2, 7, 9, 3, 1})); // 输出: 12
     }
 }
