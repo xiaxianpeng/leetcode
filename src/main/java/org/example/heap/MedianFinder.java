@@ -28,29 +28,55 @@ import java.util.PriorityQueue;
  */
 public class MedianFinder {
 
-    // 最大堆，用于存储较小的一半
+    /**
+     * 最大堆，存储较小的一半数据，堆顶为该半区的最大值
+     */
     private PriorityQueue<Integer> maxHeap;
-    // 最小堆，用于存储较大的一半
+    /**
+     * 最小堆，存储较大的一半数据，堆顶为该半区的最小值
+     */
     private PriorityQueue<Integer> minHeap;
 
     /**
-     * 初始化 MedianFinder 对象。
+     * 使用两个堆来高效维护数据流的中位数
+     * 1、maxHeap 用来存储当前数据流中较小的一半元素，堆顶是该部分最大的元素
+     * 2、minHeap 用来存储当前数据量中较大的一半元素，堆顶是该部分最小的元素
+     * ***
+     * 保持两个堆的特性：
+     * - 数据要分为两半，一半在maxHeap，一半在minHeap，使得maxHeap中所有元素均小于等于minHeap中的所有元素
+     * - 两堆的大小相差不超过1
+     * 这样：
+     * - 当元素总个数为奇数时，中位数就是元素更多的那一堆的堆顶，即maxHeap
+     * - 当元素总个数为偶数时，中位数是两个堆顶元素的平均值
      */
     public MedianFinder() {
+        // 初始化 MedianFinder 对象。
         maxHeap = new PriorityQueue<>((a, b) -> b - a);
         minHeap = new PriorityQueue<>();
     }
 
     /**
      * 将数据流中的整数 num 添加到数据结构中。
+     * 算法思路：
+     * 1、首先将新元素放入maxHeap，这样可以确保新元素先与较小半区比较
+     * 2、然后将maxHeap中的最大值弹出并放入minHeap，以分离出较大的一半元素。
+     * 此时，minHeap中堆顶是较大半区的最小值，maxHeap中全部元素小于等于minHeap中的元素
+     * 3、若此时minHeap的大小超过maxHeap(意味着较大半区过多),则将minHeap的最小值弹出返回maxHeap
+     * 再度平衡两堆大小，使两者数量差不超过1
+     * ***
+     * 通过以上操作，每次插入后两个堆仍保持有序和近似平衡，从而为O(1)时间获取中位数打好基础
      *
      * @param num 要添加的整数
      */
     public void addNum(int num) {
+        // 1、将新元素放入maxHeap
         maxHeap.offer(num);
+        // 2、将maxHeap中的最大值（堆顶）转移到minHeap
+        // 这样minHeap一定存储当前较大的一半数据
         minHeap.offer(maxHeap.poll());
 
-        // 如果最小堆比最大堆多一个以上的元素，移动一个元素到最大堆
+        // 3、如果minHeap大小比maxHeap大，说明较大半区过多
+        // 将minHeap中的最小值（堆顶）弹出放入maxHeap，平衡两堆大小
         if (minHeap.size() > maxHeap.size()) {
             maxHeap.offer(minHeap.poll());
         }
@@ -61,16 +87,19 @@ public class MedianFinder {
 
     /**
      * 返回到目前为止所有元素的中位数。
+     * 如果两个堆大小相同，中位数是两堆堆顶的平均值
+     * 如果堆大小不相同，中位数为元素更多的堆的堆顶
      *
-     * @return 中位数
+     * @return 当前数据量的中位数
      */
     public double findMedian() {
-        // 如果两个堆的大小相同，中位数是两个堆顶的平均值
         if (maxHeap.size() == minHeap.size()) {
-            return (maxHeap.size() + minHeap.peek()) / 2.0;
+            // 偶数个元素时，中位数是两堆堆顶元素的平均值
+            return (maxHeap.peek() + minHeap.peek()) / 2.0;
+        } else {
+            //奇数个元素时，中位数在maxHeap（因为maxHeap始终>=minHeap的元素数量）
+            return maxHeap.peek();
         }
-        // 否则，中位数是最大堆的堆顶
-        return maxHeap.peek();
     }
 
     public static void main(String[] args) {
