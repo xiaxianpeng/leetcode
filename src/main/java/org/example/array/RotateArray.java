@@ -22,6 +22,37 @@ import java.util.Arrays;
 public class RotateArray {
 
     /**
+     * 轮转数组方法：将数组中的元素向右轮转k个位置
+     * 算法思路：
+     * 直接将每个元素放置到它在轮转后应该出现的位置即(i+k)%n
+     *
+     * @param nums 待轮转的数组
+     * @param k    轮转的步数
+     */
+    public static void rotate(int[] nums, int k) {
+        System.out.println("轮转前:" + Arrays.toString(nums));
+        int n = nums.length;
+        if (n == 0 || k % n == 0) {
+            return;//检查边界情况，数组为空或k是n的倍数则不需要操作
+        }
+
+        k = k % n;//确保k小于n
+
+        // 创建一个新数组用来存放轮转后的结果
+        int[] result = new int[n];
+        for (int i = 0; i < n; i++) {
+            // nums[i]的新位置是(i+k)%n
+            result[(i + k) % n] = nums[i];
+        }
+
+        // 将新数组的内容复制回原数组
+        for (int i = 0; i < n; i++) {
+            nums[i] = result[i];
+        }
+        System.out.println("轮转后:" + Arrays.toString(nums));
+    }
+
+    /**
      * 轮转数组，将数组中的元素向右轮转 k 个位置
      * 思路：使用三次反转的方法来实现数组的轮转。
      * 1、反转整个数组：将所有元素的顺序倒转。
@@ -31,7 +62,7 @@ public class RotateArray {
      * @param nums 输入的整数数组
      * @param k    向右轮转的步数
      */
-    public static void rotate(int[] nums, int k) {
+    public static void rotate2(int[] nums, int k) {
         // 特殊情况：数组为空或者不需要轮转的情况
         if (nums == null || nums.length == 0 || k % nums.length == 0) {
             return;
@@ -69,13 +100,12 @@ public class RotateArray {
         }
     }
 
+
     public static void main(String[] args) {
         int[] nums1 = {1, 2, 3, 4, 5, 6, 7};
-        rotate(nums1, 3);
-        System.out.println("Rotated array for nums1: " + Arrays.toString(nums1)); // 输出 [5, 6, 7, 1, 2, 3, 4]
+        rotate2(nums1, 3);
 
         int[] nums2 = {-1, -100, 3, 99};
         rotate(nums2, 2);
-        System.out.println("Rotated array for nums2: " + Arrays.toString(nums2)); // 输出 [3, 99, -1, -100]
     }
 }
