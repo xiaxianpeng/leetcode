@@ -19,24 +19,30 @@ package org.example.greedy.array;
 public class BuyAndSellStock {
 
     /**
-     * 计算可以获得的最大利润。
+     * 计算买卖一次可以获得的最大利润。
      *
      * @param prices 股票价格数组
      * @return 最大利润
+     * 算法思想：
+     * 寻找价格最低点之后的最大价格差
      */
     public static int maxProfit(int[] prices) {
-        int minPrice = Integer.MAX_VALUE;
-        int maxProfit = 0;
+        if (prices == null || prices.length < 2) {
+            return 0;// 检查数组长度是否为空或长度小于2
+        }
+        int minPrice = Integer.MAX_VALUE;// 初始化最小价格为最大整数
+        int maxProfit = 0;// 初始化最大利润为0
 
         for (int price : prices) {
             // 更新最低价格
             minPrice = Math.min(minPrice, price);
-            System.out.println("Current price: " + price + ", Min price: " + minPrice);
+            System.out.println("当前价格: " + price + ", 最小价格: " + minPrice);
 
             // 更新最大利润
             maxProfit = Math.max(maxProfit, price - minPrice);
-            System.out.println("Potential profit: " + (price - minPrice) + ", Max profit: " + maxProfit);
+            System.out.println("潜在利润: " + (price - minPrice) + ", 最大利润: " + maxProfit);
         }
+        // 返回计算得到的最大利润
         return maxProfit;
     }
 
