@@ -18,43 +18,35 @@ import java.util.Stack;
  * 示例 3:
  * 输入: temperatures = [30,60,90]
  * 输出: [1,1,0]
- * 链接: https://leetcode.cn/problems/daily-temperatures/description/?envType=study-plan-v2&envId=labuladong-algorithm-note
  * Created on 2024/11/14 23:33
  */
 public class DailyTemperatures {
 
+
     /**
-     * 算法步骤如下：
-     * 1、创建一个栈 stack 来存储温度数组的索引。
-     * 2、创建一个结果数组 ans，初始化为和 temperatures 数组一样的长度，并将所有元素初始化为 0。
-     * 3、遍历温度数组 temperatures 的每个元素和它的索引。
-     * 4、对于每个元素，当栈不为空，并且当前元素比栈顶索引对应的温度要高时，弹出栈顶索引，并计算当前索引和弹出索引的差值，
-     * 更新 ans 数组对应位置的值。
-     * 5、将当前索引压入栈中。
-     * 6、遍历完成后，栈中剩余的索引在 temperatures 中没有找到更高的温度，
-     * 它们在 ans 数组中的值保持为 0（因为我们已经初始化了）。
-     * 7、返回结果数组 ans。
+     * 使用单调栈解决每日温度问题
+     * 栈中保存的是尚未找到更高温度的天数的索引，
+     * 确保栈中索引对应的温度是单调递减的
+     *
+     * @param temperatures 每日温度
+     * @return 返回数组，表示从当前天数开始，需要多少天才能遇到更高的温度
      */
     public static int[] dailyTemperatures(int[] temperatures) {
         int n = temperatures.length;
-        int[] ans = new int[n];
+        int[] answer = new int[n];
         Stack<Integer> stack = new Stack<>();
 
-        for (int dayIndex = 0; dayIndex < temperatures.length; dayIndex++) {
-            // 当前温度比栈顶索引对应的温度要高
-            while (!stack.isEmpty() && temperatures[dayIndex] > temperatures[stack.peek()]) {
-                // 弹出索引
-                int prevDayIndex = stack.pop();
-                // 计算距离
-                ans[prevDayIndex] = dayIndex - prevDayIndex;
-                // 打印找到的下一个更高温度及其索引差
-                System.out.println("天数 " + prevDayIndex + " 的温度是 " + temperatures[prevDayIndex] + ", 下一个更高温度在 " + ans[prevDayIndex] + " 天后 (天数 " + dayIndex + ")");            }
-            // 当前温度的索引入栈
-            stack.push(dayIndex);
-            // 打印入栈操作
-            System.out.println("第 " + dayIndex + " 天的温度 " + temperatures[dayIndex] + " 入栈");
+        // 遍历每一天的温度
+        for (int i = 0; i < n; i++) {
+            // 检查栈不为空，且当前天的温度大于栈顶天的温度
+            while (!stack.isEmpty() && temperatures[i] > temperatures[stack.peek()]) {
+                int prevIndex = stack.pop();// 弹出栈顶元素，这是之前温度较低天的索引
+                answer[prevIndex] = i - prevIndex; // 计算当前天与之前温度较低天的天数差
+            }
+            stack.push(i); // 将当前天的索引入栈
         }
-        return ans;
+
+        return answer;
     }
 
 
