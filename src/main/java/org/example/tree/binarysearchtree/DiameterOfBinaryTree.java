@@ -24,26 +24,24 @@ public class DiameterOfBinaryTree {
 
     /**
      * 计算二叉树的直径
-     * 思路：通过后序遍历计算每个节点的左右子树深度，并更新最大直径。
+     * 直径等于树中任意两个节点之间最长路径的长度
      *
      * @param root 二叉树的根节点
      * @return 二叉树的直径
+     * 思路：通过后序遍历计算每个节点的左右子树深度，并更新最大直径。
      */
     public int diameterOfBinaryTree(TreeNode root) {
-        // 初始化直径为1，因为最终结果需要转换为边的数量
-        maxDiameter = 1;
         // 递归计算深度，同时更新直径
         maxDepth(root);
-        // 由于初始化为1，返回结果时需减1以得到边的数量
-        return maxDiameter - 1;
+        return maxDiameter;
     }
 
 
     /**
-     * 计算节点的深度并更新最大直径
+     * 计算节点的深度,并更新最大直径
      *
      * @param node 当前处理的节点
-     * @return 节点为根的子树的深度
+     * @return 当前节点的最大深度
      */
     private int maxDepth(TreeNode node) {
         if (node == null) {
@@ -55,10 +53,10 @@ public class DiameterOfBinaryTree {
         // 计算右子树的最大深度
         int rightMaxDepth = maxDepth(node.right);
 
-        // 更新最大直径，路径长度为左右子树深度之和加1（当前节点）
-        maxDiameter = Math.max(maxDiameter, leftMaxDepth + rightMaxDepth + 1);
+        // 更新最大直径
+        maxDiameter = Math.max(maxDiameter, leftMaxDepth + rightMaxDepth);
 
-        // 返回当前节点为根的最大深度
+        // 返回当前节点的最大深度
         return Math.max(leftMaxDepth, rightMaxDepth) + 1;
     }
 
