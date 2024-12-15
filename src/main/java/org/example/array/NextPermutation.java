@@ -23,38 +23,49 @@ import java.util.Arrays;
 public class NextPermutation {
 
     /**
-     * 寻找下一个排列的方法
-     * 思路：从后向前找到第一个递减的元素，然后从后找到比它大的元素交换，
-     * 最后反转后面的部分。
+     * 生成给定数组的下一个排列
+     * 算法思路：
+     * 1、从后向前找到第一个递增的位置i，使得nums[i]<nums[i+1]，
+     * 2、如果找到，找到数组末端向前的第一个元素j，并于nums[i]交换
+     * 3、反转从i+1到数组末尾的所有元素，以获得下一个字典序更大的排列
      *
      * @param nums 输入的整数数组
      */
     public static void nextPermutation(int[] nums) {
+        System.out.println("原始数组: " + Arrays.toString(nums));
         int n = nums.length;
         int i = n - 2;
 
-        // 从后向前找到第一个递减的元素
-        while (i >= 0 && nums[i] >= nums[i + 1]) {
+        // 从后向前找到，第一个位置递增位置i，使得nums[i]<nums[i+1]，即第一个正序对
+        while (i >= 0 && nums[i + 1] <= nums[i]) {
             i--;
         }
-        System.out.println("Found descending point at index: " + i);
 
+        System.out.println("找到第一个递增位置 i: " + i);
 
         if (i >= 0) {
             int j = n - 1;
-            // 从后向前找到第一个大于nums[i]的元素
+            // 从数组末尾开始查找，第一个大于nums[i]的元素
             while (nums[j] <= nums[i]) {
                 j--;
             }
+            System.out.println("将要与 nums[i] 交换的元素的位置 j: " + j);
+            // 交换这两个元素
             swap(nums, i, j);
-            System.out.println("Swapped elements at indexes: " + i + " and " + j + " -> " + Arrays.toString(nums));
+            System.out.println("交换后的数组: " + Arrays.toString(nums));
         }
 
-        // 反转i+1到结尾的元素
+        // 反转从i+1到数组末尾的元素
         reverse(nums, i + 1);
-        System.out.println("Reversed from index " + (i + 1) + " -> " + Arrays.toString(nums));
+        System.out.println("反转" + i + "+1到结尾后的数组: " + Arrays.toString(nums));
     }
 
+    /**
+     * 反转数组中从开始索引到末尾的所有元素
+     *
+     * @param nums  数组
+     * @param start 开始索引
+     */
     private static void reverse(int[] nums, int start) {
         int end = nums.length - 1;
         while (start < end) {
@@ -64,6 +75,13 @@ public class NextPermutation {
         }
     }
 
+    /**
+     * 交换数组中的两个元素
+     *
+     * @param nums 数组
+     * @param i    第一个元素的索引
+     * @param j    第二个元素的索引
+     */
     private static void swap(int[] nums, int i, int j) {
         int temp = nums[i];
         nums[i] = nums[j];
@@ -72,24 +90,12 @@ public class NextPermutation {
 
     public static void main(String[] args) {
         int[] nums1 = {1, 2, 3};
-        System.out.println("Original nums: " + Arrays.toString(nums1));
         nextPermutation(nums1);
-        System.out.println("Next permutation for nums1: " + Arrays.toString(nums1)); // 输出 [1, 3, 2]
 
         int[] nums2 = {3, 2, 1};
-        System.out.println("Original nums: " + Arrays.toString(nums2));
         nextPermutation(nums2);
-        System.out.println("Next permutation for nums2: " + Arrays.toString(nums2)); // 输出 [1, 2, 3]
 
-
-        //运行过程说明
-        //原始数组：[1, 3, 2, 6, 5, 4]
-        //找到第一个递减点：从右向左，2 是最后一个递减点，因为 2 < 6。打印输出 Found descending point at index: 2.
-        //寻找大于 2 的数：从右向左找到第一个大于 2 的数是 4。交换 2 和 4。打印输出 Swapped elements at indexes: 2 and 5 -> [1, 3, 4, 6, 5, 2].
-        //反转 2 之后的数组：反转位置 3 到末尾的部分 [6, 5, 2]，得到 [2, 5, 6]。打印输出 Reversed from index 3 -> [1, 3, 4, 2, 5, 6].
-        int[] nums3 = {1, 3, 2, 6, 5, 4};
-        System.out.println("Original nums: " + Arrays.toString(nums3));
+        int[] nums3 = {1, 3, 5, 4, 2};
         nextPermutation(nums3);
-        System.out.println("Next permutation: " + Arrays.toString(nums3)); // 输出 [1, 3, 4, 2, 5, 6]
     }
 }
