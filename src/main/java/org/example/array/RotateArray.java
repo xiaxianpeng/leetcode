@@ -54,10 +54,10 @@ public class RotateArray {
 
     /**
      * 轮转数组，将数组中的元素向右轮转 k 个位置
-     * 思路：使用三次反转的方法来实现数组的轮转。
-     * 1、反转整个数组：将所有元素的顺序倒转。
-     * 2、反转前 k 个元素：将原来数组中最后 k 个元素的顺序调整到目标位置。
-     * 3、反转剩余的 n-k 个元素：恢复这些元素的正确顺序。
+     * 思路：使用三次翻转的方法来实现数组的轮转。
+     * 1、翻转整个数组：将所有元素的顺序翻转。
+     * 2、翻转前 k 个元素：将原来数组中最后 k 个元素的顺序调整到目标位置。
+     * 3、翻转剩余的 n-k 个元素：恢复这些元素的正确顺序。
      *
      * @param nums 输入的整数数组
      * @param k    向右轮转的步数
@@ -68,19 +68,19 @@ public class RotateArray {
             return;
         }
         k %= nums.length;// 处理 k 大于数组长度的情况
-        System.out.println("Original array: " + Arrays.toString(nums));
+        System.out.println("原始数组: " + Arrays.toString(nums));
 
-        // 反转整个数组
+        // 翻转整个数组
         reverse(nums, 0, nums.length - 1);
-        System.out.println("After reversing entire array: " + Arrays.toString(nums));
+        System.out.println("翻转整个数组: " + Arrays.toString(nums));
 
-        // 反转前 k 个元素
+        // 翻转前 k 个元素
         reverse(nums, 0, k - 1);
-        System.out.println("After reversing first k elements: " + Arrays.toString(nums));
+        System.out.println("翻转前k个元素: " + Arrays.toString(nums));
 
-        // 反转剩余的元素
+        // 翻转剩余的元素
         reverse(nums, k, nums.length - 1);
-        System.out.println("After reversing remaining elements: " + Arrays.toString(nums));
+        System.out.println("翻转剩余的元素: " + Arrays.toString(nums));
     }
 
     /**
@@ -103,9 +103,9 @@ public class RotateArray {
 
     public static void main(String[] args) {
         int[] nums1 = {1, 2, 3, 4, 5, 6, 7};
-        rotate2(nums1, 3);
+        rotate(nums1, 3);
 
         int[] nums2 = {-1, -100, 3, 99};
-        rotate(nums2, 2);
+        rotate2(nums2, 2);
     }
 }
