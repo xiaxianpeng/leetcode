@@ -1,6 +1,7 @@
 package org.example.tree.pathsum;
 
 import org.example.tree.TreeNode;
+import org.example.util.TreeUtil;
 
 /**
  * 124. 二叉树中的最大路径和
@@ -21,7 +22,9 @@ import org.example.tree.TreeNode;
  */
 public class MaxPathSum {
 
-    // 用于存储全局最大路径和
+    /**
+     * 初始化最大路径和为最小整数值
+     */
     Integer maxPathSum = Integer.MIN_VALUE;
 
     /**
@@ -36,48 +39,48 @@ public class MaxPathSum {
     }
 
     /**
-     * 计算节点的最大增益值。
-     * 增益值是该节点的值加上子节点贡献的最大值。
+     * 计算以当前节点为端点的最大单边路径和，并更新最大路径和
+     * 贡献值是 该节点的值 + 子节点贡献的最大值。
      *
-     * @param node 当前节点
-     * @return 当前节点的最大增益值
+     * @param node 当前处理的节点
+     * @return 当前节点为端点的最大单边路径和，用于上层节点的路径和计算
      */
     private int maxGain(TreeNode node) {
         if (node == null) {
-            return 0;// 空节点返回0，不影响路径和
+            return 0;// 如果节点为空，其贡献值为0
         }
 
-        // 递归计算左右子节点的最大增益值，负增益值设为0以不影响路径和
+        // 递归地计算左右子节点提供的最大贡献值，忽略负贡献值
         int leftGain = Math.max(maxGain(node.left), 0);
         int rightGain = Math.max(maxGain(node.right), 0);
 
-        // 当前路径和为节点值加上其左右子节点的最大增益
+        // 当前节点的路径和 = 节点值 + 其左右子节点的最大贡献值
         int currentPathSum = node.val + leftGain + rightGain;
 
         // 更新全局最大路径和
         maxPathSum = Math.max(maxPathSum, currentPathSum);
 
-        // 打印当前节点的信息
-        System.out.println("Node: " + node.val + ", L-Gain: " + leftGain + ", R-Gain: " + rightGain +
-                ", Curr-PathSum: " + currentPathSum + ", Global-MaxPathSum: " + maxPathSum);
+        System.out.println("节点值: " + node.val + ", 左贡献值: " + leftGain +
+                ", 右贡献值: " + rightGain + ", 当前路径和: " + currentPathSum +
+                ", 全局最大路径和: " + maxPathSum);
 
-        // 返回节点的最大增益值
+        // 返回当前节点的最大单边贡献值给父节点计算使用
         return node.val + Math.max(leftGain, rightGain);
     }
 
     public static void main(String[] args) {
-        // 示例 1
         TreeNode root1 = new TreeNode(1);
         root1.left = new TreeNode(2);
         root1.right = new TreeNode(3);
-        System.out.println("Example 1: " + new MaxPathSum().maxPathSum(root1)); // 输出: 6
+        TreeUtil.printTree(root1);
+        System.out.println("最大路径和为: " + new MaxPathSum().maxPathSum(root1)); // 输出: 6
 
-        // 示例 2
         TreeNode root2 = new TreeNode(-10);
         root2.left = new TreeNode(9);
         root2.right = new TreeNode(20);
         root2.right.left = new TreeNode(15);
         root2.right.right = new TreeNode(7);
-        System.out.println("Example 2: " + new MaxPathSum().maxPathSum(root2)); // 输出: 42
+        TreeUtil.printTree(root2);
+        System.out.println("最大路径和为: " + new MaxPathSum().maxPathSum(root2)); // 输出: 42
     }
 }
