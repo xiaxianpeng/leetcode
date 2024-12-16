@@ -36,22 +36,24 @@ public class LengthOfLongestSubstring {
         int right = 0;
         // 无重复字符的最长子串的长度
         int maxLength = 0;
-        // 用来存储当前窗口的字符
+        // 当前窗口中的唯一字符集合
         Set<Character> window = new HashSet<>();
 
         // 遍历字符串
         while (right < s.length()) {
-            char c = s.charAt(right);
-            // 如果c不在窗口，扩展窗口
-            if (!window.contains(c)) {
-                window.add(c);// 加入当前字符到窗口
+            char currentChar = s.charAt(right);
+            // 如果不在窗口，添加它到集合并向右扩展窗口
+            if (!window.contains(currentChar)) {
+                window.add(currentChar);// 加入当前字符到窗口
                 right++;// 右指针右移
                 maxLength = Math.max(maxLength, right - left);// 更新最大长度
+                System.out.println("添加: " + currentChar + "，窗口扩展至: " + s.substring(left, right));
             }
-            // 遇到重复字符，收缩窗口
+            // 遇到重复字符，移除窗口最左边的字符
             else {
+                System.out.println("遇到重复字符: " + currentChar + "，移除: " + s.charAt(left) + "，并缩小窗口");
                 window.remove(s.charAt(left));// 移除最左边字符
-                left++;// 左指针右移
+                left++;// 左指针右移，以缩小窗口
             }
         }
         // 返回无重复字符的最长子串的长度
@@ -60,12 +62,12 @@ public class LengthOfLongestSubstring {
 
     public static void main(String[] args) {
         String s1 = "abcabcbb";
-        System.out.println("Input: " + s1 + ", Output: " + lengthOfLongestSubstring(s1)); // 输出 3
+        System.out.println(lengthOfLongestSubstring(s1)); // 输出 3
 
         String s2 = "bbbbb";
-        System.out.println("Input: " + s2 + ", Output: " + lengthOfLongestSubstring(s2)); // 输出 1
+        System.out.println( lengthOfLongestSubstring(s2)); // 输出 1
 
         String s3 = "pwwkew";
-        System.out.println("Input: " + s3 + ", Output: " + lengthOfLongestSubstring(s3)); // 输出 3
+        System.out.println(lengthOfLongestSubstring(s3)); // 输出 3
     }
 }
