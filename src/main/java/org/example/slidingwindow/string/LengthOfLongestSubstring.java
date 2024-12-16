@@ -1,6 +1,8 @@
 package org.example.slidingwindow.string;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -23,6 +25,34 @@ import java.util.Set;
 public class LengthOfLongestSubstring {
 
     /**
+     * 使用hashmap实现查找无重复字符的最长子串的长度
+     * hashmap用来存储每个字符及其在字符串中的最新索引，
+     * 以便在发现重复字符时快速调整窗口的左边界
+     *
+     * @param s 字符串
+     * @return 无重复字符的最长子串长度
+     */
+    public static int lengthOfLongestSubstring(String s) {
+        Map<Character, Integer> charIndexMap = new HashMap<>();//存储字符及其在字符串中的最新索引
+        int left = 0; // 滑动窗口的左边界
+        int maxLength = 0; // 最长无重复字符子串的长度
+        for (int right = 0; right < s.length(); right++) {
+            char currentChar = s.charAt(right);
+            // 如果当前字符已存在，调整左边界以避免重复
+            if (charIndexMap.containsKey(currentChar)) {
+                left = Math.max(left, charIndexMap.get(currentChar) + 1);
+                System.out.printf("重复字符 '%c' 出现，窗口左边界移动到索引 %d\n", currentChar, left);
+            }
+            // 更新当前字符串的最新索引
+            charIndexMap.put(currentChar, right);
+            // 计算当前窗口的长度，并更新最大长度
+            maxLength = Math.max(maxLength, right - left + 1);
+            System.out.printf("添加字符 '%c'，窗口范围 [%d, %d]，当前最长长度: %d\n", currentChar, left, right, maxLength);
+        }
+        return maxLength;
+    }
+
+    /**
      * 计算字符串中无重复字符的最长子串的长度
      * 核心思路：通过滑动窗口方法，使用哈希集合来存储窗口内的字符，确保子串中没有重复字符。
      * 使用两个指针 `left` 和 `right` 来表示当前窗口的左右边界。
@@ -30,7 +60,7 @@ public class LengthOfLongestSubstring {
      * @param s 输入字符串
      * @return 无重复字符的最长子串长度
      */
-    public static int lengthOfLongestSubstring(String s) {
+    public static int lengthOfLongestSubstring2(String s) {
         // 初始化左右指针
         int left = 0;
         int right = 0;
@@ -63,11 +93,14 @@ public class LengthOfLongestSubstring {
     public static void main(String[] args) {
         String s1 = "abcabcbb";
         System.out.println(lengthOfLongestSubstring(s1)); // 输出 3
+        //System.out.println(lengthOfLongestSubstring2(s1)); // 输出 3
 
         String s2 = "bbbbb";
-        System.out.println( lengthOfLongestSubstring(s2)); // 输出 1
+        System.out.println(lengthOfLongestSubstring(s2)); // 输出 1
+        //System.out.println(lengthOfLongestSubstring2(s2)); // 输出 1
 
         String s3 = "pwwkew";
         System.out.println(lengthOfLongestSubstring(s3)); // 输出 3
+        //System.out.println(lengthOfLongestSubstring2(s3)); // 输出 3
     }
 }
