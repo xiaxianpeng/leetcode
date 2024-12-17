@@ -1,7 +1,6 @@
 package org.example.tree.traversal;
 
 import java.util.ArrayList;
-import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -52,7 +51,7 @@ public class ZigzagLevelOrder {
         boolean isOrderLeft = true;// 遍历方向标志，初始为从左到右
 
         while (!queue.isEmpty()) {
-            Deque<Integer> levelQueue = new LinkedList<>();// 双端队列存储当前层节点值
+            LinkedList<Integer> levelQueue = new LinkedList<>();// 双端队列存储当前层节点值
             int size = queue.size();// 当前层的节点数
 
             for (int i = 0; i < size; i++) {
@@ -76,7 +75,7 @@ public class ZigzagLevelOrder {
             }
 
             // 将当前层结果加入最终结果
-            zigzagLevelList.add(new LinkedList<>(levelQueue));
+            zigzagLevelList.add(levelQueue);
             // 切换遍历方向
             isOrderLeft = !isOrderLeft;
         }
