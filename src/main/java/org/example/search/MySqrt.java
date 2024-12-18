@@ -1,7 +1,6 @@
 package org.example.search;
 
 /**
- * https://leetcode.cn/problems/sqrtx/description/
  * 69. x 的平方根
  * 给你一个非负整数 x ，计算并返回 x 的 算术平方根 。
  * 由于返回类型是整数，结果只保留 整数部分 ，小数部分将被 舍去 。
@@ -23,16 +22,16 @@ public class MySqrt {
      * 由于我们所有的运算都是整数运算，不会存在误差，因此在得到最终的答案 ans 后，也就不需要再去尝试 ans+1 了。
      */
     public static int mySqrt(int x) {
-        int L = 0;
-        int R = x;
+        int left = 0;
+        int right = x;
         int ans = -1;
-        while (L <= R) {
-            int mid = L + (R - L) / 2;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
             if (mid * mid <= x) {
                 ans = mid;
-                L = mid + 1;
+                left = mid + 1;
             } else {
-                R = mid - 1;
+                right = mid - 1;
             }
         }
         return ans;
