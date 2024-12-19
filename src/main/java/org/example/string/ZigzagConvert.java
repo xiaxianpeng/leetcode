@@ -51,19 +51,21 @@ public class ZigzagConvert {
             rows.add(new StringBuffer());
         }
 
-        // 当前行的索引
+        // 当前行索引
         int currentRow = 0;
-        // 控制方向的变量，初始为 -1，因为第一步会向下移动
-        int direction = -1;
+        // 移动方向，1 表示向下，-1 表示向上
+        int direction = 1;
 
         // 遍历字符串中的每个字符
         for (char c : s.toCharArray()) {
             rows.get(currentRow).append(c);
-            if (currentRow == 0 || currentRow == numRows - 1) {
-                direction = -direction;// 反转方向
-                System.out.println("方向改变，当前方向: " + (direction > 0 ? "向下" : "向上"));
+            if (currentRow == 0) {
+                direction = 1; // 向下
             }
-            // 根据方向更新当前行索引
+            if (currentRow == numRows - 1) {
+                direction = -1; // 向上
+            }
+            // 移动到下一行
             currentRow += direction;
         }
 
