@@ -50,10 +50,11 @@ public class Flatten2ListNode {
         }
 
         // 递归展开左子树
-        TreeNode leftTail = flattenTree(node.left);
+        TreeNode leftTail = flattenTree(node.left); //左子树的最后一个节点
         // 递归展开右子树
-        TreeNode rightTail = flattenTree(node.right);
+        TreeNode rightTail = flattenTree(node.right); //右子树的最后一个节点
 
+        // 如果当前节点有左子树，将左子树放到右子树的位置，并连接原右子树
         if (node.left != null) {
             // 将左子树插入到右子树的位置
             leftTail.right = node.right;
