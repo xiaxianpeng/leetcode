@@ -1,5 +1,6 @@
 package org.example.sort;
 
+import java.util.Arrays;
 import java.util.Random;
 
 import org.example.util.ArrayUtil;
@@ -10,26 +11,76 @@ import org.example.util.ArrayUtil;
  * 2 重新排序数列，所有比轴小的放轴前面，比轴大大放轴后面，
  * 在这个分区退出后，该轴就处于数列的中间位置，称之为分区操作
  * 3 递归的把小于轴的子数列和大于轴的子数列排序
- *
  * ******************************************************
  * 快速排序的代码框架如下：
- *
  * void sort(int[] nums, int lo, int hi) {
- *     /-------前序遍历位置---------/
- *     // 通过交换元素构建分界点 p
- *     int p = partition(nums, lo, hi);
- *     /--------------------------/
- *
- *     sort(nums, lo, p - 1);
- *     sort(nums, p + 1, hi);
- *
+ * /-------前序遍历位置---------/
+ * // 通过交换元素构建分界点 p
+ * int p = partition(nums, lo, hi);
+ * /--------------------------/
+ * sort(nums, lo, p - 1);
+ * sort(nums, p + 1, hi);
  * }
- *******************************************************
+ * ******************************************************
  */
 
 public class QuickSort {
 
     private QuickSort() {
+    }
+
+    /**
+     * 使用快速排序对数组进行升序排序
+     *
+     * @param nums 数组
+     * @return 排序后的数组
+     */
+    public static int[] sortArray(int[] nums) {
+        quickSort(nums, 0, nums.length - 1);
+        return nums;
+    }
+
+    /**
+     * 快速排序的递归函数
+     *
+     * @param nums 数组
+     * @param low  当前处理的子数组的开始索引
+     * @param high 当前处理的子数组的结束索引
+     */
+    private static void quickSort(int[] nums, int low, int high) {
+        if (low >= high) {
+            return;
+        }
+        // 分区操作，返回基准元素的索引
+        int pivotIndex = partition(nums, low, high);
+        // 递归排序基准元素左侧的子数组
+        quickSort(nums, low, pivotIndex - 1);
+        // 递归排序基准元素右侧的子数组
+        quickSort(nums, pivotIndex, high);
+    }
+
+    /**
+     * 分区操作，将小于基准的元素移到基准左侧，大于基准的元素移到右侧
+     *
+     * @param nums 数组
+     * @param low  当前处理的子数组的开始索引
+     * @param high 当前处理的子数组的结束索引
+     * @return 基准元素的最终位置
+     */
+    private static int partition(int[] nums, int low, int high) {
+        // 选择最右边的元素作为基准元素
+        int pivot = nums[high];
+        int i = low;// i 表示小于基准元素的区域的边界
+
+        // 双指针遍历数组，指针i用来标记小于基准元素的位置，i用来遍历数组
+        for (int j = low; j < high; j++) {
+            if (nums[j] <= pivot) {
+                SortUtil.swap(nums, i, j);
+                i++;
+            }
+        }
+        SortUtil.swap(nums, i, high);
+        return i;
     }
 
     private static <E extends Comparable<E>> void sort(E[] arr) {
@@ -139,9 +190,10 @@ public class QuickSort {
     }
 
     public static void main(String[] args) {
-        Integer[] arr = ArrayUtil.generateRandomArray(100, 20);
-        SortUtil.print(arr);
-        threeWaySort(arr);
-        SortUtil.print(arr);
+        int[] nums1 = {5, 2, 3, 1};
+        System.out.println(Arrays.toString(sortArray(nums1)));  // 输出：[1, 2, 3, 5]
+
+        int[] nums2 = {5, 1, 1, 2, 0, 0};
+        System.out.println(Arrays.toString(sortArray(nums2)));  // 输出：[0, 0, 1, 1, 2, 5]
     }
 }
