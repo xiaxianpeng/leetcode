@@ -25,70 +25,60 @@ public class RemoveNthFromEnd {
      * @return 修改后的链表的头节点
      */
     public static ListNode removeNthFromEnd(ListNode head, int n) {
-        // 创建一个虚拟头节点，这样对头节点的处理就和其他节点一致
+
+        System.out.println("原链表: " + head);
+
+        // 创建一个虚拟头节点，指向头节点，以便处理边界条件(如删除头节点)
         ListNode dummy = new ListNode(-1);
         dummy.next = head;
 
-        // 删除倒数第 n 个节点，要先找到倒数第 n+1 个节点
-        ListNode prev = findFromEnd(dummy, n + 1);
+        // 初始化快慢指针，都指向虚拟头节点
+        ListNode fast = dummy;
+        ListNode slow = dummy;
 
-        // 删除倒数第 n 个节点
-        prev.next = prev.next.next;
-        // 返回链表的新头节点，即虚拟头节点的下一个节点
-        return dummy.next;
-    }
-
-    /**
-     * 获取倒数第 k 个节点
-     *
-     * @param head 链表的头节点
-     * @param k    倒数第 k 个节点
-     * @return 倒数第 k 个节点
-     */
-    private static ListNode findFromEnd(ListNode head, int k) {
-        // 初始化两个指针，都指向头节点
-        ListNode fast = head;
-        ListNode slow = head;
-
-        // fast 先向前移动 k 步
-        for (int i = 0; i < k; i++) {
-            fast = fast.next;
+        // 快指针向前移动n+1步，以保持快慢指针之间相隔n步
+        for (int i = 0; i < n + 1; i++) {
+            if (fast != null) {
+                fast = fast.next;
+            } else {
+                // 如果n大于链表长度，直接返回原链表
+                return head;
+            }
         }
-        // 当 fast 不为 null 时，fast 和 slow 同时向前移动
+
+        // 同时移动快慢指针，直到快指针到达链表末尾
         while (fast != null) {
             fast = fast.next;
             slow = slow.next;
         }
 
-        // 返回 slow，即倒数第 k 个节点
-        return slow;
+        // 删除慢指针的下一个节点
+        if (slow.next != null) {
+            slow.next = slow.next.next;
+        }
+
+        // 返回删除后的链表
+        System.out.println("删除倒数第 " + n + " 个节点后: " + dummy.next);
+        return dummy.next;
     }
 
 
     public static void main(String[] args) {
         ListNode head1 = new ListNode(new int[]{1, 2, 3, 4, 5});
         int k1 = 2;
-        System.out.println("原链表: " + head1);
-        ListNode result1 = removeNthFromEnd(head1, k1);
-        System.out.println("删除倒数第 " + k1 + " 个节点后: " + result1);
+        removeNthFromEnd(head1, k1);
 
         ListNode head2 = new ListNode(new int[]{1});
         int k2 = 1;
-        System.out.println("原链表: " + head2);
-        ListNode result2 = removeNthFromEnd(head2, k2);
-        System.out.println("删除倒数第 " + k2 + " 个节点后: " + result2);
+        removeNthFromEnd(head2, k2);
 
         ListNode head3 = new ListNode(new int[]{1, 2});
         int k3 = 1;
-        System.out.println("原链表: " + head3);
-        ListNode result3 = removeNthFromEnd(head3, k3);
-        System.out.println("删除倒数第 " + k3 + " 个节点后: " + result3);
+        removeNthFromEnd(head3, k3);
 
         // 边界情况: n 等于链表长度
         ListNode head4 = new ListNode(new int[]{1, 2, 3});
         int k4 = 3;
-        System.out.println("原链表: " + head4);
-        ListNode result4 = removeNthFromEnd(head4, k4);
-        System.out.println("删除倒数第 " + k4 + " 个节点后: " + result4);
+        removeNthFromEnd(head4, k4);
     }
 }
