@@ -41,19 +41,19 @@ public class LongestZigzagPath {
         if (root == null) {
             return 0;
         }
-        dfs(root.left, 0, 1);
-        dfs(root.right, 1, 1);
+        dfs(root.left, true, 1);
+        dfs(root.right, false, 1);
         return maxLength;
     }
 
     /**
      * 递归计算每个节点的最长交错路径
      *
-     * @param node      当前节点
-     * @param direction 当前方向(0-向左，1-向右)
-     * @param length    当前路径的长度
+     * @param node   当前节点
+     * @param isLeft 如果是从左子节点出发，isLeft为true，否则为false
+     * @param length 当前路径的长度
      */
-    private void dfs(TreeNode node, int direction, int length) {
+    private void dfs(TreeNode node, boolean isLeft, int length) {
         // 如果当前节点为空，返回
         if (node == null) {
             return;
@@ -61,18 +61,18 @@ public class LongestZigzagPath {
         // 更新最长交错路径的长度
         maxLength = Math.max(maxLength, length);
         // 如果当前方向是走，则继续向左子树走(方向变为右)
-        if (direction == 0) {
+        if (isLeft) {
             // 向左走，方向改变为右
-            dfs(node.left, 1, length + 1);
+            dfs(node.left, false, length + 1);
             // 向右走，方向改变为左，路径重置为1
-            dfs(node.right, 0, 1);
+            dfs(node.right, true, 1);
         }
         //如果当前方向是右，则继续向右子树走(方向变为左)
         else {
             // 向右，方向改变为左
-            dfs(node.right, 0, length + 1);
+            dfs(node.right, true, length + 1);
             // 向左走，方向改变为右，路径重置为1
-            dfs(node.left, 1, 1);
+            dfs(node.left, false, 1);
         }
     }
 
