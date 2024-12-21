@@ -41,8 +41,8 @@ public class LongestZigzagPath {
         if (root == null) {
             return 0;
         }
-        dfs(root.left, true, 1);
-        dfs(root.right, false, 1);
+        dfs(root, true, 0);
+        dfs(root, false, 0);
         return maxLength;
     }
 
@@ -60,19 +60,20 @@ public class LongestZigzagPath {
         }
         // 更新最长交错路径的长度
         maxLength = Math.max(maxLength, length);
-        // 如果当前方向是走，则继续向左子树走(方向变为右)
+
+        // 如果当前节点的方向是左->右，则向右子树递归，交错路径长度+1
         if (isLeft) {
-            // 向左走，方向改变为右
-            dfs(node.left, false, length + 1);
-            // 向右走，方向改变为左，路径重置为1
-            dfs(node.right, true, 1);
+            // 方向转向右
+            dfs(node.right, false, length + 1);
+            // 重启左->右的交错路径
+            dfs(node.left, true, 1);
         }
-        //如果当前方向是右，则继续向右子树走(方向变为左)
+        // 如果当前节点的方向是右->左，则向左子树递归，交错路径长度+1
         else {
-            // 向右，方向改变为左
-            dfs(node.right, true, length + 1);
-            // 向左走，方向改变为右，路径重置为1
-            dfs(node.left, false, 1);
+            // 方向转向左
+            dfs(node.left, true, length + 1);
+            // 重启右->左的交错路径
+            dfs(node.right, false, 1);
         }
     }
 
@@ -80,16 +81,24 @@ public class LongestZigzagPath {
         TreeNode root1 = new TreeNode(1);
         root1.right = new TreeNode(1);
         root1.right.left = new TreeNode(1);
+        root1.right.right = new TreeNode(1);
+        root1.right.left.left = new TreeNode(1);
         root1.right.left.right = new TreeNode(1);
-        root1.right.left.right.left = new TreeNode(1);
+        root1.right.right.right = new TreeNode(1);
+        root1.right.left.left.left = new TreeNode(1);
+        root1.right.left.left.right = new TreeNode(1);
+        root1.right.left.right.right = new TreeNode(1);
+        root1.right.left.left.right.left = new TreeNode(1);
         TreeUtil.printTree(root1);
         System.out.println("longestZigZag: " + new LongestZigzagPath().longestZigZag(root1)); // 输出: 3
 
         TreeNode root2 = new TreeNode(1);
         root2.left = new TreeNode(1);
-        root2.left.left = new TreeNode(1);
-        root2.left.left.right = new TreeNode(1);
-        root2.left.left.right.left = new TreeNode(1);
+        root2.right = new TreeNode(1);
+        root2.left.right = new TreeNode(1);
+        root2.left.right.left = new TreeNode(1);
+        root2.left.right.left.left = new TreeNode(1);
+        root2.left.right.left.right = new TreeNode(1);
         TreeUtil.printTree(root2);
         System.out.println("longestZigZag: " + new LongestZigzagPath().longestZigZag(root2)); // 输出: 4
 
