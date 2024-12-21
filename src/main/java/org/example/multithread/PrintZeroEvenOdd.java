@@ -1,4 +1,4 @@
-package org.example.multithrad;
+package org.example.multithread;
 
 import java.util.concurrent.Semaphore;
 import java.util.function.IntConsumer;
