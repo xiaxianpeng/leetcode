@@ -23,40 +23,42 @@ public class ReverseWords {
 
     /**
      * 反转字符串中的单词
-     * 算法思路：
-     * 1. 使用 trim() 方法去除字符串的前导和尾随空格。
-     * 2. 使用双指针（i 和 j）从字符串的末尾开始遍历，逐个提取单词。
-     * 3. 每次找到一个单词后，加入结果字符串，并跳过单词之间的空格。
-     * 4. 拼接完成后，返回最终结果时去除多余的空格。
      *
      * @param s 输入的字符串
      * @return 反转后的字符串，单词之间用单个空格分隔
+     * 算法思想：
+     * 1、使用trim()方法去除字符串首尾的空格
+     * 2、从字符串末尾开始遍历，跳过多余的空格
+     * 3、找到每个单词的起始和结束位置
+     * 4、将单词依次添加到StringBuffer中，并在单词之间加上空格
+     * 5、最后转换为去首尾空格的字符串并返回结果
      */
     public static String reverseWords(String s) {
-        // 去除前导和尾随空格
+        // 去除字符串首尾的空格
         s = s.trim();
-        int j = s.length() - 1;
-        int i = j;
         StringBuffer result = new StringBuffer();
 
+        int i = s.length() - 1;
         while (i >= 0) {
-            // 搜索首个空格
-            while (i >= 0 && s.charAt(i) != ' ') {
-                i--;
-            }
-
-            // 将单词拼接到结果中
-            result.append(s.substring(i + 1, j + 1) + " ");
-
-            // 跳过单词间空格
+            // 跳过单词之间的多余空格
             while (i >= 0 && s.charAt(i) == ' ') {
                 i--;
             }
-            // 更新 j 为当前单词的结束位置
-            j = i;
+            if (i < 0) {
+                break;
+            }
+            int end = i;
+            // 找到单词的起始位置
+            while (i >= 0 && s.charAt(i) != ' ') {
+                i--;
+            }
+            int start = i;
+            // 提取单词并添加到结果中
+            String word = s.substring(start + 1, end + 1);
+            result.append(word).append(" ");
         }
 
-        // 返回结果
+        // 去除最后一个多余的空格并返回
         return result.toString();
     }
 
