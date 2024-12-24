@@ -19,7 +19,6 @@ import org.example.linkedlist.structure.ListNode;
  * skipB - 在 listB 中（从头节点开始）跳到交叉节点的节点数
  * 评测系统将根据这些输入创建链式数据结构，并将两个头节点 headA 和 headB 传递给你的程序。
  * 如果程序能够正确返回相交节点，那么你的解决方案将被 视作正确答案 。
- * 链接：https://leetcode-cn.com/problems/intersection-of-two-linked-lists
  */
 public class IntersectionNode {
 
@@ -38,13 +37,14 @@ public class IntersectionNode {
         // 初始化两个指针分别指向两个链表的头节点
         ListNode pA = headA;
         ListNode pB = headB;
-        // 遍历两个链表，直到两个指针相遇或同时到达链表末尾（null）
+        // 遍历两个链表
         while (pA != pB) {
-            // 如果 p1 到达链表末尾，重定向到链表 B 的头节点
-            pA = pA.next != null ? pA.next : headB;
-            // 如果 pB 到达链表末尾，重定向到链表 A 的头节点
-            pB = pB.next != null ? pB.next : headA;
+            // 如果 指针A 到达链表末尾，切换到链表B的头部
+            pA = pA != null ? pA.next : headB;
+            // 如果 指针B 到达链表末尾，切换到链表A的头部
+            pB = pB != null ? pB.next : headA;
         }
+
         // 如果链表相交，pA 将是相交的起始节点；如果不相交，pA 将是 null
         return pA;
     }
