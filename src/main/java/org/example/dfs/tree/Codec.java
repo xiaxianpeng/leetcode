@@ -28,32 +28,50 @@ import org.example.util.TreeUtil;
  */
 public class Codec {
 
-    public static String SEP = ",";
-    public static String NULL = "#";
+    private static String SEP = ",";
+    private static String NULL = "#";
 
+    /**
+     * 序列化二叉树为字符串，使用前序遍历方法
+     *
+     * @param root 二叉树的根节点
+     * @return 序列化后的字符串
+     */
     public String serialize(TreeNode root) {
         StringBuffer sb = new StringBuffer();
-        serialize(root, sb);
+        serializeHelper(root, sb);
         return sb.toString();
     }
 
-    private void serialize(TreeNode root, StringBuffer sb) {
+    /**
+     * 辅助方法，递归进行前序遍历序列化
+     *
+     * @param node 当前遍历的节点
+     * @param sb   序列化后的字符串
+     */
+    private void serializeHelper(TreeNode node, StringBuffer sb) {
         // 如果当前节点为空，添加空节点标识符 "#"
-        if (root == null) {
+        if (node == null) {
             sb.append(NULL).append(SEP);
             return;
         }
 
         // ***前序遍历位置***
         // 记录当前节点的值，并添加分隔符
-        sb.append(root.val).append(SEP);
+        sb.append(node.val).append(SEP);
         // ****************
 
         // 递归序列化左子树和右子树
-        serialize(root.left, sb);
-        serialize(root.right, sb);
+        serializeHelper(node.left, sb);
+        serializeHelper(node.right, sb);
     }
 
+    /**
+     * 反序列化字符串为二叉树
+     *
+     * @param data 序列化后的字符串
+     * @return 反序列化后的二叉树根节点
+     */
     public TreeNode deserialize(String data) {
         // 将序列化的字符串按分隔符拆分成节点列表
         LinkedList<String> nodes = new LinkedList<>();
@@ -61,10 +79,16 @@ public class Codec {
             nodes.add(s);
         }
         // 递归反序列化
-        return deserialize(nodes);
+        return deserializeHelper(nodes);
     }
 
-    private TreeNode deserialize(LinkedList<String> nodes) {
+    /**
+     * 辅助方法，递归进行前序遍历反序列化
+     *
+     * @param nodes 节点值的的队列
+     * @return 构建的二叉树节点
+     */
+    private TreeNode deserializeHelper(LinkedList<String> nodes) {
         // 如果节点队列为空，表示没有更多节点需要反序列化
         if (nodes.isEmpty()) {
             return null;
@@ -81,8 +105,8 @@ public class Codec {
         // ****************
 
         // 递归构建左子树和右子树
-        root.left = deserialize(nodes);
-        root.right = deserialize(nodes);
+        root.left = deserializeHelper(nodes);
+        root.right = deserializeHelper(nodes);
         return root;
     }
 
