@@ -49,6 +49,6 @@ public class RemoveStars {
 
     public static void main(String[] args) {
         System.out.println(removeStars("leet**cod*e")); // 输出："lecoe"
-        System.out.println(removeStars("a*bc*d"));       // 输出："ac"
+        System.out.println(removeStars("a*bc*d"));       // 输出："bd"
     }
 }
