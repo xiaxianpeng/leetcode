@@ -45,14 +45,14 @@ public class MinStack {
 
     public void push(int val) {
         stack.push(val);
-        if (minStack.isEmpty() || val < minStack.peek()) {
+        if (minStack.isEmpty() || val <= minStack.peek()) {
             minStack.push(val);
         }
     }
 
     public void pop() {
         Integer val = stack.pop();
-        if (val == minStack.peek()) {
+        if (minStack.peek().equals(val)) {
             minStack.pop();
         }
     }
