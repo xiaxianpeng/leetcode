@@ -25,21 +25,31 @@ import java.util.Set;
 public class LengthOfLongestSubstring {
 
     /**
-     * 使用hashmap实现查找无重复字符的最长子串的长度
-     * hashmap用来存储每个字符及其在字符串中的最新索引，
-     * 以便在发现重复字符时快速调整窗口的左边界
+     * 使用滑动窗口的算法来查找无重复字符的最长子串的长度
      *
      * @param s 字符串
      * @return 无重复字符的最长子串长度
+     * 算法思路：
+     * 1、使用两个指针left和right表示当前窗口的左右边界
+     * 2、使用一个哈希映射来记录字符上一次出现的位置
+     * 3、遍历字符串，当遇到重复字符时，移动left指针到重复字符上一次出现的位置下一个位置
+     * 4、更新最长子串的长度
      */
     public static int lengthOfLongestSubstring(String s) {
-        Map<Character, Integer> charIndexMap = new HashMap<>();//存储字符及其在字符串中的最新索引
+
+        // 哈希映射，存储字符及其在字符串中的最新索引
+        Map<Character, Integer> charIndexMap = new HashMap<>();
+        // 初始化左指针和最长长度
         int left = 0; // 滑动窗口的左边界
         int maxLength = 0; // 最长无重复字符子串的长度
+
+        // 遍历字符串中的每个字符
         for (int right = 0; right < s.length(); right++) {
             char currentChar = s.charAt(right);
-            // 如果当前字符已存在，调整左边界以避免重复
+            System.out.println("当前字符: " + currentChar);
+            // 如果当前字符已存在与哈希映射中，并且其索引不小于左指针(避免重复)，调整左边界
             if (charIndexMap.containsKey(currentChar)) {
+                // 更新左指针到重复字符的下一个位置
                 left = Math.max(left, charIndexMap.get(currentChar) + 1);
                 System.out.printf("重复字符 '%c' 出现，窗口左边界移动到索引 %d\n", currentChar, left);
             }
