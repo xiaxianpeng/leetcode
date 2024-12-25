@@ -58,10 +58,10 @@ public class AddTwoNumbers2 {
         int carry = 0;
         while (!s1.isEmpty() || !s2.isEmpty() || carry > 0) {
             int sum = carry;
-            if (s1.isEmpty()) {
+            if (!s1.isEmpty()) {
                 sum += s1.pop();
             }
-            if (s2.isEmpty()) {
+            if (!s2.isEmpty()) {
                 sum += s2.pop();
             }
 
