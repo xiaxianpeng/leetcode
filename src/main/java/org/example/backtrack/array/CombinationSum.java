@@ -44,37 +44,44 @@ public class CombinationSum {
     /**
      * 辅助函数，使用回溯生成组合。
      *
-     * @param candidates 候选数字数组
+     * @param nums 候选数字数组
      * @param target     当前目标和
      * @param start      当前数字选择的起点
      * @param current    当前组合
      * @param results    存储结果的列表
      */
-    private static void backtrack(int[] candidates, int target, int start, List<Integer> current, List<List<Integer>> results) {
-        // 如果目标和为0，表示找到一个有效组合
+    private static void backtrack(int[] nums, int target, int start,
+                                  List<Integer> current, List<List<Integer>> results) {
+        // 如果剩余值为0，表示找到一个有效组合
         if (target == 0) {
             results.add(new ArrayList<>(current));
-            System.out.println("Complete combination: " + current);
+            System.out.println("找到可行组合：" + current);
             return;
         }
 
-        for (int i = start; i < candidates.length; i++) {
-            int candidate = candidates[i];
+        // 如果剩余值小于0，则停止搜索
+        if (target < 0) {
+            System.out.println("组合和超过目标，回溯：" + current);
+            return;
+        }
+
+        for (int i = start; i < nums.length; i++) {
             // 如果当前数字大于目标和，跳过
-            if (candidate > target) {
+            if (nums[i] > target) {
+                System.out.println("元素 " + nums[i] + " 超过剩余目标 " + target + "，停止探索");
                 continue;
             }
 
             // 选择当前数字
-            current.add(candidates[i]);
-            System.out.println("Adding number: " + candidate + ", current combination: " + current);
-
-            // 递归处理，注意 target 减去当前选择的数字
-            backtrack(candidates, target - candidates[i], i, current, results);
-
+            current.add(nums[i]);
+            System.out.println("加入元素：" + nums[i] + "，当前组合：" + current);
+            // 递归处理，注意 target 减去当前选择的数字,
+            // 由于同一数字可重复选取，所以搜索下一层时，依然传入i，而不是i+1
+            backtrack(nums, target - nums[i], i, current, results);
             // 撤销选择
             current.remove(current.size() - 1);
-            System.out.println("Backtracking, removing number: " + candidate + ", current combination: " + current);
+            System.out.println("撤回元素：" + nums[i] + "，当前组合：" + current);
+
         }
     }
 
