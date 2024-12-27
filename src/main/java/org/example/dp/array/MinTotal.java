@@ -1,6 +1,7 @@
 package org.example.dp.array;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -59,10 +60,10 @@ public class MinTotal {
 
     public static void main(String[] args) {
         List<List<Integer>> triangle1 = new ArrayList<>();
-        triangle1.add(java.util.Arrays.asList(2));
-        triangle1.add(java.util.Arrays.asList(3, 4));
-        triangle1.add(java.util.Arrays.asList(6, 5, 7));
-        triangle1.add(java.util.Arrays.asList(4, 1, 8, 3));
+        triangle1.add(Arrays.asList(2));
+        triangle1.add(Arrays.asList(3, 4));
+        triangle1.add(Arrays.asList(6, 5, 7));
+        triangle1.add(Arrays.asList(4, 1, 8, 3));
 
         System.out.println(minimumTotal(triangle1));
     }
