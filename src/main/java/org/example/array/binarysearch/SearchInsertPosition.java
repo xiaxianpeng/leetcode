@@ -25,7 +25,8 @@ public class SearchInsertPosition {
      * @return 目标值在数组中的位置
      */
     public static int searchInsert(int[] nums, int target) {
-        int left = 0, right = nums.length - 1;
+        int left = 0;
+        int right = nums.length - 1;
         while (left <= right) {
             int mid = left + (right - left) / 2;// 防止溢出
             if (nums[mid] == target) {
