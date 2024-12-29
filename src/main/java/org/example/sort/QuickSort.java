@@ -3,8 +3,6 @@ package org.example.sort;
 import java.util.Arrays;
 import java.util.Random;
 
-import org.example.util.ArrayUtil;
-
 /**
  * 快速排序
  * 1 从数列中，找一个元素，以之为轴（pivot）
@@ -56,7 +54,7 @@ public class QuickSort {
         // 递归排序基准元素左侧的子数组
         quickSort(nums, low, pivotIndex - 1);
         // 递归排序基准元素右侧的子数组
-        quickSort(nums, pivotIndex, high);
+        quickSort(nums, pivotIndex + 1, high);
     }
 
     /**
@@ -70,9 +68,9 @@ public class QuickSort {
     private static int partition(int[] nums, int low, int high) {
         // 选择最右边的元素作为基准元素
         int pivot = nums[high];
-        int i = low;// i 表示小于基准元素的区域的边界
+        int i = low;// i 表示小于基准元素的区域的边界(下一个可交换位置)
 
-        // 双指针遍历数组，指针i用来标记小于基准元素的位置，i用来遍历数组
+        // 双指针遍历数组，指针i用来标记小于基准元素的位置，j用来遍历数组
         for (int j = low; j < high; j++) {
             if (nums[j] <= pivot) {
                 SortUtil.swap(nums, i, j);
@@ -195,5 +193,8 @@ public class QuickSort {
 
         int[] nums2 = {5, 1, 1, 2, 0, 0};
         System.out.println(Arrays.toString(sortArray(nums2)));  // 输出：[0, 0, 1, 1, 2, 5]
+
+        int[] nums3 = {1, 1, 1, 1};
+        System.out.println(Arrays.toString(sortArray(nums3)));  // 输出：[1,1,1,1]
     }
 }
