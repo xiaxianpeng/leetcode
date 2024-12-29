@@ -17,14 +17,13 @@ public class LongestCommonPrefix {
 
     /**
      * 通过纵向扫描的方式查找字符串数组中的最长公共前缀
-     * 算法思路：
-     * 1. 逐个字符地比较字符串中的字符。
-     * 2. 从第一个字符开始，检查所有字符串的当前字符是否相同。
-     * 3. 如果存在不同的字符，则当前公共前缀结束。
-     * 4. 如果遍历完所有字符，返回最长公共前缀。
      *
      * @param strs 字符串数组
      * @return 返回最长公共前缀
+     * 算法思路：
+     * 1. 假设第一个字符串是公共前缀
+     * 2. 依次与数组中其他字符串比较，缩短公共前缀直到匹配
+     * 3. 如果在任何一步公共前缀为空，直接返回空字符串
      */
     public static String longestCommonPrefix(String[] strs) {
         // 如果输入数组为空，返回空字符串
@@ -35,8 +34,9 @@ public class LongestCommonPrefix {
         // 假设第一个字符串是公共前缀
         String prefix = strs[0];
         for (int i = 1; i < strs.length; i++) {
+            String current = strs[i];
             // 当当前字符串不以当前公共前缀为开头时，逐步缩短公共前缀
-            while (strs[i].indexOf(prefix) != 0) {
+            while (!current.startsWith(prefix)) {
                 // 缩短前缀，每次去掉最后一个字符进行匹配
                 prefix = prefix.substring(0, prefix.length() - 1);
 
@@ -52,10 +52,10 @@ public class LongestCommonPrefix {
     }
 
     public static void main(String[] args) {
-        String[] strs = {"flower", "flow", "flight"};
-        System.out.println("Longest common prefix:" + longestCommonPrefix(strs));
+        String[] strs1 = {"flower", "flow", "flight"};
+        System.out.println(longestCommonPrefix(strs1));
 
         String[] strs2 = {"dog", "racecar", "car"};
-        System.out.println("Longest common prefix:" + longestCommonPrefix(strs2));
+        System.out.println(longestCommonPrefix(strs2));
     }
 }
