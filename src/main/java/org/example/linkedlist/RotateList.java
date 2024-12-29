@@ -17,6 +17,10 @@ public class RotateList {
 
     /**
      * 将链表每个节点向右移动 k 个位置。
+     *
+     * @param head 链表的头节点
+     * @param k    向右移动的步数
+     * @return 旋转后的链表头节点
      * 算法思路：
      * 1. 首先计算链表的长度，并将链表连接成环。
      * 2. 计算实际需要旋转的步数 k % length。
@@ -24,10 +28,6 @@ public class RotateList {
      * 4. 确定新的头节点，并断开环，完成旋转。
      * 时间复杂度：O(n)，其中 n 是链表的长度。
      * 空间复杂度：O(1)，只使用了常数级别的额外空间。
-     *
-     * @param head 链表的头节点
-     * @param k    向右移动的步数
-     * @return 旋转后的链表头节点
      */
     public static ListNode rotateRight(ListNode head, int k) {
         if (head == null || head.next == null || k == 0) {
