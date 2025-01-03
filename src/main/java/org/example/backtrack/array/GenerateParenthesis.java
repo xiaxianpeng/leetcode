@@ -36,32 +36,34 @@ public class GenerateParenthesis {
      * @param current    当前构建的括号组合
      * @param results    存储结果的列表
      */
-    private static void backtrack(int maxPairs, int leftCount, int rightCount, StringBuffer current, List<String> results) {
+    private static void backtrack(int maxPairs, int leftCount, int rightCount,
+                                  StringBuffer current, List<String> results) {
         // 如果当前构建的括号组合长度等于 2 * maxPairs，则已完成一个有效组合
         if (current.length() == maxPairs * 2) {
             results.add(current.toString());
-            System.out.println("Complete combination: " + current.toString());
+            System.out.println("生成完整组合: " + current);
             return;
         }
+        System.out.println("当前：" + current);
         // 如果左括号数量小于 maxPairs，添加左括号并继续递归
         if (leftCount < maxPairs) {
             current.append("(");
-            System.out.println("Adding '(': " + current.toString());
+            System.out.println("添加左括号: " + current);
 
             backtrack(maxPairs, leftCount + 1, rightCount, current, results);
 
             current.deleteCharAt(current.length() - 1);// 回溯，移除最后一个字符
-            System.out.println("Backtracking after '(': " + current.toString());
+            System.out.println("回溯，移除左括号: " + current);
         }
 
         if (rightCount < leftCount) {
             current.append(")");
-            System.out.println("Adding ')': " + current.toString());
+            System.out.println("添加右括号: " + current);
 
             backtrack(maxPairs, leftCount, rightCount + 1, current, results);
 
             current.deleteCharAt(current.length() - 1);// 回溯，移除最后一个字符
-            System.out.println("Backtracking after ')': " + current.toString());
+            System.out.println("回溯，移除右括号: " + current);
         }
     }
 
