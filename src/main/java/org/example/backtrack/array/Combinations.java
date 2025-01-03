@@ -22,7 +22,6 @@ import java.util.List;
  * 示例 2：
  * 输入：n = 1, k = 1
  * 输出：[[1]]
- * 链接：https://leetcode-cn.com/problems/combinations/
  */
 public class Combinations {
 
@@ -32,6 +31,10 @@ public class Combinations {
      * @param n 范围上限
      * @param k 组合中数字的数量
      * @return 所有可能的组合
+     * 算法思路：
+     * 1、使用回溯法来寻找所有的组合，回溯的过程中每次选择一个数字，直到组合中有k个数字
+     * 2、每当组合达到k个数字时，将其添加到结果中
+     * 3、回溯过程中使用递归，在当前数字之后选择下一个数字，避免重复
      */
     public static List<List<Integer>> combine(int n, int k) {
         List<List<Integer>> results = new LinkedList<>();
@@ -48,25 +51,26 @@ public class Combinations {
      * @param current 当前组合
      * @param results 存储所有的组合结果
      */
-    private static void backtrack(int n, int k, int start, List<Integer> current, List<List<Integer>> results) {
+    private static void backtrack(int n, int k, int start,
+                                  List<Integer> current, List<List<Integer>> results) {
         // 如果当前组合的长度等于k，说明找到了一个完整的组合
         if (k == current.size()) {
             results.add(new ArrayList<>(current));
             return;
         }
 
-        // 从start开始尝试所有可能的数字
+        // 从start到n遍历，选择数字加入当前组合
         for (int i = start; i <= n; i++) {
             // 将当前数字添加到当前组合
             current.add(i);
-            System.out.println("Current: " + current);
+            System.out.println("选择数字：" + i + ", 当前组合：" + current);
 
             // 继续递归，注意下一个数字的起点是i+1
             backtrack(n, k, i + 1, current, results);
 
             // 回溯，移除最后一个数字
             current.remove(current.size() - 1);
-            System.out.println("Backtrack: " + current);
+            System.out.println("回溯，移除数字：" + i + ", 当前组合：" + current);
         }
     }
 
