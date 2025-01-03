@@ -19,7 +19,6 @@ import java.util.List;
  * 1 <= nums.length <= 6
  * -10 <= nums[i] <= 10
  * nums 中的所有整数 互不相同
- * 链接：https://leetcode-cn.com/problems/permutations
  */
 public class Permutations {
 
@@ -28,9 +27,13 @@ public class Permutations {
      *
      * @param nums 给定的数组
      * @return 所有可能的全排列
+     * 算法思路：
+     * 1、从数组中选择一个数字，将其加入当前排列中
+     * 2、对剩下的数字进行递归调用，继续选择未使用的数字
+     * 3、当所有数字都被使用时，形成一个完整的排列并加入到结果集
+     * 4、通过回溯法恢复现场，尝试其他选择
      */
     public static List<List<Integer>> permute(int[] nums) {
-
         // 保存所有的全排列
         List<List<Integer>> results = new ArrayList<>();
         backtrack(nums, new ArrayList<>(), results);
@@ -53,7 +56,7 @@ public class Permutations {
             return;
         }
 
-        // 迭代nums数组
+        // 遍历所有数字，尝试添加到当前排列中
         for (int num : nums) {
             // 如果当前数字已经在当前排列中，跳过
             if (current.contains(num)) {
@@ -62,14 +65,14 @@ public class Permutations {
 
             // 添加当前数字到当前排列
             current.add(num);
-            System.out.println("Current: " + current);
+            System.out.println("选择数字: " + num + " 当前排列：" + current);
 
-            // 继续递归
+            // 继续递归下一个位置的排列
             backtrack(nums, current, results);
 
-            // 回溯，移除最后一个数字
+            // 回溯：撤销选择，移除最后一个数字
             current.remove(current.size() - 1);
-            System.out.println("Backtrack: " + current);
+            System.out.println("回溯后排列: " + current);
         }
     }
 
