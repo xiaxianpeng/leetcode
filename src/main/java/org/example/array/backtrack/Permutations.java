@@ -36,7 +36,9 @@ public class Permutations {
     public static List<List<Integer>> permute(int[] nums) {
         // 保存所有的全排列
         List<List<Integer>> results = new ArrayList<>();
-        backtrack(nums, new ArrayList<>(), results);
+        // 标记数字是否已经使用过，避免重复选择
+        boolean[] used = new boolean[nums.length];
+        backtrack(nums, used, new ArrayList<>(), results);
         return results;
     }
 
@@ -44,10 +46,11 @@ public class Permutations {
      * 回溯方法，生成排列。
      *
      * @param nums    剩余的数字
+     * @param used    标记数字是否被使用过
      * @param current 当前排列
      * @param results 存储所有的排列结果
      */
-    private static void backtrack(int[] nums, List<Integer> current, List<List<Integer>> results) {
+    private static void backtrack(int[] nums, boolean[] used, List<Integer> current, List<List<Integer>> results) {
 
         // 如果当前排列的长度等于nums的长度，说明找到了一个完整的排列
         if (current.size() == nums.length) {
@@ -57,23 +60,24 @@ public class Permutations {
         }
 
         // 遍历所有数字，尝试添加到当前排列中
-        for (int num : nums) {
-            // 如果当前数字已经在当前排列中，跳过
-            if (current.contains(num)) {
+        for (int i = 0; i < nums.length; i++) {
+            // 如果当前数字已经被使用过，则跳过
+            if (used[i]) {
                 continue;
             }
 
-            // 添加当前数字到当前排列
-            current.add(num);
-            System.out.println("选择数字: " + num + " 当前排列：" + current);
+            // 做选择，将当前数字添加到排列中，并标记为已使用
+            current.add(nums[i]);
+            used[i] = true;
 
-            // 继续递归下一个位置的排列
-            backtrack(nums, current, results);
+            // 递归生成下一个位置的排列
+            backtrack(nums, used, current, results);
 
-            // 回溯：撤销选择，移除最后一个数字
+            // 回溯：撤销选择，将最后一个数字移除并标记为未使用
             current.remove(current.size() - 1);
-            System.out.println("回溯后排列: " + current);
+            used[i] = false;
         }
+
     }
 
 
