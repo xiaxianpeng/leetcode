@@ -59,7 +59,8 @@ public class Permutations2 {
                 continue;
             }
 
-            // 跳过相邻重复的元素，确保不生成重复排列；只有前一个相同元素没有被使用，才能使用当前元素
+            // 跳过相邻重复的元素，确保不生成重复排列
+            // !used[i - 1] 是确保只有前一个相同元素已经被使用，才能选择当前重复元素
             if (i > 0 && nums[i] == nums[i - 1] && !used[i - 1]) {
                 continue;
             }
@@ -83,7 +84,10 @@ public class Permutations2 {
         int[] nums1 = {1, 1, 2};
         System.out.println(permuteUnique(nums1));
 
-        int[] nums2 = {1, 2, 3};
+        int[] nums2 = {3, 3, 0, 3};
         System.out.println(permuteUnique(nums2));
+
+        int[] nums3 = {1, 2, 3};
+        System.out.println(permuteUnique(nums3));
     }
 }
