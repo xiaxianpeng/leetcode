@@ -15,7 +15,6 @@ package org.example.math;
  * 输入：x = 120
  * 输出：21
  * 示例 4：
- * <p>
  * 输入：x = 0
  * 输出：0
  * Created on 2024/12/18 16:41
