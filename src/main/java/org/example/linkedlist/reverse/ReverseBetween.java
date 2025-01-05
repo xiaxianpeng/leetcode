@@ -33,27 +33,32 @@ public class ReverseBetween {
         // 使用 dummy node 来简化边界条件的处理
         ListNode dummy = new ListNode(0);
         dummy.next = head;
+        System.out.println("初始链表:" + head);
 
         // 找到left节点的前一个节点prev
         ListNode prev = dummy;
         for (int i = 0; i < left - 1; i++) {
             prev = prev.next;
         }
+        System.out.println("找到左边界的前驱节点：" + prev.val);
+
 
         // 开始节点就是 prev 的下一个节点
         ListNode curr = prev.next;
+
         // 开始进行反转操作
         for (int i = 0; i < right - left; i++) {
-            // next 指向当前节点 curr 的下一个节点
-            ListNode next = curr.next;
-            // 将当前节点 curr 的下一个指向 next 的下一个节点，
-            // 实际上将 next 从链表中暂时拿出
-            curr.next = next.next;
-            // 将 next 插入到已经反转的部分的前面，
-            // prev.next 是反转部分的头节点
-            next.next = prev.next;
-            // 更新 prev，将 next 节点移动到前面，成为新的头节点
-            prev.next = next;
+
+            ListNode next = curr.next;// 提取当前节点的下一个节点
+            System.out.println("正在处理的节点：" + curr.val + "，即将插入节点：" + next.val);
+
+            curr.next = next.next;// 跳过next节点，将当前节点指向下一个节点
+            System.out.println("断开后，当前节点指向：" + (curr.next != null ? curr.next.val : "null"));
+
+            next.next = prev.next;// 将next插入到prev之后
+            prev.next = next;// 更新prev的next为刚插入的节点
+
+            System.out.println("插入后链表的状态:" + dummy.next);
         }
 
         // 返回反转后的链表的头节点
@@ -96,10 +101,9 @@ public class ReverseBetween {
     public static void main(String[] args) {
         ListNode head = new ListNode(new int[]{1, 2, 3, 4, 5, 6, 7});
         int left = 1, right = 3;
-
         System.out.println(new ReverseBetween().reverseLinkedList(head, left, right));
 
-        head = new ListNode(new int[]{1, 2, 3, 4, 5, 6, 7});
-        System.out.println(new ReverseBetween().reverseBetween(head, left, right));
+        ListNode head2 = new ListNode(new int[]{1, 2, 3, 4, 5});
+        System.out.println(new ReverseBetween().reverseBetween(head2, 2, 4));
     }
 }
