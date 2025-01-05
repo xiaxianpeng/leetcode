@@ -13,19 +13,33 @@ import org.example.linkedlist.structure.ListNode;
  * 输入：head = [5], left = 1, right = 1
  * 输出：[5]
  * 反转链表的一部分
- * https://leetcode.cn/problems/reverse-linked-list-ii/description/
  */
 public class ReverseBetween {
 
+    /**
+     * 反转链表的一部分
+     *
+     * @param head  链表头节点
+     * @param left  开始反转的节点位置(从1开始计数)
+     * @param right 结束反转的节点位置
+     * @return 反转后的链表头节点
+     * 算法思路：
+     * 1、使用虚拟头节点dummy，方便处理边界情况
+     * 2、遍历找到第left节点的前一个节点prev
+     * 3、使用三指针(prev,curr,next)逐个反转left到right的节点
+     * 4、连接反转后链表的两端，返回新的头节点
+     */
     public ListNode reverseBetween(ListNode head, int left, int right) {
         // 使用 dummy node 来简化边界条件的处理
         ListNode dummy = new ListNode(0);
         dummy.next = head;
-        // 初始化指针，找到左侧节点的前一个节点
+
+        // 找到left节点的前一个节点prev
         ListNode prev = dummy;
         for (int i = 0; i < left - 1; i++) {
             prev = prev.next;
         }
+
         // 开始节点就是 prev 的下一个节点
         ListNode curr = prev.next;
         // 开始进行反转操作
@@ -41,6 +55,7 @@ public class ReverseBetween {
             // 更新 prev，将 next 节点移动到前面，成为新的头节点
             prev.next = next;
         }
+
         // 返回反转后的链表的头节点
         return dummy.next;
     }
