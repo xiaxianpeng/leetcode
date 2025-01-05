@@ -17,17 +17,17 @@ import org.example.linkedlist.structure.ListNode;
 public class ReverseBetween {
 
     /**
-     * 反转链表的一部分
+     * 反转链表的[left,right]部分
      *
      * @param head  链表头节点
      * @param left  开始反转的节点位置(从1开始计数)
      * @param right 结束反转的节点位置
      * @return 反转后的链表头节点
      * 算法思路：
-     * 1、使用虚拟头节点dummy，方便处理边界情况
-     * 2、遍历找到第left节点的前一个节点prev
-     * 3、使用三指针(prev,curr,next)逐个反转left到right的节点
-     * 4、连接反转后链表的两端，返回新的头节点
+     * 1、使用虚拟头节点dummy，简化对头节点的操作
+     * 2、找到需要反转子区间的节点prev
+     * 3、使用头插法，三指针(prev,curr,next),逐步将子区间内节点反转并串到prev后面
+     * 4、连接反转后链表的两端，返回dummy.next为新的链表头节点
      */
     public ListNode reverseBetween(ListNode head, int left, int right) {
         // 使用 dummy node 来简化边界条件的处理
@@ -48,15 +48,17 @@ public class ReverseBetween {
 
         // 开始进行反转操作
         for (int i = 0; i < right - left; i++) {
-
-            ListNode next = curr.next;// 提取当前节点的下一个节点
+            // 1、暂存curr后面的节点
+            ListNode next = curr.next;
             System.out.println("正在处理的节点：" + curr.val + "，即将插入节点：" + next.val);
 
-            curr.next = next.next;// 跳过next节点，将当前节点指向下一个节点
+            // 2、curr跳过next
+            curr.next = next.next;
             System.out.println("断开后，当前节点指向：" + (curr.next != null ? curr.next.val : "null"));
 
-            next.next = prev.next;// 将next插入到prev之后
-            prev.next = next;// 更新prev的next为刚插入的节点
+            // 3、将next插入到prev之后
+            next.next = prev.next;
+            prev.next = next;
 
             System.out.println("插入后链表的状态:" + dummy.next);
         }
