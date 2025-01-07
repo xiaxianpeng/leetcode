@@ -1,4 +1,4 @@
-package org.example.linkedlist;
+package org.example.linkedlist.reverse;
 
 import org.example.linkedlist.structure.ListNode;
 
@@ -20,17 +20,15 @@ import org.example.linkedlist.structure.ListNode;
 public class SwapPairs {
 
     /**
-     * 方法：交换链表中的相邻节点
-     * 时间复杂度：O(n)，其中 n 是链表的长度，遍历每个节点一次。
-     * 空间复杂度：O(1)，只使用了常数的额外空间。
+     * 两两交换链表中的相邻节点
      *
      * @param head 链表的头节点
      * @return 交换后的链表头节点
-     * *解题思路：
-     * *使用一个虚拟头节点 dummy 作为链表的新头节点，方便处理边界条件。
-     * *使用一个指针 curr 遍历链表，每次交换两个相邻节点的指针指向。
-     * *具体步骤：curr 节点指向的第一个节点与第二个节点交换位置，curr 然后跳过两个节点，继续进行下一个交换。
-     * *直到链表末尾。
+     * 解题思路：
+     * 使用一个虚拟头节点 dummy 作为链表的新头节点，方便处理边界条件。
+     * 使用一个指针 curr 遍历链表，每次交换两个相邻节点的指针指向。
+     * 具体步骤：curr 节点指向的第一个节点与第二个节点交换位置，curr 然后跳过两个节点，继续进行下一个交换。
+     * 直到链表末尾。
      */
     public static ListNode swapPairs(ListNode head) {
         // 创建一个虚拟头节点，简化处理边界情况
@@ -42,22 +40,20 @@ public class SwapPairs {
 
         // 遍历链表，直到链表末尾
         while (curr.next != null && curr.next.next != null) {
-            // 找到待交换的两个节点
+            // first指向要交换的第一个节点
             ListNode first = curr.next;
+            // second指向要交换的第二个节点
             ListNode second = curr.next.next;
 
-            System.out.println("Swapping: " + first.val + " and " + second.val);
-
-            // 执行交换操作
+            // 下面三步实现两两交换
+            // 1、将curr.next指向second
+            curr.next = second;
+            // 2、将first.next指向second.next
             first.next = second.next;
+            // 3、将second.next指向first
             second.next = first;
 
-            //在交换两个节点之后，second 成为这两个节点的新的头节点，first 变成了新的尾节点。
-            // 更新 curr 的 next 指向交换后的第二个节点（即新的头节点）
-            curr.next = second;
-            System.out.println("List: " + dummy.next);
-
-            // 移动 curr 指针，跳过已交换的两个节点，继续处理后续节点
+            // curr向后移动两个节点，准备下一轮交换
             curr = first;
         }
         return dummy.next;
