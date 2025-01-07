@@ -1,4 +1,4 @@
-package org.example.greedy.array;
+package org.example.array.range;
 
 import java.util.Arrays;
 
@@ -53,7 +53,7 @@ public class NonOverlappingIntervals {
     }
 
     public static void main(String[] args) {
-        
+
         int[][] intervals1 = {{1,2},{2,3},{3,4},{1,3}};
         System.out.println(eraseOverlapIntervals(intervals1));
 

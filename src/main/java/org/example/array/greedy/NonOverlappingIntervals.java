@@ -19,7 +19,6 @@ import java.util.Arrays;
  * 输入: intervals = [ [1,2], [2,3] ]
  * 输出: 0
  * 解释: 你不需要移除任何区间，因为它们已经是无重叠的了。
- * 链接：https://leetcode.cn/problems/non-overlapping-intervals/?envType=study-plan-v2&envId=leetcode-75
  * Created on 2024/11/19 10:04
  */
 public class NonOverlappingIntervals {
@@ -51,5 +50,18 @@ public class NonOverlappingIntervals {
         }
         // 返回需要移除的区间数量
         return count;
+    }
+
+    public static void main(String[] args) {
+        
+        int[][] intervals1 = {{1,2},{2,3},{3,4},{1,3}};
+        System.out.println(eraseOverlapIntervals(intervals1));
+
+        int[][] intervals2 = {{1,2},{1,2},{1,2}};
+        System.out.println(eraseOverlapIntervals(intervals2));
+
+        int[][] intervals3 = {{1,2},{2,3}};
+        System.out.println(eraseOverlapIntervals(intervals3));
+
     }
 }
