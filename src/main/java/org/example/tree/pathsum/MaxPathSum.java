@@ -34,35 +34,30 @@ public class MaxPathSum {
      * @return 最大路径和
      */
     public int maxPathSum(TreeNode root) {
-        maxGain(root);
+        maxPath(root);
         return maxPathSum;
     }
 
     /**
-     * 计算以当前节点为端点的最大单边路径和，并更新最大路径和
-     * 贡献值是 该节点的值 + 子节点贡献的最大值。
+     * 递归计算每个节点的最大路径和
      *
      * @param node 当前处理的节点
-     * @return 当前节点为端点的最大单边路径和，用于上层节点的路径和计算
+     * @return 当前节点作为路径一部分的最大
      */
-    private int maxGain(TreeNode node) {
+    private int maxPath(TreeNode node) {
         if (node == null) {
             return 0;// 如果节点为空，其贡献值为0
         }
 
-        // 递归地计算左右子节点提供的最大贡献值，忽略负贡献值
-        int leftGain = Math.max(maxGain(node.left), 0);
-        int rightGain = Math.max(maxGain(node.right), 0);
+        // 递归地计算左右子节点提供的最大贡献值，如果为负则取0
+        int leftGain = Math.max(maxPath(node.left), 0);
+        int rightGain = Math.max(maxPath(node.right), 0);
 
         // 当前节点的路径和 = 节点值 + 其左右子节点的最大贡献值
         int currentPathSum = node.val + leftGain + rightGain;
 
         // 更新全局最大路径和
         maxPathSum = Math.max(maxPathSum, currentPathSum);
-
-        System.out.println("节点值: " + node.val + ", 左贡献值: " + leftGain +
-                ", 右贡献值: " + rightGain + ", 当前路径和: " + currentPathSum +
-                ", 全局最大路径和: " + maxPathSum);
 
         // 返回当前节点的最大单边贡献值给父节点计算使用
         return node.val + Math.max(leftGain, rightGain);
