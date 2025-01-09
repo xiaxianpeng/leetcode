@@ -53,9 +53,6 @@ public class PathSum3 {
         count += dfs(node.left, targetSum - node.val);
         count += dfs(node.right, targetSum - node.val);
 
-        // 打印当前节点及其路径的累计和
-        System.out.println("Node Value: " + node.val + ", Remaining Sum: " + (targetSum - node.val) + ", Paths: " + count);
-
         return count;
     }
 
