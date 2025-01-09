@@ -41,7 +41,7 @@ public class FindMin {
             int mid = left + (right - left) / 2;
             System.out.println("Left: " + left + ", Mid: " + mid + ", Right: " + right);
 
-            // 判断中间值与右边界值的关系，以确定最小值的位置
+            // 如果nums[mid] > nums[right]，说明最小值被旋转到了右半部分
             if (nums[mid] > nums[right]) {
                 // 最小值在 mid 右侧
                 left = mid + 1;
