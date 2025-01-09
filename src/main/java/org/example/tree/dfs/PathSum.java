@@ -1,6 +1,7 @@
 package org.example.tree.dfs;
 
 import org.example.tree.TreeNode;
+import org.example.util.TreeUtil;
 
 /**
  * 112. 路径总和
@@ -29,34 +30,29 @@ public class PathSum {
 
     /**
      * 判断是否存在从根节点到叶子节点的路径，其节点值之和等于 targetSum。
-     * 算法思路：
-     * 1. 使用递归遍历每个节点，更新目标和。
-     * 2. 如果当前节点为叶子节点且剩余目标和等于当前节点值，返回 true。
-     * 3. 递归检查左右子树是否存在满足条件的路径。
      *
      * @param node      根节点
      * @param targetSum 目标和
      * @return 是否存在满足条件的路径
+     * 算法思路：
+     * 1. 使用递归遍历每个节点，更新目标和。
+     * 2. 如果当前节点为叶子节点且剩余目标和等于当前节点值，返回 true。
+     * 3. 递归检查左右子树是否存在满足条件的路径。
      */
     public static boolean hasPathSum(TreeNode node, int targetSum) {
         // 如果树为空，则没有路径
         if (node == null) {
-            System.out.println("Reached a null node, returning false.");
             return false;
         }
 
         // 检查是否到达叶子节点
         if (node.left == null && node.right == null) {
             // 到达叶子节点时，检查目标和是否为节点值
-            System.out.println("Leaf Node reached. Current value: " + node.val + ", TargetSum after subtraction: " + targetSum);
             return node.val == targetSum;
         }
 
         // 递归检查左子树和右子树
-        System.out.println("Exploring left subtree of node " + node.val);
         boolean leftResult = hasPathSum(node.left, targetSum - node.val);
-
-        System.out.println("Exploring right subtree of node " + node.val);
         boolean rightResult = hasPathSum(node.right, targetSum - node.val);
 
         // 返回左右子树中任意一条路径是否满足条件
@@ -73,15 +69,17 @@ public class PathSum {
         root1.right.left = new TreeNode(13);
         root1.right.right = new TreeNode(4);
         root1.right.right.right = new TreeNode(1);
-
-        System.out.println("Test Case 1: " + hasPathSum(root1, 22)); // 输出 true
+        TreeUtil.printTree(root1);
+        System.out.println("HasPathSum: " + hasPathSum(root1, 22)); // 输出 true
 
         TreeNode root2 = new TreeNode(1);
         root2.left = new TreeNode(2);
         root2.right = new TreeNode(3);
-        System.out.println("Test Case 2: " + hasPathSum(root2, 5)); // 输出 false
+        TreeUtil.printTree(root2);
+        System.out.println("HasPathSum: " + hasPathSum(root2, 5)); // 输出 false
 
         TreeNode root3 = null;
-        System.out.println("Test Case 3: " + hasPathSum(root3, 0)); // 输出 false
+        TreeUtil.printTree(root3);
+        System.out.println("HasPathSum: " + hasPathSum(root3, 0)); // 输出 false
     }
 }
