@@ -32,7 +32,9 @@ public class PathSum3 {
             return 0;
         }
         // 递归计算以当前节点和其子节点为起点的路径数目
-        return dfs(root, targetSum) + dfs(root.left, targetSum) + dfs(root.right, targetSum);
+        return dfs(root, (long)targetSum)
+                + pathSum(root.left, targetSum)
+                + pathSum(root.right, targetSum);
     }
 
     /**
@@ -42,7 +44,7 @@ public class PathSum3 {
      * @param targetSum 目标路径和
      * @return 路径数目
      */
-    private static int dfs(TreeNode node, int targetSum) {
+    private static int dfs(TreeNode node, long targetSum) {
         if (node == null) {
             return 0;
         }
