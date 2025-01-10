@@ -1,6 +1,7 @@
 package org.example.array.prefixsum;
 
-import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 560. 和为K的子数组
@@ -19,41 +20,51 @@ import java.util.Arrays;
 public class SubArraySum {
 
     /**
-     * 算法思路：
-     * 1. 计算前缀和数组 perSum，其中 perSum[i] 表示 nums[0] 到 nums[i-1] 的和。
-     * 2. 使用双重循环遍历所有可能的子数组，通过计算 perSum[right + 1] - perSum[left] 来获取子数组的和。
-     * 3. 如果子数组的和等于 k，则计数器加一。
-     * 时间复杂度为 O(n^2)，空间复杂度为 O(n)。
+     * 使用前缀和和哈希表记录前缀和出现的次数来计算和为k的子数组个数
+     *
+     * @param nums 整数数组
+     * @param k    目标和
+     * @return 和为K的子数组个数
      */
-    public static int subArraySum(int[] nums, int k) {
-        int len = nums.length;
-        // 计算前缀和preSum
-        int[] preSum = new int[len + 1];
-        for (int i = 0; i < nums.length; i++) {
-            preSum[i + 1] = preSum[i] + nums[i];
-        }
-        System.out.println("前缀和数组: " + Arrays.toString(preSum));
+    public static int subarraySum(int[] nums, int k) {
+        // 创建一个哈希表来存储前缀和及其出现的次数
+        Map<Integer, Integer> preSumCount = new HashMap<>();
+        // 初始化前缀和为0的次数为1
+        preSumCount.put(0, 1);
 
-        // 记录和为k的子数组数量
+        // 记录和为k的子数组个数
         int count = 0;
-        // 遍历所有可能的子数组
-        for (int left = 0; left < len; left++) {
-            for (int right = left; right < len; right++) {
-                // 计算子数组nums[left....right]的和
-                int currentSum = preSum[right + 1] - preSum[left];
-                // 如果子数组的和为k，计数器+1
-                if (currentSum == k) {
-                    System.out.println("找到和为 " + k + " 的子数组: " + Arrays.toString(Arrays.copyOfRange(nums, left, right + 1)));
-                    count++;
-                }
+        // 当前前缀和
+        int currSum = 0;
+
+        // 遍历数组中的每一个元素
+        for (int i = 0; i < nums.length; i++) {
+            // 更新当前前缀和
+            currSum += nums[i];
+
+            // 检查是否存在一个前缀和，使得 currSum - preSum = k
+            int preSum = currSum - k;
+
+            // 如果存在，增加对应的次数到count
+            if (preSumCount.containsKey(preSum)) {
+                count += preSumCount.get(preSum);
             }
+
+            // 更新哈希表中当前前缀和的次数
+            preSumCount.put(currSum, preSumCount.getOrDefault(currSum, 0) + 1);
         }
+
+        // 返回最终的子数组个数
         return count;
     }
 
     public static void main(String[] args) {
-        int[] nums = {1, 2, 3};
-        int count = subArraySum(nums, 3);
-        System.out.println(count);
+        int[] nums1 = {1, 1, 1};
+        int k1 = 2;
+        System.out.println(subarraySum(nums1, k1));// 2
+
+        int[] nums2 = {1, 2, 3};
+        int k2 = 3;
+        System.out.println(subarraySum(nums2, k2));// 2
     }
 }
