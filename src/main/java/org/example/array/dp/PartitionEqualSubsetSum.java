@@ -3,9 +3,10 @@ package org.example.array.dp;
 import java.util.Arrays;
 
 /**
- * ***子集背包问题***
  * 416. 分割等和子集
- * 给你一个 只包含正整数 的 非空 数组 nums 。请你判断是否可以将这个数组分割成两个子集，使得两个子集的元素和相等。
+ * 给你一个 只包含正整数 的 非空 数组 nums 。
+ * 请你判断是否可以将这个数组分割成两个子集，
+ * 使得两个子集的元素和相等。
  * 示例 1：
  * 输入：nums = [1,5,11,5]
  * 输出：true
@@ -15,17 +16,17 @@ import java.util.Arrays;
  * 输出：false
  * 解释：数组不能分割成两个元素和相等的子集。
  * Created on 2024/11/26 23:54
+ * ***子集背包问题***
  */
 public class PartitionEqualSubsetSum {
 
     /**
      * 判断是否可以将数组分割成两个子集，使得两个子集的元素和相等。
-     * 核心思路：动态规划，类似于背包问题。
-     * 通过计算数组总和的一半，判断是否可以找到一个子集，其和为总和的一半。
-     * 使用 dp[i] 表示是否可以达到和为 i 的子集。
      *
      * @param nums 输入的正整数数组
      * @return 是否可以分割成两个和相等的子集
+     * 算法思路：本质是背包问题。需要找到一个子集，使得其总和等于数组总和的一半。
+     * 使用动态规划，定义dp[j]表示是否可以通过子集的元素和得到j
      */
     public static boolean canPartition(int[] nums) {
         // 计算数组总和
@@ -44,9 +45,9 @@ public class PartitionEqualSubsetSum {
 
         // 遍历数组中的每个元素
         for (int num : nums) {
-            // 从大到小更新 dp 数组，防止重复使用同一个元素
+            // 遍历背包容量，从大到小更新 dp 数组，防止重复使用同一个元素
             for (int j = target; j >= num; j--) {
-                dp[j] = dp[j] || dp[j - num]; // 如果 dp[i-num] 为 true，说明 dp[i] 也可以是 true
+                dp[j] = dp[j] || dp[j - num]; // 如果 dp[j-num] 为 true，说明 dp[j] 也可以是 true
             }
         }
 
