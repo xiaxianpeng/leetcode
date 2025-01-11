@@ -62,12 +62,12 @@ public class LongestIncreasingSubsequence {
     public static void main(String[] args) {
 
         int[] nums1 = {10, 9, 2, 5, 3, 7, 101, 18};
-        System.out.println("最长递增子序列的长度：" + lengthOfLIS(nums1)); // 期望输出 4
+        System.out.println(lengthOfLIS(nums1)); // 输出 4
 
         int[] nums2 = {0, 1, 0, 3, 2, 3};
-        System.out.println("最长递增子序列的长度：" + lengthOfLIS(nums2)); // 期望输出 4
+        System.out.println(lengthOfLIS(nums2)); // 输出 4
 
         int[] nums3 = {7, 7, 7, 7, 7, 7, 7};
-        System.out.println("最长递增子序列的长度：" + lengthOfLIS(nums3)); // 期望输出 1
+        System.out.println(lengthOfLIS(nums3)); // 输出 1
     }
 }
