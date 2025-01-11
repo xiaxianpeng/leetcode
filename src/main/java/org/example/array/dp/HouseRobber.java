@@ -23,12 +23,14 @@ public class HouseRobber {
 
     /**
      * 使用动态规划解决打家劫舍问题。
-     * 对于每间房屋，决定偷或不偷，通过状态转移方程更新最高金额。
-     * 状态转移方程:
-     * dp[i]=Math.max(dp[i-1],dp[i-2]+nums[i])
      *
      * @param nums 每个房屋存放的金额数组。
      * @return 能偷窃到的最高金额。
+     * 算法思路：
+     * 定制dp数组，其中dp[i]表示偷窃到第i个房屋时的最大金额
+     * 转移方程：dp[i] = max（dp[i-1],dp[i-2]+nums[i]）
+     * 其中dp[i-1]表示不偷，dp[i-2]+nums[i]表示偷
+     * 初始条件：dp[0]=nums[0],dp[1]=max(nums[0],nums[1])
      */
     public static int rob(int[] nums) {
         if (nums == null || nums.length == 0) {
@@ -49,9 +51,10 @@ public class HouseRobber {
         for (int i = 2; i < nums.length; i++) {
             // 决定偷或不偷第 i 间房屋
             dp[i] = Math.max(dp[i - 1], dp[i - 2] + nums[i]);
-            // 打印当前状态
             System.out.println("House " + (i + 1) + ": Max money = " + dp[i]);
         }
+
+        // 返回最后一个房屋的最大金额
         return dp[nums.length - 1];
     }
 
