@@ -21,42 +21,42 @@ import java.util.Arrays;
  */
 public class LongestIncreasingSubsequence {
 
+
     /**
-     * 1、初始化一个数组 dp，其中 dp[i] 表示以 nums[i] 结尾的最长递增子序列的长度。
-     * 初始时，每个元素的最长递增子序列至少包含自己，因此 dp[i] 的初始值都为 1。
-     * 2、遍历数组 nums，对于每个元素 nums[i]，再次遍历 nums[0] 到 nums[i-1]：
-     * 3、如果找到一个元素 nums[j]（其中 j < i），使得 nums[j] < nums[i]，
-     * 说明 nums[i] 可以在 nums[j] 的基础上构成一个更长的递增子序列。
-     * 因此，可以更新 dp[i] 为 dp[j] + 1，如果 dp[j] + 1 大于当前的 dp[i]。
-     * 4、在遍历的过程中，记录并更新找到的最长递增子序列的长度。
-     * 5、最后，dp 数组中的最大值即为整个数组的最长递增子序列的长度。
+     * 使用dp求解最长递增子序列的长度
+     *
+     * @param nums 数组
+     * @return 最长递增子序列长度
+     * 算法思路：
+     * 构建一个dp数组，其中dp[i]表示以nums[i]结尾的最长递增子序列的长度
+     * 遍历数组并更新dp[i]的值，并记录最大长度
      */
     public static int lengthOfLIS(int[] nums) {
         if (nums == null || nums.length == 0) {
-            return 0;
+            return 0;// 边界情况，直接返回0
         }
 
         // dp[i]表示以nums[i]结尾的最长递增子序列的长度
         int[] dp = new int[nums.length];
+        // 初始化dp数组，每个位置的初始值为1
         Arrays.fill(dp, 1);
 
         // 记录最长递增子序列的长度，至少为1
-        int maxLIS = 1;
+        int maxLength = 1;
 
         // 遍历
         for (int i = 1; i < nums.length; i++) {
             for (int j = 0; j < i; j++) {
-                // 如果nums[j]<nums[i]，则可以在nums[j]结尾的序列上追加nums[i]
-                if (nums[j] < nums[i]) {
-                    // 更新以nums[i]结尾的长度
+                // 如果nums[i]>nums[j]，更新dp[i]
+                if (nums[i] > nums[j]) {
                     dp[i] = Math.max(dp[i], dp[j] + 1);
                 }
             }
-            // 更新全局最长递增子序列的长度
-            maxLIS = Math.max(maxLIS, dp[i]);
+            // 更新最大长度
+            maxLength = Math.max(maxLength, dp[i]);
         }
 
-        return maxLIS;
+        return maxLength;
     }
 
     public static void main(String[] args) {
