@@ -21,17 +21,17 @@ package org.example.graph.dfs;
  * ["0","0","0","1","1"]
  * ]
  * 输出：3
- * https://leetcode.cn/problems/number-of-islands/description/
  * Created on 2024/11/7 20:28
  */
 public class NumIslands {
 
     /**
      * 使用深度优先搜索（DFS）方法计算岛屿数量。
-     * 遍历整个网格，当遇到'1'时，使用DFS将整个岛屿置为'0'，并计数。
      *
      * @param grid 二维字符数组表示的网格
      * @return 岛屿的数量
+     * 算法思路：
+     * 遍历整个网格，当遇到'1'时，使用DFS将整个岛屿置为'0'，并计数。
      */
     public static int numIslands(char[][] grid) {
         int count = 0;// 记录岛屿数量
@@ -56,11 +56,15 @@ public class NumIslands {
      */
     private static void dfs(char[][] grid, int i, int j) {
         // 检查当前索引[i, j]是否在网格的有效范围内且为陆地
-        if (i < 0 || j < 0 || i >= grid.length || j >= grid[0].length || grid[i][j] == '0') {
+        if (i < 0 || i >= grid.length
+                || j < 0 || j >= grid[0].length
+                || grid[i][j] == '0') {
             return;// 越界或遇到水时终止搜索
         }
-        grid[i][j] = '0';// 标记为已访问，防止重复搜索
-        System.out.println("Visiting and marking: (" + i + ", " + j + ")");
+
+        // 标记为已访问，防止重复搜索
+        grid[i][j] = '0';
+        System.out.println("已访问: (" + i + ", " + j + ")");
 
         // 递归搜索相邻的上下左右节点
         // 上
