@@ -95,8 +95,75 @@ public class FindAnagrams {
         return anagramStarts;
     }
 
+    /**
+     * 通过滑动窗口查找所有的异位词起始索引
+     *
+     * @param s 输入字符串
+     * @param p 目标字符串
+     * @return 所有的异位词起始索引列表
+     */
+    public static List<Integer> findAnagrams2(String s, String p) {
+        List<Integer> anagramStarts = new ArrayList<>();
+        // 如果 p 的长度大于 s 的长度，直接返回空列表
+        if (s.length() < p.length()) {
+            return anagramStarts;
+        }
+
+        // 记录 p 字符的频率
+        int[] needCount = new int[26];
+        for (char c : p.toCharArray()) {
+            needCount[c - 'a']++;
+        }
+
+        // 滑动窗口，记录当前窗口的字符频率
+        int[] windowCount = new int[26];
+        for (int i = 0; i < p.length(); i++) {
+            char c = s.charAt(i);
+            windowCount[c - 'a']++;
+        }
+
+        // 如果初始窗口即为异位词，加入到结果
+        if (matches(windowCount, needCount)) {
+            anagramStarts.add(0);
+        }
+
+        // 滑动窗口遍历s的剩余部分
+        for (int i = p.length(); i < s.length(); i++) {
+            // 扩展右边界，增加新字符
+            windowCount[s.charAt(i) - 'a']++;
+            // 收缩左边界，移除新字符
+            windowCount[s.charAt(i - p.length()) - 'a']--;
+
+            // 如果当前窗口是异位词，加入结果
+            if (matches(windowCount, needCount)) {
+                anagramStarts.add(i - p.length() + 1);
+            }
+        }
+
+        return anagramStarts;
+    }
+
+    /**
+     * 比较两个字符频率数组是否相等
+     *
+     * @param windowCount 当前窗口字符的频率
+     * @param needCount   p 字符的频率
+     * @return 如果相等返回 true， 否则返回 false
+     */
+    private static boolean matches(int[] windowCount, int[] needCount) {
+        for (int i = 0; i < 26; i++) {
+            if (windowCount[i] != needCount[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
         System.out.println(findAnagrams("cbaebabacd", "abc"));
+        System.out.println(findAnagrams2("cbaebabacd", "abc"));
+
         System.out.println(findAnagrams("abab", "ab"));
+        System.out.println(findAnagrams2("abab", "ab"));
     }
 }
