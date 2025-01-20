@@ -3,9 +3,7 @@ package org.example.lru;
 import java.util.LinkedHashMap;
 
 /**
- * @author xianpeng.xia
- * on 2022/4/1 4:54 PM
- * LRU(最近最少使用)缓存
+ * LRU(Least Recently Used)-最近最少使用缓存
  */
 public class LRUCache {
 
@@ -52,9 +50,9 @@ public class LRUCache {
     @Override
     public String toString() {
         return "LRUCache{" +
-            "capacity=" + capacity +
-            ", cache=" + cache +
-            '}';
+                "capacity=" + capacity +
+                ", cache=" + cache +
+                '}';
     }
 
     public static void main(String[] args) {

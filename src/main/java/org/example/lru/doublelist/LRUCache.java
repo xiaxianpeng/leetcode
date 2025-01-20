@@ -3,6 +3,7 @@ package org.example.lru.doublelist;
 import java.util.HashMap;
 
 /**
+ * LRU(Least Recently Used)-最近最少使用缓存
  * 具体实现步骤：
  * 1、使用哈希表存储数据的键值对，键为缓存的键，值为对应的节点。
  * 2、使用双向链表存储数据节点，链表头部为最近访问的节点，链表尾部为最久未访问的节点。
@@ -12,9 +13,6 @@ import java.util.HashMap;
  * LRU 算法可以在 O(1) 的时间复杂度内实现数据的插入、查找和删除操作。
  * 每次访问数据时，都会将对应的节点移动到链表头部，保证链表头部的节点是最近访问的数据，
  * 而链表尾部的节点是最久未访问的数据。当缓存空间不足时，淘汰链表尾部的节点即可。
- *
- * @author xianpeng.xia
- * on 2022/4/1 5:40 PM
  */
 public class LRUCache {
 

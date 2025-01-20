@@ -4,9 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedHashSet;
 
 /**
- * @author xianpeng.xia
- * on 2022/4/1 6:08 PM
- * LRU缓存
+ * LFU(Least Frequently Used)-最不经常使用缓存
  */
 public class LFUCache {
 
